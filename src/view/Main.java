@@ -31,10 +31,10 @@ public class Main {
             contentPane.add(new JLabel("Container doesn't use BorderLayout!"));
             return;
         }
-
-        JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
+    	frame.setJMenuBar(new MenuBar());
+        //JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
         OptionsPanel op = new OptionsPanel();
-        contentPane.add(new OptionsPanel(), BorderLayout.PAGE_START);
+        contentPane.add(op, BorderLayout.WEST);
 
         GraphicsPane graphicsPane = new GraphicsPane(frame);
         contentPane.add(graphicsPane, BorderLayout.CENTER);

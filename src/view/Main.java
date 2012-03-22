@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.sun.j3d.exp.swing.JCanvas3D;
 
@@ -31,25 +33,41 @@ public class Main {
         }
 
         JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
-        contentPane.add(jbnSampleButtons, BorderLayout.PAGE_START);
-        
-//      JCanvas3D j = new JCanvas3D();
-        //jbnSampleButtons = new JButton("Button 2 (CENTER)");
-        
-        jbnSampleButtons = new JButton("Button 3 (LINE_START)");
-        contentPane.add(jbnSampleButtons, BorderLayout.LINE_START);
+        OptionsPanel op = new OptionsPanel();
+        contentPane.add(new OptionsPanel(), BorderLayout.PAGE_START);
 
         GraphicsPane graphicsPane = new GraphicsPane(frame);
         contentPane.add(graphicsPane, BorderLayout.CENTER);
         
-        jbnSampleButtons = new JButton("Long-Named Button 4 (PAGE_END)");
-        contentPane.add(jbnSampleButtons, BorderLayout.PAGE_END);
-
-        jbnSampleButtons = new JButton("5 (LINE_END)");
-        contentPane.add(jbnSampleButtons, BorderLayout.LINE_END);
+        
+//      JCanvas3D j = new JCanvas3D();
+        //jbnSampleButtons = new JButton("Button 2 (CENTER)");
+        
     }
 
+
     private static void createAndShowGUI() {
+ 
+    	    try {
+    	            // Set System L&F
+    	        UIManager.setLookAndFeel(
+    	            UIManager.getSystemLookAndFeelClassName());
+    	    } 
+    	    catch (UnsupportedLookAndFeelException e) {
+    	       // handle exception
+    	    }
+    	    catch (ClassNotFoundException e) {
+    	       // handle exception
+    	    }
+    	    catch (InstantiationException e) {
+    	       // handle exception
+    	    }
+    	    catch (IllegalAccessException e) {
+    	       // handle exception
+    	    }
+
+
+    	
 //        JFrame.setDefaultLookAndFeelDecorated(true);
     	
 //    	Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -66,10 +84,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
                 createAndShowGUI();
             }
         });
+        
     }
 }

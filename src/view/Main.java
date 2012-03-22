@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
     public static boolean RIGHT_TO_LEFT = false;
@@ -32,23 +34,34 @@ public class Main {
         }
 
         JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
-        contentPane.add(jbnSampleButtons, BorderLayout.PAGE_START);
+        OptionsPanel op = new OptionsPanel();
+        contentPane.add(new OptionsPanel(), BorderLayout.PAGE_START);
 
-        jbnSampleButtons = new JButton("Button 2 (CENTER)");
-        jbnSampleButtons.setPreferredSize(new Dimension(200, 100));
-        contentPane.add(jbnSampleButtons, BorderLayout.CENTER);
 
-        jbnSampleButtons = new JButton("Button 3 (LINE_START)");
-        contentPane.add(jbnSampleButtons, BorderLayout.LINE_START);
-
-        jbnSampleButtons = new JButton("Long-Named Button 4 (PAGE_END)");
-        contentPane.add(jbnSampleButtons, BorderLayout.PAGE_END);
-
-        jbnSampleButtons = new JButton("5 (LINE_END)");
-        contentPane.add(jbnSampleButtons, BorderLayout.LINE_END);
     }
 
     private static void createAndShowGUI() {
+ 
+    	    try {
+    	            // Set System L&F
+    	        UIManager.setLookAndFeel(
+    	            UIManager.getSystemLookAndFeelClassName());
+    	    } 
+    	    catch (UnsupportedLookAndFeelException e) {
+    	       // handle exception
+    	    }
+    	    catch (ClassNotFoundException e) {
+    	       // handle exception
+    	    }
+    	    catch (InstantiationException e) {
+    	       // handle exception
+    	    }
+    	    catch (IllegalAccessException e) {
+    	       // handle exception
+    	    }
+
+
+    	
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         JFrame frame = new JFrame("BorderLayout Source Demo");
@@ -62,10 +75,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
                 createAndShowGUI();
             }
         });
+        
     }
 }

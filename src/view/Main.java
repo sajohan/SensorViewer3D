@@ -20,10 +20,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.sun.j3d.exp.swing.JCanvas3D;
 
+import controller.MenuBarListener;
+
 public class Main {
     public boolean RIGHT_TO_LEFT = false;
     private static JFrame frame = new JFrame("SensorViewer3D");
-    
+    private static MenuBarListener mb;  
+    //private MenuBar menu = new MenuBar();
     public static void addComponentsToPane(Container contentPane) {
     	contentPane.setLayout(new BorderLayout(0,0));
 
@@ -31,14 +34,16 @@ public class Main {
             contentPane.add(new JLabel("Container doesn't use BorderLayout!"));
             return;
         }
-    	frame.setJMenuBar(new MenuBar());
+
         //JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
         OptionsPanel op = new OptionsPanel();
         contentPane.add(op, BorderLayout.WEST);
 
         GraphicsPane graphicsPane = new GraphicsPane(frame);
         contentPane.add(graphicsPane, BorderLayout.CENTER);
-        
+        mb = new MenuBarListener(graphicsPane);
+    	MenuBar menu = new MenuBar(mb);
+    	frame.setJMenuBar(menu);
         
 //      JCanvas3D j = new JCanvas3D();
         //jbnSampleButtons = new JButton("Button 2 (CENTER)");

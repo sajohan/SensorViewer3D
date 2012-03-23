@@ -89,6 +89,7 @@ public class ObjectLoader {
 		}
 
 		objTrans.addChild(scene.getSceneGroup());
+		//group.addChild(objTrans);
 
 		return group;
 	}

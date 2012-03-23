@@ -10,13 +10,18 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import controller.MenuBarListener;
+
 public class MenuBar extends JMenuBar implements ActionListener{
 	
 	final JFileChooser fc = new JFileChooser();
+	JMenu file;
+	ActionListener al;
 	
-	public MenuBar(){
-		JMenu file = createFile();
-		file.addActionListener(this);
+	public MenuBar(ActionListener al){
+		
+		this.al = al;
+		file = createFile();
 		
 		super.add(file);
 		super.add(createEdit());
@@ -30,13 +35,16 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		
 		
 	}
+	public void setActionListener(ActionListener al){
+		file.addActionListener(al);
+	}
 	
 	public JMenu createFile(){
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		JMenuItem tempItem = new JMenuItem("Import...");
 		tempItem.setActionCommand("import");
-		tempItem.addActionListener(this);
+		tempItem.addActionListener(al);
 		fileMenu.add(tempItem);
 		return fileMenu;
 

@@ -49,10 +49,13 @@ public class OptionsPanel extends JPanel implements ActionListener{
 		cameraIcon = new ImageIcon(Constants.cameraIconURI);
 		
 		//Create buttons and menues
-		handButton = createHandButton();
-		sensorButton = createSensorCreationButton();
-		selectionButton = createSelectionButton();
-		cameraButton = createCameraButton();
+		handButton = createButton(handIcon, Constants.handtooltip, Constants.handbutton);
+		sensorButton = createButton(addSensorIcon, Constants.addsensortooltip, Constants.addsensorbutton);
+		selectionButton = createButton(selectionIcon, Constants.selectiontooltip, Constants.selectionbutton);
+		cameraButton = createButton(cameraIcon, Constants.cameratooltip, Constants.camerabutton);
+//		sensorButton = createSensorCreationButton();
+//		selectionButton = createSelectionButton();
+//		cameraButton = createCameraButton();
 		cameraPopupMenu = createCameraMenu();
 
 	
@@ -77,54 +80,20 @@ public class OptionsPanel extends JPanel implements ActionListener{
 	
 	
 	/**
-	 * Creates the Hand button
-	 * @return Hand button
+	 * Creates a JButton with an icon
+	 * @param the icon for the button
+	 * @param the tooltip for the button as a string
+	 * @param the action command string
+	 * @return JButton
 	 */
-	private JButton createHandButton(){
-		JButton hb = new JButton(handIcon);
-		hb.setToolTipText(Constants.handtooltip);
-		hb.setActionCommand(Constants.handbutton);
-		return hb;
+	private JButton createButton(ImageIcon ico, String tooltip, String actioncommand){
+		JButton button = new JButton(ico);
+		button.setToolTipText(tooltip);
+		button.setActionCommand(actioncommand);
+		return button;
 	}
 	
-	
-	/**
-	 * Creates the Sensor button
-	 * @return Sensor button
-	 */
-	private JButton createSensorCreationButton(){
-		JButton sb = new JButton(addSensorIcon);
-		sb.setToolTipText(Constants.addsensortooltip);
-		sb.setActionCommand(Constants.addsensorbutton);
-		return sb;
-	
-	
-	}
-	
-	
-	/**
-	 * Creates the Selection button
-	 * @return Selection Button
-	 */
-	private JButton createSelectionButton(){
-		JButton sb = new JButton(selectionIcon);
-		sb.setToolTipText(Constants.selectiontooltip);
-		sb.setActionCommand(Constants.selectionbutton);
-		return sb;
-	
-	}
-	
-	/**
-	 * Creates the Camera button
-	 * @return Camera button
-	 */
-	private JButton createCameraButton(){
-		JButton cb = new JButton(cameraIcon);
-		cb.setToolTipText(Constants.cameratooltip);
-		cb.setActionCommand(Constants.camerabutton);
-		return cb;
-	
-	}
+
 	
 	
 	/**

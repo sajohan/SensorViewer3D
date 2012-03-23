@@ -66,16 +66,9 @@ public class Main {
     	       // handle exception
     	    }
 
-
-    	
-//        JFrame.setDefaultLookAndFeelDecorated(true);
-    	
-//    	Toolkit toolkit = Toolkit.getDefaultToolkit();
-//    	Dimension dim = toolkit.getScreenSize();
-//    	frame.setLocation(dim.width / 2 - SCREEN_WIDTH / 2, dim.height / 2 - SCREEN_HEIGHT / 2);
-    	frame.setSize(new Dimension(900,900));
+    	frame.setPreferredSize(new Dimension(900,900));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(dim);
+        
         //Set up the content pane and add swing components to it
         addComponentsToPane(frame.getContentPane());
 

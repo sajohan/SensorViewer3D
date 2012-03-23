@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import com.sun.j3d.exp.swing.JCanvas3D;
+import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Sphere;
@@ -65,13 +66,19 @@ public class GraphicsPane extends JPanel{
 
             univ.addBranchGraph(group);
             
-            OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
+            //Old camera
+//            OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
+//            
+//            Camera cam = new Camera(vp);
+//            canvas.addMouseMotionListener(cam);
+//
+//            canvas.addMouseMotionListener(originCam);
             
-            Camera cam = new Camera(vp);
-//          canvas.addKeyListener(cam);
-            canvas.addMouseMotionListener(cam);
-
-            canvas.addMouseMotionListener(originCam);
+            //Make camera moveable
+            OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
+            orbit.setSchedulingBounds(bounds);
+            vp.setViewPlatformBehavior(orbit);
+            
             
             frame.add(canvas);
 //            frame.addKeyListener(this);

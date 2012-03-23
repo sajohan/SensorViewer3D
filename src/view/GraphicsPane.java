@@ -61,8 +61,6 @@ public class GraphicsPane extends JPanel implements Observer{
             final Canvas3D canvas = new Canvas3D(config); 
 
             canvas.setSize(new Dimension(400,400)); 
-
-        	
         	
             univ = new SimpleUniverse(canvas);
             group = new BranchGroup();
@@ -77,8 +75,15 @@ public class GraphicsPane extends JPanel implements Observer{
             group.addChild(actualLight);
             addPointLight();
             addAmbientLight();
-            univ.getViewingPlatform().setNominalViewingTransform();
+            
+            
             ViewingPlatform vp = univ.getViewingPlatform();
+            vp.setNominalViewingTransform();
+            //Set clipdistance
+            canvas.getView().setBackClipDistance(1000);
+            canvas.getView().setFrontClipDistance(0.1);
+
+            
 
             univ.addBranchGraph(group);
             

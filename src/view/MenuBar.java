@@ -1,19 +1,31 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-public class MenuBar extends JMenuBar{
+public class MenuBar extends JMenuBar implements ActionListener{
 	
+	final JFileChooser fc = new JFileChooser();
 	
 	public MenuBar(){
-		super.add(createFile());
+		JMenu file = createFile();
+		file.addActionListener(this);
+		
+		super.add(file);
 		super.add(createEdit());
 		super.add(createView());
 		super.add(createPreferences());
 		super.add(createHelp());
+		
+
+		
 		
 		
 		
@@ -22,6 +34,10 @@ public class MenuBar extends JMenuBar{
 	public JMenu createFile(){
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
+		JMenuItem tempItem = new JMenuItem("Import...");
+		tempItem.setActionCommand("import");
+		tempItem.addActionListener(this);
+		fileMenu.add(tempItem);
 		return fileMenu;
 
 	}
@@ -56,6 +72,23 @@ public class MenuBar extends JMenuBar{
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		return helpMenu;
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JMenuItem source = (JMenuItem)(e.getSource());
+		if(source.getActionCommand().equals("import")){
+	        int returnVal = fc.showOpenDialog(MenuBar.this);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            //This is where a real application would open the file.
+	           // log.append("Opening: " + file.getName() + "." + newline);
+	        } else {
+	            System.out.println("No file selected");
+	        }
+		}
+		
 	}
 
 }

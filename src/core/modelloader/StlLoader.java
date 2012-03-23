@@ -1,5 +1,6 @@
 package core.modelloader;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import javax.media.j3d.BranchGroup;
@@ -13,11 +14,16 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class StlLoader {
 
-	private String filename = null;
+	private File chosenfile = null;
 	
-	public BranchGroup getSTLObject(String file) {
+	/**
+	 * @param File to read
+	 * @return Returns a BranchGroup containing the stl-object read
+	 * 
+	 */
+	public BranchGroup getSTLObject(File file) {
 		// Init filename
-		filename = file;
+		chosenfile = file;
 		
 		// Create the root of the branch graph
 		BranchGroup group = new BranchGroup();
@@ -39,10 +45,11 @@ public class StlLoader {
 		objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		objScale.addChild(objTrans);
 
-		StlFile f = new StlFile();
-		Scene s = null;
+		StlFile stlfile = new StlFile();
+		Scene scene = null;
 		try {
-			s = f.load(filename);
+			// stlfile.load() need to be able to handle a File object instead of a String to a classpath file.
+			scene = stlfile.load(chosenfile);
 		} catch (FileNotFoundException e) {
 			System.err.println(e);
 			System.exit(1);
@@ -54,7 +61,7 @@ public class StlLoader {
 			System.exit(1);
 		}
 
-		objTrans.addChild(s.getSceneGroup());
+		objTrans.addChild(scene.getSceneGroup());
 
 		return group;
 	}

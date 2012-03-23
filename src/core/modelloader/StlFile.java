@@ -10,6 +10,7 @@ import com.sun.j3d.utils.geometry.GeometryInfo;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+import java.io.File;
 import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -840,6 +841,13 @@ public class StlFile implements Loader {
 		}
 		setBasePath(sb.toString());
 	} // End of setBasePathFromFilename
+	
+	
+	public Scene load(File chosenfile) throws FileNotFoundException,
+	IncorrectFormatException, ParsingErrorException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public int getFlags() {
 		return flag;
@@ -872,5 +880,6 @@ public class StlFile implements Loader {
 	public void setObjectName(String name) {
 		this.objectName = name;
 	}
+
 
 } // End of package stl_loader

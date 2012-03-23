@@ -39,7 +39,7 @@ public class GraphicsPane extends JPanel{
     	private TransformGroup view_tg;
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
-        public GraphicsPane(final JFrame frame) {
+        public GraphicsPane(JFrame frame) {
         	this.frame = frame;
         	
         	GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
@@ -68,7 +68,7 @@ public class GraphicsPane extends JPanel{
             OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
             
             Camera cam = new Camera(vp);
-//            canvas.addKeyListener(cam);
+//          canvas.addKeyListener(cam);
             canvas.addMouseMotionListener(cam);
 
             canvas.addMouseMotionListener(originCam);
@@ -83,9 +83,7 @@ public class GraphicsPane extends JPanel{
             	  public void run() {
             	    try {
             	      while (true) {
-            	        System.out.println("Width: " + getWidth());
             	        canvas.setSize(getWidth(), getHeight());
-            	        frame.setSize((int)frame.getSize().getWidth(), (int)frame.getSize().getHeight());
             	        Thread.sleep(500L);
             	      }
             	    } catch (InterruptedException iex) {}

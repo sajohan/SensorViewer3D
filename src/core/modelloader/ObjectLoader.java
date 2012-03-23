@@ -72,7 +72,8 @@ public class ObjectLoader {
 		Scene scene = null;
 		try {
 			// stlfile.load() need to be able to handle a File object instead of a String to a classpath file.
-			scene = stlfile.load(chosenfile);
+//			scene = stlfile.load(chosenfile);
+			scene = stlfile.load(file.toURI().toURL());
 		} catch (FileNotFoundException e) {
 			System.err.println(e);
 			System.exit(1);
@@ -81,6 +82,9 @@ public class ObjectLoader {
 			System.exit(1);
 		} catch (IncorrectFormatException e) {
 			System.err.println(e);
+			System.exit(1);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 			System.exit(1);
 		}
 

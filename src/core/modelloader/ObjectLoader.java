@@ -2,6 +2,7 @@ package core.modelloader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
@@ -12,16 +13,38 @@ import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-public class StlLoader {
+/**
+ * Title: Object Loader
+ * Description: A loader that loads objects from files. Supported fileformats: .stl
+ * 
+ * @author sajohan, dannic
+ * @version 1.0
+ *
+ */
+
+public class ObjectLoader {
 
 	private File chosenfile = null;
 	
 	/**
-	 * @param File to read
-	 * @return Returns a BranchGroup containing the stl-object read
+	 * 
+	 * @param file The file to be loaded
+	 * @return BranchGroup a BranchGroup with the object
+	 */
+	public BranchGroup getObject(File file){
+		if(file.getName().endsWith(".stl") || file.getName().endsWith(".STL")){
+			return getSTLObject(file);
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param file File to read
+	 * @return BranchGroup returns a BranchGroup containing the stl-object read
 	 * 
 	 */
-	public BranchGroup getSTLObject(File file) {
+	private BranchGroup getSTLObject(File file) {
 		// Init filename
 		chosenfile = file;
 		

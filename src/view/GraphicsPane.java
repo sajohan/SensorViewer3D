@@ -21,6 +21,7 @@ import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
@@ -31,18 +32,18 @@ import javax.vecmath.Vector3f;
  * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but breaks coordinates etc...
  * @author Nyx
  */
-public class GraphicsPane extends JCanvas3D{
+public class GraphicsPane extends JPanel{
 
 		private JFrame frame;
     	private Transform3D view_tf3d;
     	private TransformGroup view_tg;
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
-        public GraphicsPane(JFrame frame) {
+        public GraphicsPane(final JFrame frame) {
         	this.frame = frame;
         	
         	GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
-            Canvas3D canvas = new Canvas3D(config); 
+            final Canvas3D canvas = new Canvas3D(config); 
 
             canvas.setSize(new Dimension(400,400)); 
 
@@ -67,15 +68,31 @@ public class GraphicsPane extends JCanvas3D{
             OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
             
             Camera cam = new Camera(vp);
-            canvas.addKeyListener(cam);
+//            canvas.addKeyListener(cam);
             canvas.addMouseMotionListener(cam);
 
-//            canvas.addMouseMotionListener(originCam);
+            canvas.addMouseMotionListener(originCam);
             
             frame.add(canvas);
 //            frame.addKeyListener(this);
             frame.pack();
             frame.setVisible(true);
+            
+            //Thread resizes java3D window every 500msec
+            Runnable r1 = new Runnable() {
+            	  public void run() {
+            	    try {
+            	      while (true) {
+            	        System.out.println("Width: " + getWidth());
+            	        canvas.setSize(getWidth(), getHeight());
+            	        frame.setSize((int)frame.getSize().getWidth(), (int)frame.getSize().getHeight());
+            	        Thread.sleep(500L);
+            	      }
+            	    } catch (InterruptedException iex) {}
+            	  }
+            	};
+            	Thread thr1 = new Thread(r1);
+            	thr1.start();
             
         }
 

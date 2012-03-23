@@ -14,93 +14,101 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import static view.Constants.*;
 
 /**
  * The left-hand toolbar.
+ * 
  * @author Simon
- *
+ * 
  */
-public class OptionsPanel extends JPanel implements ActionListener{
-	
+public class OptionsPanel extends JPanel implements ActionListener {
+
 	private JPopupMenu cameraPopupMenu;
 	private JButton handButton;
 	private JButton sensorButton;
 	private JButton selectionButton;
 	private JButton cameraButton;
-	
+
 	private ImageIcon handIcon;
 	private ImageIcon addSensorIcon;
 	private ImageIcon selectionIcon;
 	private ImageIcon cameraIcon;
-	
-	
-	
-	
-	
-	
-	public OptionsPanel(){
+
+	private JSlider scaleslider;
+
+	public OptionsPanel() {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
-		//Read icons
+
+		// Read icons
 		handIcon = new ImageIcon(Constants.handIconURI);
 		addSensorIcon = new ImageIcon(Constants.addSensorIconURI);
 		selectionIcon = new ImageIcon(Constants.selectionIconURI);
 		cameraIcon = new ImageIcon(Constants.cameraIconURI);
-		
-		//Create buttons and menues
-		handButton = createButton(handIcon, Constants.handtooltip, Constants.handbutton);
-		sensorButton = createButton(addSensorIcon, Constants.addsensortooltip, Constants.addsensorbutton);
-		selectionButton = createButton(selectionIcon, Constants.selectiontooltip, Constants.selectionbutton);
-		cameraButton = createButton(cameraIcon, Constants.cameratooltip, Constants.camerabutton);
-//		sensorButton = createSensorCreationButton();
-//		selectionButton = createSelectionButton();
-//		cameraButton = createCameraButton();
-		cameraPopupMenu = createCameraMenu();
 
-	
-		//Add action listeners
+		// Create buttons and menues
+		handButton = createButton(handIcon, Constants.handtooltip,
+				Constants.handbutton);
+		sensorButton = createButton(addSensorIcon, Constants.addsensortooltip,
+				Constants.addsensorbutton);
+		selectionButton = createButton(selectionIcon,
+				Constants.selectiontooltip, Constants.selectionbutton);
+		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
+				Constants.camerabutton);
+		// sensorButton = createSensorCreationButton();
+		// selectionButton = createSelectionButton();
+		// cameraButton = createCameraButton();
+		cameraPopupMenu = createCameraMenu();
+		
+		// Create slider for scaling
+		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
+
+		// Add action listeners
 		handButton.addActionListener(this);
 		sensorButton.addActionListener(this);
 		selectionButton.addActionListener(this);
 		cameraButton.addActionListener(this);
 		cameraButton.addMouseListener(new PopupListener());
-		
+		scaleslider.addChangeListener(new SliderListener());
 
-		
-		
-		//Add to toolbar
+		// Add to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
 		super.add(cameraButton);
+		super.add(scaleslider);
 
 	}
-	
-	
-	
+
 	/**
 	 * Creates a JButton with an icon
-	 * @param the icon for the button
-	 * @param the tooltip for the button as a string
-	 * @param the action command string
+	 * 
+	 * @param the
+	 *            icon for the button
+	 * @param the
+	 *            tooltip for the button as a string
+	 * @param the
+	 *            action command string
 	 * @return JButton
 	 */
-	private JButton createButton(ImageIcon ico, String tooltip, String actioncommand){
+	private JButton createButton(ImageIcon ico, String tooltip,
+			String actioncommand) {
 		JButton button = new JButton(ico);
 		button.setToolTipText(tooltip);
 		button.setActionCommand(actioncommand);
 		return button;
 	}
-	
 
-	
-	
 	/**
 	 * Creates the popup menu that displays the camera options
+	 * 
 	 * @return PopupMenu
 	 */
-	private JPopupMenu createCameraMenu(){
+	private JPopupMenu createCameraMenu() {
 		JButton tempItem;
 		JPopupMenu cameraMenu = new JPopupMenu("cameramenu");
 		tempItem = new JButton("Free View");
@@ -119,60 +127,75 @@ public class OptionsPanel extends JPanel implements ActionListener{
 		cameraMenu.add(tempItem);
 		tempItem = new JButton("Lock -Z");
 		cameraMenu.add(tempItem);
-		
-		
-		
+
 		return cameraMenu;
 	}
-	
-	
-	
+
+	public JSlider createSlider(int facing, int min, int max, int init) {
+		JSlider slider = new JSlider(facing, min, max, init);
+		// These should probably be constants..
+		slider.setMajorTickSpacing(1);
+		slider.setMinorTickSpacing(1);
+		slider.setPaintTicks(true);
+		return slider;
+	}
+
 	/**
 	 * Listeners for the buttons
 	 */
-    public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 
-    	if (Constants.handbutton.equals(e.getActionCommand())) {
-        	System.out.println("Handtool Enabled");
-        	//TODO
-        }
-    	if (Constants.addsensorbutton.equals(e.getActionCommand())) {
-        	System.out.println("Add Sensortool Enabled");
-        	//TODO
-        }
-    	if (Constants.selectionbutton.equals(e.getActionCommand())) {
-        	System.out.println("Selector Tool Enabled");
-        	//TODO
-        }
-        if (Constants.camerabutton.equals(e.getActionCommand())) {
-        	System.out.println("Cameras are on you....");
-        	//TODO
-        }
-    }
-    
-    
-    /**
-     * Listener for the popup menu
-     *
-     */
-    class PopupListener extends MouseAdapter {
-        public void mousePressed(MouseEvent e) {
-            maybeShowPopup(e);
-        }
-
-        public void mouseReleased(MouseEvent e) {
-            maybeShowPopup(e);
-        }
-
-        private void maybeShowPopup(MouseEvent e) {
-            
-                cameraPopupMenu.show(e.getComponent(),
-                           e.getX(), e.getY());
-            
-        }
-    }
-    
-    
+		if (Constants.handbutton.equals(e.getActionCommand())) {
+			System.out.println("Handtool Enabled");
+			// TODO
+		}
+		if (Constants.addsensorbutton.equals(e.getActionCommand())) {
+			System.out.println("Add Sensortool Enabled");
+			// TODO
+		}
+		if (Constants.selectionbutton.equals(e.getActionCommand())) {
+			System.out.println("Selector Tool Enabled");
+			// TODO
+		}
+		if (Constants.camerabutton.equals(e.getActionCommand())) {
+			System.out.println("Cameras are on you....");
+			// TODO
+		}
+	}
 	
+
+	/**
+	 * Listener for the popup menu
+	 * 
+	 */
+	class PopupListener extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			maybeShowPopup(e);
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			maybeShowPopup(e);
+		}
+
+		private void maybeShowPopup(MouseEvent e) {
+
+			cameraPopupMenu.show(e.getComponent(), e.getX(), e.getY());
+
+		}
+	}
+	
+	class SliderListener implements ChangeListener {
+		public void stateChanged(ChangeEvent e) {
+		    JSlider source = (JSlider)e.getSource();
+		    if (!source.getValueIsAdjusting()) {
+		    	
+		    	int newscale = (int)source.getValue();
+		    	// set scale make call here
+		    	System.out.println("Scale set to " + newscale + "");
+		    	
+		    }
+		}
+
+	}
 
 }

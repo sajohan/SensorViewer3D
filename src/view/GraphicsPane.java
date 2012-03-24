@@ -64,18 +64,8 @@ public class GraphicsPane extends JPanel implements Observer{
         	
             univ = new SimpleUniverse(canvas);
             group = new BranchGroup();
-            //ColorCube cube = new ColorCube(0.5f);
-            //group.addChild(cube);
-            Color3f light = new Color3f(1.8f, 0.1f, 0.1f);
-            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-            
-            Vector3f lightDir = new Vector3f(4.0f, -7.0f, -12.0f);
-            DirectionalLight actualLight = new DirectionalLight(light, lightDir);
-            actualLight.setInfluencingBounds(bounds);
-            group.addChild(actualLight);
-            addPointLight();
-            addAmbientLight();
-            
+            //add lights
+            addLights();
             
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
@@ -96,6 +86,7 @@ public class GraphicsPane extends JPanel implements Observer{
 //            canvas.addMouseMotionListener(originCam);
             
             //Make camera moveable
+            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
             OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
             orbit.setSchedulingBounds(bounds);
             vp.setViewPlatformBehavior(orbit);
@@ -122,27 +113,53 @@ public class GraphicsPane extends JPanel implements Observer{
             
         }
         
-        
-    	public void addPointLight(){
-    		//Creates light that shines 100 units from its origin
-    		Color3f light1Color = new Color3f(1.8f, 0.1f, 0.1f);
-    		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1000.0);
-    		
-    		PointLight light1 = new PointLight(light1Color, new Point3f(5.0f, -5f, 2.0f), new Point3f(0.1f, 0.0f, 0.0f));
-    		light1.setEnable(true);
-    		
-    		light1.setInfluencingBounds(bounds);
-    		group.addChild(light1);
-    	}
-    	
-    	public void addAmbientLight(){
-    		Color3f lightColor = new Color3f(1.0f, 0.5f, 1.0f);
-    		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1000.0);
-    		
-    		AmbientLight light = new AmbientLight(true, lightColor); 
-    		light.setInfluencingBounds(bounds);
-    		group.addChild(light);
-    	}
+        /**
+         * Adds light to the scene
+         * Directional lights shining in 6 directions
+         * 
+         * 
+         */
+        public void addLights(){
+            Color3f lightColor = new Color3f(0.5f, 0.5f, 0.5f);
+            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 1000.0);
+            
+            
+            //Light 1. Shining y -> -y
+            Vector3f lightDir = new Vector3f(0.0f, -1.0f, 0.0f);
+            DirectionalLight light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+        	
+            //Light 2. Shining -y -> y
+            lightDir = new Vector3f(0.0f, 1.0f, 0.0f);
+            light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+            
+            //Light 3. Shining -x -> x
+            lightDir = new Vector3f(1.0f, 0.0f, 0.0f);
+            light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+            
+            //Light 4. Shining x -> -x
+            lightDir = new Vector3f(-1.0f, 0.0f, 0.0f);
+            light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+            
+            //Light 5. Shining -z -> z
+            lightDir = new Vector3f(0.0f, 0.0f, 1.0f);
+            light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+            
+            //Light 6. Shining z -> -z
+            lightDir = new Vector3f(0.0f, 0.0f, -1.0f);
+            light = new DirectionalLight(lightColor, lightDir);
+            light.setInfluencingBounds(bounds);
+            group.addChild(light);
+        }
 
 		@Override
 		public void update(Observable obs, Object obj) {

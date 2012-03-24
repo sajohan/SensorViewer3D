@@ -93,7 +93,7 @@ public class GraphicsPane extends JPanel implements Observer{
 //            canvas.addMouseMotionListener(originCam);
             
             //Make camera moveable
-            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
+            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 10000.0);
             OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
             orbit.setSchedulingBounds(bounds);
             vp.setViewPlatformBehavior(orbit);

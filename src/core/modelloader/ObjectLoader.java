@@ -2,7 +2,9 @@ package core.modelloader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
@@ -11,6 +13,7 @@ import core.modelloader.StlFile;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.Scene;
+import com.sun.j3d.loaders.objectfile.ObjectFile;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 /**
@@ -34,14 +37,42 @@ public class ObjectLoader {
 	public BranchGroup getObject(File file){
 		if(file.getName().endsWith(".stl") || file.getName().endsWith(".STL")){
 			return getSTLObject(file);
+		}else if (file.getName().endsWith(".obj") || file.getName().endsWith(".OBJ")) {
+			return getWavefrontObjObject(file);
 		}
 		return null;
+	}
+	/**
+	 * 
+	 * @param file File to read
+	 * @return BranchGroup returns a BranchGroup containing the read obj-object 
+	 * 
+	 */
+	private BranchGroup getWavefrontObjObject(File file){
+		ObjectFile loader = new ObjectFile();
+		BranchGroup group = new BranchGroup();
+
+		Scene scene = null;
+		try {
+			scene = loader.load(file.toURI().toURL());
+			System.out.println();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IncorrectFormatException e) {
+			e.printStackTrace();
+		} catch (ParsingErrorException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} 
+		group.addChild(scene.getSceneGroup());
+		return group;
 	}
 	
 	/**
 	 * 
 	 * @param file File to read
-	 * @return BranchGroup returns a BranchGroup containing the stl-object read
+	 * @return BranchGroup returns a BranchGroup containing the read stl-object 
 	 * 
 	 */
 	private BranchGroup getSTLObject(File file) {

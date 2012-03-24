@@ -23,11 +23,16 @@ import controller.MenuBarListener;
 import core.modelloader.ObjectLoader;
 
 import javax.media.j3d.AmbientLight;
+import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
+import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.LineArray;
+import javax.media.j3d.LineAttributes;
 import javax.media.j3d.PointLight;
+import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.JFrame;
@@ -64,8 +69,10 @@ public class GraphicsPane extends JPanel implements Observer{
         	
             univ = new SimpleUniverse(canvas);
             group = new BranchGroup();
-            //add lights
+            //Add lights
             addLights();
+            //Draw lines on axes
+            drawAxes();
             
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
@@ -112,6 +119,51 @@ public class GraphicsPane extends JPanel implements Observer{
             	thr1.start();
             
         }
+        
+        /**
+         * Draws a dashed line where the axes are
+         *
+         */
+        public void drawAxes(){
+        	Appearance app = new Appearance();
+        	Color3f color = new Color3f(0.7f, 0.7f, 0.7f);
+            ColoringAttributes ca = new ColoringAttributes(color,
+                ColoringAttributes.SHADE_FLAT);
+            app.setColoringAttributes(ca);
+        	
+            //Make the pattern dashed
+            LineAttributes dashLa = new LineAttributes();
+            dashLa.setLineWidth(1.0f);
+            dashLa.setLinePattern(LineAttributes.PATTERN_DASH);
+            dashLa.setLineAntialiasingEnable(true);
+            app.setLineAttributes(dashLa);
+            
+            //X-axis
+        	Point3f[] plaPts = new Point3f[2];
+            plaPts[0] = new Point3f(-1000.0f, 0.0f, 0.0f);
+            plaPts[1] = new Point3f(1000.0f, 0.0f, 0.0f);
+            LineArray pla = new LineArray(2, LineArray.COORDINATES);
+            pla.setCoordinates(0, plaPts);
+            Shape3D plShape = new Shape3D(pla, app);
+            group.addChild(plShape);
+            
+            //Y-axis
+            plaPts[0] = new Point3f(0.0f, 1000.0f, 0.0f);
+            plaPts[1] = new Point3f(0.0f, -1000.0f, 0.0f);
+            pla = new LineArray(2, LineArray.COORDINATES);
+            pla.setCoordinates(0, plaPts);
+            plShape = new Shape3D(pla, app);
+            group.addChild(plShape);
+            
+            //Z-axis
+            plaPts[0] = new Point3f(0.0f, 0.0f, 1000.0f);
+            plaPts[1] = new Point3f(0.0f,  0.0f, -1000.0f);
+            pla = new LineArray(2, LineArray.COORDINATES);
+            pla.setCoordinates(0, plaPts);
+            plShape = new Shape3D(pla, app);
+            group.addChild(plShape);
+        }
+        
         
         /**
          * Adds light to the scene

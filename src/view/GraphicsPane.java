@@ -70,7 +70,8 @@ public class GraphicsPane extends JPanel implements Observer{
             univ = new SimpleUniverse(canvas);
             group = new BranchGroup();
             //Add lights
-            addLights();
+            Ligthing lights = new Ligthing();
+            group.addChild(lights);
             //Draw lines on axes
             drawAxes();
             
@@ -176,55 +177,6 @@ public class GraphicsPane extends JPanel implements Observer{
             pla.setCoordinates(0, plaPts);
             plShape = new Shape3D(pla, greenApp);
             group.addChild(plShape);
-        }
-        
-        
-        /**
-         * Adds light to the scene
-         * Directional lights shining in 6 directions
-         * 
-         * 
-         */
-        public void addLights(){
-            Color3f lightColor = new Color3f(0.5f, 0.5f, 0.5f);
-            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 1000.0);
-            
-            
-            //Light 1. Shining y -> -y
-            Vector3f lightDir = new Vector3f(0.0f, -1.0f, 0.0f);
-            DirectionalLight light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-        	
-            //Light 2. Shining -y -> y
-            lightDir = new Vector3f(0.0f, 1.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 3. Shining -x -> x
-            lightDir = new Vector3f(1.0f, 0.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 4. Shining x -> -x
-            lightDir = new Vector3f(-1.0f, 0.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 5. Shining -z -> z
-            lightDir = new Vector3f(0.0f, 0.0f, 1.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 6. Shining z -> -z
-            lightDir = new Vector3f(0.0f, 0.0f, -1.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
         }
 
 		@Override

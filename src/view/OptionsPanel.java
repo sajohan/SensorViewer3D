@@ -1,9 +1,12 @@
 package view;
 
 import java.awt.Component;
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,7 +23,11 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import static view.Constants.*;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
+import model.Constants;
+
+import static model.Constants.*;
 
 /**
  * The left-hand toolbar.
@@ -66,7 +73,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		// selectionButton = createSelectionButton();
 		// cameraButton = createCameraButton();
 		cameraPopupMenu = createCameraMenu();
-		
+
 		// Create slider for scaling
 		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
 		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
@@ -172,7 +179,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 			// TODO
 		}
 	}
-	
+
 
 	/**
 	 * Listener for the popup menu
@@ -193,9 +200,10 @@ public class OptionsPanel extends JPanel implements ActionListener {
 
 		}
 	}
-	
+
 	class SliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {
+
 		    JSlider source = (JSlider)e.getSource();
 		    if(source==brigthslider){
 			    if (!source.getValueIsAdjusting()) {
@@ -211,9 +219,28 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		    if(source==scaleslider){
 			    if (!source.getValueIsAdjusting()) {
 			    	
-			    	int newscale = (int)source.getValue();
-			    	// set scale make call here
-			    	System.out.println("Scale set to " + newscale + "");
+					int newscale = (int)source.getValue();
+					// set scale make call here
+					System.out.println("Scale set to " + newscale + "");
+					Robot robot = null;
+					try {
+						robot = new Robot();
+					} catch (AWTException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						System.out.println("Robot object was not initialized");
+					}
+					
+					/*
+					 * moves the mousepointer to center of 3D frame position, scrolls
+					 */
+					int RenderFrameCenterY = GUI.getGraphicsPane().getLocationOnScreen().y + (GUI.getGraphicsPane().getHeight() / 2);
+					int RenderFrameCenterX = GUI.getGraphicsPane().getLocationOnScreen().x + (GUI.getGraphicsPane().getWidth() / 2);
+					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);            
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+		            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.mouseWheel(newscale * SCALE_SPEED);
+					scaleslider.setValue(SCALE_INIT); //reset the slider to center value
 			    	
 			    }
 		    }

@@ -23,11 +23,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.sun.j3d.exp.swing.JCanvas3D;
 
 import controller.MenuBarListener;
+import controller.OptionsPanelListener;
 
 public class GUI {
     public boolean RIGHT_TO_LEFT = false;
     private static JFrame frame = new JFrame("SensorViewer3D");
-    private static MenuBarListener mb; 
+    private static MenuBarListener menubarListener; 
+    private static OptionsPanelListener optionspanelListener;
     private GraphicsPane graphicsPane;
     private Observer menuObserver;
     //private MenuBar menu = new MenuBar();
@@ -40,13 +42,15 @@ public class GUI {
         }
 
         //JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
-        OptionsPanel op = new OptionsPanel();
+    	optionspanelListener = new OptionsPanelListener(menuObserver);
+        OptionsPanel op = new OptionsPanel(optionspanelListener);
+        
         contentPane.add(op, BorderLayout.WEST);
 
         graphicsPane = new GraphicsPane(frame);
         contentPane.add(graphicsPane, BorderLayout.CENTER);
-        mb = new MenuBarListener(menuObserver);
-    	MenuBar menu = new MenuBar(mb);
+        menubarListener = new MenuBarListener(menuObserver);
+    	MenuBar menu = new MenuBar(menubarListener);
     	frame.setJMenuBar(menu);
         
 //      JCanvas3D j = new JCanvas3D();

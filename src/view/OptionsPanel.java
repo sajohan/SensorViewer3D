@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.EventListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -35,7 +36,7 @@ import static model.Constants.*;
  * @author Simon
  * 
  */
-public class OptionsPanel extends JPanel implements ActionListener {
+public class OptionsPanel extends JPanel{
 
 	private JPopupMenu cameraPopupMenu;
 	private JButton handButton;
@@ -51,7 +52,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 	private JSlider scaleslider;
 	private JSlider brigthslider;
 
-	public OptionsPanel() {
+	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		// Read icons
@@ -76,19 +77,19 @@ public class OptionsPanel extends JPanel implements ActionListener {
 
 		// Create slider for scaling
 		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
-		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
+		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.scaleslider);
 		
 		// Create slider for brightness
 		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
-		brigthslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
+		brigthslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.brightslider);
 
 		// Add action listeners
-		handButton.addActionListener(this);
-		sensorButton.addActionListener(this);
-		selectionButton.addActionListener(this);
-		cameraButton.addActionListener(this);
+		handButton.addActionListener((ActionListener)eventListener);
+		sensorButton.addActionListener((ActionListener)eventListener);
+		selectionButton.addActionListener((ActionListener)eventListener);
+		cameraButton.addActionListener((ActionListener)eventListener);
 		cameraButton.addMouseListener(new PopupListener());
-		scaleslider.addChangeListener(new SliderListener());
+		scaleslider.addChangeListener((ChangeListener)eventListener);
 
 		// Add to toolbar
 		super.add(handButton);
@@ -149,17 +150,18 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		return cameraMenu;
 	}
 
-	public JSlider createSlider(int facing, int min, int max, int init) {
+	public JSlider createSlider(int facing, int min, int max, int init, String name) {
 		JSlider slider = new JSlider(facing, min, max, init);
 		// These should probably be constants..
 		slider.setMinorTickSpacing(1);
 		slider.setPaintTicks(true);
+		slider.setName(name);
 		return slider;
 	}
-
+/*
 	/**
 	 * Listeners for the buttons
-	 */
+	 *
 	public void actionPerformed(ActionEvent e) {
 
 		if (Constants.handbutton.equals(e.getActionCommand())) {
@@ -179,7 +181,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 			// TODO
 		}
 	}
-
+*/
 
 	/**
 	 * Listener for the popup menu
@@ -200,12 +202,12 @@ public class OptionsPanel extends JPanel implements ActionListener {
 
 		}
 	}
-
+	/*
 	class SliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {
 
 		    JSlider source = (JSlider)e.getSource();
-		    if(source==brigthslider){
+		    if(source.getName().equals(Constants.brightslider)){
 			    if (!source.getValueIsAdjusting()) {
 			    	
 			    	int newscale = (int)source.getValue();
@@ -216,7 +218,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 			    	
 			    }
 		    }
-		    if(source==scaleslider){
+		    if(source.getName().equals(Constants.scaleslider)){
 			    if (!source.getValueIsAdjusting()) {
 			    	
 					int newscale = (int)source.getValue();
@@ -233,7 +235,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 					
 					/*
 					 * moves the mousepointer to center of 3D frame position, scrolls
-					 */
+					 *
 //					int RenderFrameCenterY = GUI.getGraphicsPane().getLocationOnScreen().y + (GUI.getGraphicsPane().getHeight() / 2);
 //					int RenderFrameCenterX = GUI.getGraphicsPane().getLocationOnScreen().x + (GUI.getGraphicsPane().getWidth() / 2);
 //					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);            
@@ -246,6 +248,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		    }
 		}
 
-	}
+	}*/
 
 }

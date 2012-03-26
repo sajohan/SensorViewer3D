@@ -14,6 +14,8 @@ public class Constants {
 	public static final String addsensorbutton = "sensorbutton";
 	public static final String camerabutton = "camerabutton";
 	public static final String selectionbutton = "selectionbutton";
+	public static final String scaleslider = "scaleslider";
+	public static final String brightslider = "brightslider";
 	
 	public static final String handtooltip = "Hand Tool";
 	public static final String addsensortooltip = "Sensor Creation Tool";

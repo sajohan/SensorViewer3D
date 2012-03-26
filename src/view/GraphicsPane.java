@@ -55,7 +55,9 @@ public class GraphicsPane extends JPanel implements Observer{
     	private TransformGroup view_tg;
     	private SimpleUniverse univ;
     	private ObjectLoader objLoader;
-    	BranchGroup group;
+    	private BranchGroup group;
+    	//Grid have the axes
+    	private Grid grid; 
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
         public GraphicsPane(JFrame frame) {
@@ -71,8 +73,10 @@ public class GraphicsPane extends JPanel implements Observer{
             group = new BranchGroup();
             //Add lights
             addLights();
-            //Draw lines on axes
-            drawAxes();
+            
+            //Add grid to scene
+            grid = new Grid();
+            group.addChild(grid);
             
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
@@ -97,12 +101,14 @@ public class GraphicsPane extends JPanel implements Observer{
             OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
             orbit.setSchedulingBounds(bounds);
             vp.setViewPlatformBehavior(orbit);
-            
+      
             
             frame.add(canvas);
 //            frame.addKeyListener(this);
             frame.pack();
             frame.setVisible(true);
+            
+
             
             //Thread resizes java3D window every 500msec
             Runnable r1 = new Runnable() {
@@ -118,64 +124,6 @@ public class GraphicsPane extends JPanel implements Observer{
             	Thread thr1 = new Thread(r1);
             	thr1.start();
             
-        }
-        
-        /**
-         * Draws a dashed line where the axes are
-         *
-         */
-        public void drawAxes(){
-        	Appearance redApp = new Appearance();
-        	Appearance blueApp = new Appearance();
-        	Appearance greenApp = new Appearance();
-        	
-            //Make the pattern dashed
-            LineAttributes dashLa = new LineAttributes();
-            dashLa.setLineWidth(1.0f);
-            dashLa.setLinePattern(LineAttributes.PATTERN_DASH);
-            dashLa.setLineAntialiasingEnable(true);
-            redApp.setLineAttributes(dashLa);
-            blueApp.setLineAttributes(dashLa);
-            greenApp.setLineAttributes(dashLa);
-            
-            //Set Color
-            Color3f color = new Color3f(1.0f, 0.0f, 0.0f);
-            ColoringAttributes ca = new ColoringAttributes(color,
-                    ColoringAttributes.SHADE_FLAT);
-            redApp.setColoringAttributes(ca);
-            
-            color = new Color3f(0.0f, 1.0f, 0.0f);
-            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
-            blueApp.setColoringAttributes(ca);
-            
-            color = new Color3f(0.0f, 0.0f, 1.0f);
-            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
-            greenApp.setColoringAttributes(ca);
-            
-            //X-axis
-            Point3f[] plaPts = new Point3f[2];
-            plaPts[0] = new Point3f(-1000.0f, 0.0f, 0.0f);
-            plaPts[1] = new Point3f(1000.0f, 0.0f, 0.0f);
-            LineArray pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            Shape3D plShape = new Shape3D(pla, redApp);
-            group.addChild(plShape);
-            
-            //Y-axis
-            plaPts[0] = new Point3f(0.0f, 1000.0f, 0.0f);
-            plaPts[1] = new Point3f(0.0f, -1000.0f, 0.0f);
-            pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, blueApp);
-            group.addChild(plShape);
-            
-            //Z-axis
-            plaPts[0] = new Point3f(0.0f, 0.0f, 1000.0f);
-            plaPts[1] = new Point3f(0.0f,  0.0f, -1000.0f);
-            pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, greenApp);
-            group.addChild(plShape);
         }
         
         

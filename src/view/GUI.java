@@ -22,7 +22,7 @@ import com.sun.j3d.exp.swing.JCanvas3D;
 
 import controller.MenuBarListener;
 
-public class Main {
+public class GUI {
     public boolean RIGHT_TO_LEFT = false;
     private static JFrame frame = new JFrame("SensorViewer3D");
     private static MenuBarListener mb;  
@@ -81,7 +81,7 @@ public class Main {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public GUI() {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

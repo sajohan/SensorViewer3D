@@ -23,72 +23,80 @@ import com.sun.j3d.exp.swing.JCanvas3D;
 import controller.MenuBarListener;
 
 public class GUI {
-    public boolean RIGHT_TO_LEFT = false;
-    private static JFrame frame = new JFrame("SensorViewer3D");
-    private static MenuBarListener mb;  
-    //private MenuBar menu = new MenuBar();
-    public static void addComponentsToPane(Container contentPane) {
-    	contentPane.setLayout(new BorderLayout(0,0));
+	private static JFrame frame = new JFrame("SensorViewer3D");
+	private static MenuBarListener mb;  
+	static GraphicsPane graphicsPane;
+	//private MenuBar menu = new MenuBar();
 
-    	if (!(contentPane.getLayout() instanceof BorderLayout)) {
-            contentPane.add(new JLabel("Container doesn't use BorderLayout!"));
-            return;
-        }
+	/*
+	 * Adds everything to the borderlayout (buttons to West, 3D window to the Center)
+	 */
+	public static void addComponentsToPane(Container contentPane) {
+		contentPane.setLayout(new BorderLayout(0,0));
 
-        //JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
-        OptionsPanel op = new OptionsPanel();
-        contentPane.add(op, BorderLayout.WEST);
+		if (!(contentPane.getLayout() instanceof BorderLayout)) {
+			contentPane.add(new JLabel("Container doesn't use BorderLayout!"));
+			return;
+		}
 
-        GraphicsPane graphicsPane = new GraphicsPane(frame);
-        contentPane.add(graphicsPane, BorderLayout.CENTER);
-        mb = new MenuBarListener(graphicsPane);
-    	MenuBar menu = new MenuBar(mb);
-    	frame.setJMenuBar(menu);
-        
-//      JCanvas3D j = new JCanvas3D();
-        //jbnSampleButtons = new JButton("Button 2 (CENTER)");
-        
-    }
+		//JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
+		OptionsPanel op = new OptionsPanel();
+		contentPane.add(op, BorderLayout.WEST);
+
+		graphicsPane = new GraphicsPane(frame);
+		contentPane.add(graphicsPane, BorderLayout.CENTER);
+		mb = new MenuBarListener(graphicsPane);
+		MenuBar menu = new MenuBar(mb);
+		frame.setJMenuBar(menu);
+
+		//      JCanvas3D j = new JCanvas3D();
+		//jbnSampleButtons = new JButton("Button 2 (CENTER)");
+
+	}
+
+	private static void createAndShowGUI() {
+		// set the look and feel to machine default
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(
+					UIManager.getSystemLookAndFeelClassName());
+		} 
+		catch (UnsupportedLookAndFeelException e) {
+			// handle exception
+		}
+		catch (ClassNotFoundException e) {
+			// handle exception
+		}
+		catch (InstantiationException e) {
+			// handle exception
+		}
+		catch (IllegalAccessException e) {
+			// handle exception
+		}
+		//set up frame; size etc.
+		frame.setPreferredSize(new Dimension(900,900));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Set up the content pane and add swing components to it
+		addComponentsToPane(frame.getContentPane());
+
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	public GUI() {
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+
+	}
+
+	public static GraphicsPane getGraphicsPane() {
+		return graphicsPane;
+	}
 
 
-    private static void createAndShowGUI() {
- 
-    	    try {
-    	            // Set System L&F
-    	        UIManager.setLookAndFeel(
-    	            UIManager.getSystemLookAndFeelClassName());
-    	    } 
-    	    catch (UnsupportedLookAndFeelException e) {
-    	       // handle exception
-    	    }
-    	    catch (ClassNotFoundException e) {
-    	       // handle exception
-    	    }
-    	    catch (InstantiationException e) {
-    	       // handle exception
-    	    }
-    	    catch (IllegalAccessException e) {
-    	       // handle exception
-    	    }
-
-    	frame.setPreferredSize(new Dimension(900,900));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //Set up the content pane and add swing components to it
-        addComponentsToPane(frame.getContentPane());
-
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    public GUI() {
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-
-                createAndShowGUI();
-            }
-        });
-        
-    }
 }

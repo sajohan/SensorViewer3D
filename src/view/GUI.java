@@ -57,11 +57,11 @@ public class GUI {
     
     public void loadNewGraphicsWindow(BranchGroup newModel){
     	Container contentPane = frame.getContentPane();
-    	contentPane.remove(graphicsPane);
-    	System.out.println("Pane removed");
-        graphicsPane = new GraphicsPane(frame);
+    	//graphicsPane.resetGraphics(frame);
+    	//contentPane.remove(graphicsPane);
+        //graphicsPane = new GraphicsPane(frame);
         graphicsPane.setObject(newModel);
-        contentPane.add(graphicsPane, BorderLayout.CENTER);
+        //contentPane.add(graphicsPane, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
         
@@ -100,6 +100,7 @@ public class GUI {
 
     public GUI(Observer obs) {
     	menuObserver = obs;
+    	
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 

@@ -55,7 +55,9 @@ public class GraphicsPane extends JPanel{
     	private TransformGroup view_tg;
     	private SimpleUniverse univ;
     	private ObjectLoader objLoader;
-    	BranchGroup group;
+    	private BranchGroup lightGroup;
+    	private BranchGroup axisGroup;
+    	private BranchGroup group;
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
         public GraphicsPane(JFrame frame) {
@@ -68,11 +70,17 @@ public class GraphicsPane extends JPanel{
             canvas.setSize(new Dimension(400,400)); 
         	
             univ = new SimpleUniverse(canvas);
+            
             group = new BranchGroup();
-            //Add lights
-            addLights();
-            //Draw lines on axes
-            drawAxes();
+            lightGroup = new BranchGroup();
+            axisGroup = new BranchGroup();
+            
+            group.setCapability(BranchGroup.ALLOW_DETACH);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+
+            
             
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
@@ -120,118 +128,29 @@ public class GraphicsPane extends JPanel{
             
         }
         
-        /**
-         * Draws a dashed line where the axes are
-         *
-         */
-        public void drawAxes(){
-        	Appearance redApp = new Appearance();
-        	Appearance blueApp = new Appearance();
-        	Appearance greenApp = new Appearance();
-        	
-            //Make the pattern dashed
-            LineAttributes dashLa = new LineAttributes();
-            dashLa.setLineWidth(1.0f);
-            dashLa.setLinePattern(LineAttributes.PATTERN_DASH);
-            dashLa.setLineAntialiasingEnable(true);
-            redApp.setLineAttributes(dashLa);
-            blueApp.setLineAttributes(dashLa);
-            greenApp.setLineAttributes(dashLa);
-            
-            //Set Color
-            Color3f color = new Color3f(1.0f, 0.0f, 0.0f);
-            ColoringAttributes ca = new ColoringAttributes(color,
-                    ColoringAttributes.SHADE_FLAT);
-            redApp.setColoringAttributes(ca);
-            
-            color = new Color3f(0.0f, 1.0f, 0.0f);
-            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
-            blueApp.setColoringAttributes(ca);
-            
-            color = new Color3f(0.0f, 0.0f, 1.0f);
-            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
-            greenApp.setColoringAttributes(ca);
-            
-            //X-axis
-            Point3f[] plaPts = new Point3f[2];
-            plaPts[0] = new Point3f(-1000.0f, 0.0f, 0.0f);
-            plaPts[1] = new Point3f(1000.0f, 0.0f, 0.0f);
-            LineArray pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            Shape3D plShape = new Shape3D(pla, redApp);
-            group.addChild(plShape);
-            
-            //Y-axis
-            plaPts[0] = new Point3f(0.0f, 1000.0f, 0.0f);
-            plaPts[1] = new Point3f(0.0f, -1000.0f, 0.0f);
-            pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, blueApp);
-            group.addChild(plShape);
-            
-            //Z-axis
-            plaPts[0] = new Point3f(0.0f, 0.0f, 1000.0f);
-            plaPts[1] = new Point3f(0.0f,  0.0f, -1000.0f);
-            pla = new LineArray(2, LineArray.COORDINATES);
-            pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, greenApp);
-            group.addChild(plShape);
-        }
         
-        
-        /**
-         * Adds light to the scene
-         * Directional lights shining in 6 directions
-         * 
-         * 
-         */
-        public void addLights(){
-            Color3f lightColor = new Color3f(0.5f, 0.5f, 0.5f);
-            BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 1000.0);
-            
-            
-            //Light 1. Shining y -> -y
-            Vector3f lightDir = new Vector3f(0.0f, -1.0f, 0.0f);
-            DirectionalLight light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-        	
-            //Light 2. Shining -y -> y
-            lightDir = new Vector3f(0.0f, 1.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 3. Shining -x -> x
-            lightDir = new Vector3f(1.0f, 0.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 4. Shining x -> -x
-            lightDir = new Vector3f(-1.0f, 0.0f, 0.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 5. Shining -z -> z
-            lightDir = new Vector3f(0.0f, 0.0f, 1.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-            
-            //Light 6. Shining z -> -z
-            lightDir = new Vector3f(0.0f, 0.0f, -1.0f);
-            light = new DirectionalLight(lightColor, lightDir);
-            light.setInfluencingBounds(bounds);
-            group.addChild(light);
-        }
+
 
 
 		public void setObject(BranchGroup newModel) {
 			System.out.println("Update achieved");
+			group.detach();
+			//univ.getLocale().removeBranchGraph(group);
+			group = newModel;
+            group.setCapability(BranchGroup.ALLOW_DETACH);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
+            group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 
-			univ.addBranchGraph(newModel);
+            lightGroup.detach();
+            axisGroup.detach();
+            
+            group.addChild(lightGroup);
+            group.addChild(axisGroup);
+			univ.addBranchGraph(group);
+
+			addLights();
+
 			univ.getViewingPlatform().setNominalViewingTransform();
 		
 			

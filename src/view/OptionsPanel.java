@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,6 +42,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 	private ImageIcon cameraIcon;
 
 	private JSlider scaleslider;
+	private JSlider brigthslider;
 
 	public OptionsPanel() {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -65,7 +68,12 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		cameraPopupMenu = createCameraMenu();
 		
 		// Create slider for scaling
+		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
 		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
+		
+		// Create slider for brightness
+		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
+		brigthslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT);
 
 		// Add action listeners
 		handButton.addActionListener(this);
@@ -80,7 +88,10 @@ public class OptionsPanel extends JPanel implements ActionListener {
 		super.add(sensorButton);
 		super.add(selectionButton);
 		super.add(cameraButton);
+		super.add(sliderLabel);
 		super.add(scaleslider);
+		super.add(brigthLabel);
+		super.add(brigthslider);
 
 	}
 
@@ -134,7 +145,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
 	public JSlider createSlider(int facing, int min, int max, int init) {
 		JSlider slider = new JSlider(facing, min, max, init);
 		// These should probably be constants..
-		slider.setMajorTickSpacing(1);
 		slider.setMinorTickSpacing(1);
 		slider.setPaintTicks(true);
 		return slider;
@@ -187,12 +197,25 @@ public class OptionsPanel extends JPanel implements ActionListener {
 	class SliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {
 		    JSlider source = (JSlider)e.getSource();
-		    if (!source.getValueIsAdjusting()) {
-		    	
-		    	int newscale = (int)source.getValue();
-		    	// set scale make call here
-		    	System.out.println("Scale set to " + newscale + "");
-		    	
+		    if(source==brigthslider){
+			    if (!source.getValueIsAdjusting()) {
+			    	
+			    	int newscale = (int)source.getValue();
+			    	//Float f = Float.parseFloat(newscale);
+			    	
+			    	// set scale make call here
+			    	System.out.println("Brigthness set to " + newscale + "");
+			    	
+			    }
+		    }
+		    if(source==scaleslider){
+			    if (!source.getValueIsAdjusting()) {
+			    	
+			    	int newscale = (int)source.getValue();
+			    	// set scale make call here
+			    	System.out.println("Scale set to " + newscale + "");
+			    	
+			    }
 		    }
 		}
 

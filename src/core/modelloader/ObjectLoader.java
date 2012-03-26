@@ -49,13 +49,12 @@ public class ObjectLoader {
 	 * 
 	 */
 	private BranchGroup getWavefrontObjObject(File file){
-		ObjectFile loader = new ObjectFile();
+		ObjectFile loader = new ObjectFile(ObjectFile.RESIZE);
 		BranchGroup group = new BranchGroup();
 
 		Scene scene = null;
 		try {
 			scene = loader.load(file.toURI().toURL());
-			System.out.println();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IncorrectFormatException e) {

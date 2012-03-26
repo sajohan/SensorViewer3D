@@ -125,26 +125,40 @@ public class GraphicsPane extends JPanel{
          *
          */
         public void drawAxes(){
-        	Appearance app = new Appearance();
-        	Color3f color = new Color3f(0.7f, 0.7f, 0.7f);
-            ColoringAttributes ca = new ColoringAttributes(color,
-                ColoringAttributes.SHADE_FLAT);
-            app.setColoringAttributes(ca);
+        	Appearance redApp = new Appearance();
+        	Appearance blueApp = new Appearance();
+        	Appearance greenApp = new Appearance();
         	
             //Make the pattern dashed
             LineAttributes dashLa = new LineAttributes();
             dashLa.setLineWidth(1.0f);
             dashLa.setLinePattern(LineAttributes.PATTERN_DASH);
             dashLa.setLineAntialiasingEnable(true);
-            app.setLineAttributes(dashLa);
+            redApp.setLineAttributes(dashLa);
+            blueApp.setLineAttributes(dashLa);
+            greenApp.setLineAttributes(dashLa);
+            
+            //Set Color
+            Color3f color = new Color3f(1.0f, 0.0f, 0.0f);
+            ColoringAttributes ca = new ColoringAttributes(color,
+                    ColoringAttributes.SHADE_FLAT);
+            redApp.setColoringAttributes(ca);
+            
+            color = new Color3f(0.0f, 1.0f, 0.0f);
+            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
+            blueApp.setColoringAttributes(ca);
+            
+            color = new Color3f(0.0f, 0.0f, 1.0f);
+            ca = new ColoringAttributes(color, ColoringAttributes.SHADE_FLAT);
+            greenApp.setColoringAttributes(ca);
             
             //X-axis
-        	Point3f[] plaPts = new Point3f[2];
+            Point3f[] plaPts = new Point3f[2];
             plaPts[0] = new Point3f(-1000.0f, 0.0f, 0.0f);
             plaPts[1] = new Point3f(1000.0f, 0.0f, 0.0f);
             LineArray pla = new LineArray(2, LineArray.COORDINATES);
             pla.setCoordinates(0, plaPts);
-            Shape3D plShape = new Shape3D(pla, app);
+            Shape3D plShape = new Shape3D(pla, redApp);
             group.addChild(plShape);
             
             //Y-axis
@@ -152,7 +166,7 @@ public class GraphicsPane extends JPanel{
             plaPts[1] = new Point3f(0.0f, -1000.0f, 0.0f);
             pla = new LineArray(2, LineArray.COORDINATES);
             pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, app);
+            plShape = new Shape3D(pla, blueApp);
             group.addChild(plShape);
             
             //Z-axis
@@ -160,7 +174,7 @@ public class GraphicsPane extends JPanel{
             plaPts[1] = new Point3f(0.0f,  0.0f, -1000.0f);
             pla = new LineArray(2, LineArray.COORDINATES);
             pla.setCoordinates(0, plaPts);
-            plShape = new Shape3D(pla, app);
+            plShape = new Shape3D(pla, greenApp);
             group.addChild(plShape);
         }
         

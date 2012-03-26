@@ -48,7 +48,7 @@ import javax.vecmath.Vector3f;
  * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but breaks coordinates etc...
  * @author Nyx
  */
-public class GraphicsPane extends JPanel implements Observer{
+public class GraphicsPane extends JPanel{
 
 		private JFrame frame;
     	private Transform3D view_tf3d;
@@ -213,14 +213,13 @@ public class GraphicsPane extends JPanel implements Observer{
             group.addChild(light);
         }
 
-		@Override
-		public void update(Observable obs, Object obj) {
+
+		public void setObject(BranchGroup newModel) {
 			System.out.println("Update achieved");
-			if(obs instanceof MenuBarListener ){
-				BranchGroup tempGroup = objLoader.getObject((File)obj);
-				univ.addBranchGraph(tempGroup);
-				univ.getViewingPlatform().setNominalViewingTransform();
-			}
+
+			univ.addBranchGraph(newModel);
+			univ.getViewingPlatform().setNominalViewingTransform();
+		
 			
 		}
 

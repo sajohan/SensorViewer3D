@@ -1,5 +1,6 @@
 package view;
 
+import javax.media.j3d.BranchGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -11,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,9 +27,11 @@ import controller.MenuBarListener;
 public class GUI {
     public boolean RIGHT_TO_LEFT = false;
     private static JFrame frame = new JFrame("SensorViewer3D");
-    private static MenuBarListener mb;  
+    private static MenuBarListener mb; 
+    private GraphicsPane graphicsPane;
+    private Observer menuObserver;
     //private MenuBar menu = new MenuBar();
-    public static void addComponentsToPane(Container contentPane) {
+    public void addComponentsToPane(Container contentPane) {
     	contentPane.setLayout(new BorderLayout(0,0));
 
     	if (!(contentPane.getLayout() instanceof BorderLayout)) {
@@ -39,9 +43,9 @@ public class GUI {
         OptionsPanel op = new OptionsPanel();
         contentPane.add(op, BorderLayout.WEST);
 
-        GraphicsPane graphicsPane = new GraphicsPane(frame);
+        graphicsPane = new GraphicsPane(frame);
         contentPane.add(graphicsPane, BorderLayout.CENTER);
-        mb = new MenuBarListener(graphicsPane);
+        mb = new MenuBarListener(menuObserver);
     	MenuBar menu = new MenuBar(mb);
     	frame.setJMenuBar(menu);
         
@@ -49,9 +53,22 @@ public class GUI {
         //jbnSampleButtons = new JButton("Button 2 (CENTER)");
         
     }
+    
+    
+    public void loadNewGraphicsWindow(BranchGroup newModel){
+    	Container contentPane = frame.getContentPane();
+    	contentPane.remove(graphicsPane);
+    	System.out.println("Pane removed");
+        graphicsPane = new GraphicsPane(frame);
+        graphicsPane.setObject(newModel);
+        contentPane.add(graphicsPane, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+        
+    }
 
 
-    private static void createAndShowGUI() {
+    private void createAndShowGUI() {
  
     	    try {
     	            // Set System L&F
@@ -81,8 +98,8 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    public GUI() {
-
+    public GUI(Observer obs) {
+    	menuObserver = obs;
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 

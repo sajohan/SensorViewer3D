@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public class Constants {
 	
@@ -20,9 +20,12 @@ public class Constants {
 	public static final String selectiontooltip = "Selection Tool";
 	public static final String cameratooltip = "Camera Options";
 	
-    public static final int SCALE_MIN = 1;
-    public static final int SCALE_MAX = 5;
-    public static final int SCALE_INIT = 1;    //initial scale
+    public static final int SCALE_MIN = -10;
+    public static final int SCALE_MAX = 10;
+    public static final int SCALE_INIT = 0;    //initial scale
+
+    public static final int SCALE_SPEED = 20;    //Speed at which the scale slider will zoom
+    
 	
 	
 

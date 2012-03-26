@@ -55,8 +55,8 @@ public class GraphicsPane extends JPanel{
     	private TransformGroup view_tg;
     	private SimpleUniverse univ;
     	private ObjectLoader objLoader;
-    	private BranchGroup lightGroup;
-    	private BranchGroup axisGroup;
+    	private Lighting lightGroup;
+    	private Grid gridGroup;
     	private BranchGroup group;
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
@@ -72,14 +72,15 @@ public class GraphicsPane extends JPanel{
             univ = new SimpleUniverse(canvas);
             
             group = new BranchGroup();
-            lightGroup = new BranchGroup();
-            axisGroup = new BranchGroup();
+            lightGroup = new Lighting();
+            gridGroup = new Grid();
             
             group.setCapability(BranchGroup.ALLOW_DETACH);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-
+			group.addChild(lightGroup);
+			group.addChild(gridGroup);
             
             
             ViewingPlatform vp = univ.getViewingPlatform();
@@ -143,13 +144,12 @@ public class GraphicsPane extends JPanel{
             group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 
             lightGroup.detach();
-            axisGroup.detach();
+            gridGroup.detach();
             
             group.addChild(lightGroup);
-            group.addChild(axisGroup);
+            group.addChild(gridGroup);
 			univ.addBranchGraph(group);
 
-			addLights();
 
 			univ.getViewingPlatform().setNominalViewingTransform();
 		

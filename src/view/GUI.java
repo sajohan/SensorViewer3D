@@ -66,6 +66,10 @@ public class GUI {
         frame.setVisible(true);
         
     }
+    
+    public GraphicsPane getGraphicsPane(){
+    	return graphicsPane;
+    }
 
 
     private void createAndShowGUI() {

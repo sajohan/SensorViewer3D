@@ -49,9 +49,6 @@ public class OptionsPanel extends JPanel {
 	private ImageIcon selectionIcon;
 	private ImageIcon cameraIcon;
 
-	private JSlider scaleslider;
-	private JSlider brightSlider;
-
 	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -75,34 +72,18 @@ public class OptionsPanel extends JPanel {
 		// cameraButton = createCameraButton();
 		cameraPopupMenu = createCameraMenu();
 
-		// Create slider for scaling
-		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
-		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX,
-				SCALE_INIT, Constants.scaleslider);
-
-		// Create slider for brightness
-		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
-		brightSlider = createSlider(JSlider.HORIZONTAL, BRIGHT_MIN, BRIGHT_MAX,
-				BRIGHT_INIT, Constants.brightslider);
-
 		// Add action listeners
 		handButton.addActionListener((ActionListener) eventListener);
 		sensorButton.addActionListener((ActionListener) eventListener);
 		selectionButton.addActionListener((ActionListener) eventListener);
 		cameraButton.addActionListener((ActionListener) eventListener);
 		cameraButton.addMouseListener(new PopupListener());
-		scaleslider.addChangeListener((ChangeListener) eventListener);
-		brightSlider.addChangeListener((ChangeListener) eventListener);
 
 		// Add to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
 		super.add(cameraButton);
-		super.add(sliderLabel);
-		super.add(scaleslider);
-		super.add(brigthLabel);
-		super.add(brightSlider);
 
 	}
 
@@ -151,16 +132,6 @@ public class OptionsPanel extends JPanel {
 		cameraMenu.add(tempItem);
 
 		return cameraMenu;
-	}
-
-	public JSlider createSlider(int facing, int min, int max, int init,
-			String name) {
-		JSlider slider = new JSlider(facing, min, max, init);
-		// These should probably be constants..
-		slider.setMinorTickSpacing(1);
-		slider.setPaintTicks(true);
-		slider.setName(name);
-		return slider;
 	}
 
 	/**

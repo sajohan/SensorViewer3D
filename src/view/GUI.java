@@ -17,6 +17,7 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -24,14 +25,16 @@ import com.sun.j3d.exp.swing.JCanvas3D;
 
 import controller.MenuBarListener;
 import controller.OptionsPanelListener;
+import controller.StatusPanelListener;
 
 public class GUI {
 	public boolean RIGHT_TO_LEFT = false;
-	private static JFrame frame = new JFrame("SensorViewer3D");
-	private static MenuBarListener menubarListener;
-	private static OptionsPanelListener optionspanelListener;
+	private JFrame frame = new JFrame("SensorViewer3D");
+	private MenuBarListener menubarListener;
+	private OptionsPanelListener optionspanelListener;
 	private GraphicsPane graphicsPane;
 	private Observer menuObserver;
+	private StatusPanelListener statuspanelListener;
 
 	// private MenuBar menu = new MenuBar();
 	public void addComponentsToPane(Container contentPane) {
@@ -52,6 +55,13 @@ public class GUI {
 		contentPane.add(graphicsPane, BorderLayout.CENTER);
 		menubarListener = new MenuBarListener(menuObserver);
 		MenuBar menu = new MenuBar(menubarListener);
+		
+		// Add status panel
+		statuspanelListener = new StatusPanelListener(menuObserver);
+		JPanel statuspanel = new StatusPanel(statuspanelListener);
+		contentPane.add(statuspanel,BorderLayout.SOUTH);
+		
+		
 		frame.setJMenuBar(menu);
 
 		// JCanvas3D j = new JCanvas3D();

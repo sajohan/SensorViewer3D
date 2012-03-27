@@ -44,7 +44,7 @@ public class Main implements Observer {
 			BranchGroup tempGroup = objLoader.getObject((File) obj);
 			gui.loadNewGraphicsWindow(tempGroup);
 
-		} else if (obs instanceof OptionsPanelListener) {
+		} else if (obs instanceof StatusPanelListener) {
 			if (obj instanceof JSlider) {
 				JSlider source = (JSlider) obj;
 				if (source.getName().equals(Constants.brightslider)) {

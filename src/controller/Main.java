@@ -16,6 +16,8 @@ import model.Constants;
 import core.modelloader.ObjectLoader;
 
 import view.GUI;
+import view.GraphicsPane;
+import view.Lighting;
 
 public class Main implements Observer{
 	
@@ -51,11 +53,15 @@ public class Main implements Observer{
 			    if(source.getName().equals(Constants.brightslider)){
 				    if (!source.getValueIsAdjusting()) {
 				    	
-				    	int newscale = (int)source.getValue();
-				    	//Float f = Float.parseFloat(newscale);
-				    	
-				    	// set scale make call here
-				    	System.out.println("Brigthness set to " + newscale + "");
+				    	int brigthness = (int)source.getValue();
+				    	// Make float value.. should be value between 0.1 and 1.0
+				    	Float b = new Float(brigthness);
+				    	b=b/10;
+				    	GraphicsPane gp = gui.getGraphicsPane();
+				    	Lighting lights = gp.getLights();
+				    	// Set brigthness
+				    	lights.setBrightness(b);
+				    	System.out.println("Brigthness set to " + b + "");
 				    	
 				    }
 			    }

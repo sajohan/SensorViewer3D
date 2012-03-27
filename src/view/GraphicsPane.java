@@ -55,7 +55,7 @@ public class GraphicsPane extends JPanel{
     	private TransformGroup view_tg;
     	private SimpleUniverse univ;
     	private ObjectLoader objLoader;
-    	private Lighting lightGroup;
+    	private Lighting lights;
     	private Grid gridGroup;
     	private BranchGroup group;
     	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
@@ -72,24 +72,24 @@ public class GraphicsPane extends JPanel{
             univ = new SimpleUniverse(canvas);
             
             group = new BranchGroup();
-            lightGroup = new Lighting();
+            
+            // Create lights
+            lights = new Lighting();
+            // Create grid
             gridGroup = new Grid();
             
             group.setCapability(BranchGroup.ALLOW_DETACH);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-			group.addChild(lightGroup);
+			group.addChild(lights);
 			group.addChild(gridGroup);
-            
             
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
             //Set clipdistance
             canvas.getView().setBackClipDistance(1000);
             canvas.getView().setFrontClipDistance(0.1);
-
-            
 
             univ.addBranchGraph(group);
             
@@ -106,7 +106,6 @@ public class GraphicsPane extends JPanel{
             OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
             orbit.setSchedulingBounds(bounds);
             vp.setViewPlatformBehavior(orbit);
-            
             
             frame.add(canvas);
 //            frame.addKeyListener(this);
@@ -128,10 +127,6 @@ public class GraphicsPane extends JPanel{
             	thr1.start();
             
         }
-        
-        
-
-
 
 		public void setObject(BranchGroup newModel) {
 			System.out.println("Update achieved");
@@ -143,10 +138,10 @@ public class GraphicsPane extends JPanel{
             group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
             group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 
-            lightGroup.detach();
+            lights.detach();
             gridGroup.detach();
             
-            group.addChild(lightGroup);
+            group.addChild(lights);
             group.addChild(gridGroup);
 			univ.addBranchGraph(group);
 
@@ -155,6 +150,13 @@ public class GraphicsPane extends JPanel{
 		
 			
 		}
-
 		
+		public Lighting getLights() {
+			return lights;
+		}
+
+		public void setLights(Lighting lights) {
+			this.lights = lights;
+		}
+
     }

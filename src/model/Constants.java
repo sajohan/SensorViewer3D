@@ -25,6 +25,10 @@ public class Constants {
     public static final int SCALE_MIN = -10;
     public static final int SCALE_MAX = 10;
     public static final int SCALE_INIT = 0;    //initial scale
+    
+    public static final int BRIGHT_MIN = 1;
+    public static final int BRIGHT_MAX = 10;
+    public static final int BRIGHT_INIT = 5;    //initial scale
 
     public static final int SCALE_SPEED = 20;    //Speed at which the scale slider will zoom
     

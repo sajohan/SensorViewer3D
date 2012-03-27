@@ -17,11 +17,17 @@ public class Lighting extends BranchGroup{
 	private DirectionalLight lightz;
 	private DirectionalLight lightzz;
 	private Color3f lightColor;
-	private BranchGroup lights;
 	
 	public Lighting(){
 		lightColor = new Color3f(0.5f, 0.5f, 0.5f);
 		createLights();
+		// Allow write access
+		lighty.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		lightyy.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		lightx.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		lightxx.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		lightz.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		lightzz.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
 	}
 	
 	public void setBrightness(float brightness){

@@ -50,7 +50,7 @@ public class OptionsPanel extends JPanel{
 	private ImageIcon cameraIcon;
 
 	private JSlider scaleslider;
-	private JSlider brigthslider;
+	private JSlider brightSlider;
 
 	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -81,7 +81,7 @@ public class OptionsPanel extends JPanel{
 		
 		// Create slider for brightness
 		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
-		brigthslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.brightslider);
+		brightSlider = createSlider(JSlider.HORIZONTAL, BRIGHT_MIN, BRIGHT_MAX, BRIGHT_INIT, Constants.brightslider);
 
 		// Add action listeners
 		handButton.addActionListener((ActionListener)eventListener);
@@ -90,6 +90,7 @@ public class OptionsPanel extends JPanel{
 		cameraButton.addActionListener((ActionListener)eventListener);
 		cameraButton.addMouseListener(new PopupListener());
 		scaleslider.addChangeListener((ChangeListener)eventListener);
+		brightSlider.addChangeListener((ChangeListener)eventListener);
 
 		// Add to toolbar
 		super.add(handButton);
@@ -99,7 +100,7 @@ public class OptionsPanel extends JPanel{
 		super.add(sliderLabel);
 		super.add(scaleslider);
 		super.add(brigthLabel);
-		super.add(brigthslider);
+		super.add(brightSlider);
 
 	}
 

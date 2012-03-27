@@ -5,12 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JToggleButton;
 
-import controller.MenuBarListener;
 
 public class MenuBar extends JMenuBar implements ActionListener {
 
@@ -56,6 +57,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public JMenu createView() {
 		JMenu viewMenu = new JMenu("View");
 		viewMenu.setMnemonic(KeyEvent.VK_V);
+		
+		//Axes visibility checkbox
+		JCheckBoxMenuItem axesVisibility = new JCheckBoxMenuItem("Axes Visibility");
+		axesVisibility.setModel(new JToggleButton.ToggleButtonModel());
+		axesVisibility.setState(true);
+		axesVisibility.setActionCommand("axesVis");
+		axesVisibility.addActionListener(al);
+		viewMenu.add(axesVisibility);
+		
+		
 		return viewMenu;
 
 	}

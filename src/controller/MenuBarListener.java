@@ -6,12 +6,10 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import view.MenuBar;
 
 public class MenuBarListener extends Observable implements ActionListener {
 
@@ -27,6 +25,11 @@ public class MenuBarListener extends Observable implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem source = (JMenuItem) (e.getSource());
+//		System.out.println(source.getParent().get);
+		if(source.getParent().equals("View")){
+			System.out.println("tja");
+		}
+		
 		if (source.getActionCommand().equals("import")) {
 			int returnVal = fc.showOpenDialog(null);
 
@@ -40,8 +43,11 @@ public class MenuBarListener extends Observable implements ActionListener {
 			} else {
 				System.out.println("No file selected");
 			}
+		}else if(source.getActionCommand().equals("axesVis")){
+			JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem)source;
+			setChanged();
+			notifyObservers(checkBox);
 		}
 
 	}
-
 }

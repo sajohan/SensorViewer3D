@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.media.j3d.BranchGroup;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSlider;
 
 import model.Constants;
@@ -41,8 +42,18 @@ public class Main implements Observer {
 	@Override
 	public void update(Observable obs, Object obj) {
 		if (obs instanceof MenuBarListener) {
-			BranchGroup tempGroup = objLoader.getObject((File) obj);
-			gui.loadNewGraphicsWindow(tempGroup);
+			if(obj instanceof File){
+				BranchGroup tempGroup = objLoader.getObject((File) obj);
+				gui.loadNewGraphicsWindow(tempGroup);
+			//Is it a checkbox
+			}else if(obj instanceof JCheckBoxMenuItem){
+				JCheckBoxMenuItem chkBox = (JCheckBoxMenuItem)obj;
+				//Toggle visibility
+				if(chkBox.getActionCommand().equals("axesVis")){
+					System.out.println(chkBox.getState());
+					gui.getGraphicsPane().getGrid().axesVisibility(chkBox.getState());
+				}
+			}
 
 		} else if (obs instanceof OptionsPanelListener) {
 			if (obj instanceof JSlider) {

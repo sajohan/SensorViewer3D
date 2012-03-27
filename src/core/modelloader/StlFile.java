@@ -841,10 +841,9 @@ public class StlFile implements Loader {
 		}
 		setBasePath(sb.toString());
 	} // End of setBasePathFromFilename
-	
-	
+
 	public Scene load(File chosenfile) throws FileNotFoundException,
-	IncorrectFormatException, ParsingErrorException {
+			IncorrectFormatException, ParsingErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -880,6 +879,5 @@ public class StlFile implements Loader {
 	public void setObjectName(String name) {
 		this.objectName = name;
 	}
-
 
 } // End of package stl_loader

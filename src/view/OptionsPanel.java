@@ -36,7 +36,7 @@ import static model.Constants.*;
  * @author Simon
  * 
  */
-public class OptionsPanel extends JPanel{
+public class OptionsPanel extends JPanel {
 
 	private JPopupMenu cameraPopupMenu;
 	private JButton handButton;
@@ -77,20 +77,22 @@ public class OptionsPanel extends JPanel{
 
 		// Create slider for scaling
 		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
-		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.scaleslider);
-		
+		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX,
+				SCALE_INIT, Constants.scaleslider);
+
 		// Create slider for brightness
 		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
-		brightSlider = createSlider(JSlider.HORIZONTAL, BRIGHT_MIN, BRIGHT_MAX, BRIGHT_INIT, Constants.brightslider);
+		brightSlider = createSlider(JSlider.HORIZONTAL, BRIGHT_MIN, BRIGHT_MAX,
+				BRIGHT_INIT, Constants.brightslider);
 
 		// Add action listeners
-		handButton.addActionListener((ActionListener)eventListener);
-		sensorButton.addActionListener((ActionListener)eventListener);
-		selectionButton.addActionListener((ActionListener)eventListener);
-		cameraButton.addActionListener((ActionListener)eventListener);
+		handButton.addActionListener((ActionListener) eventListener);
+		sensorButton.addActionListener((ActionListener) eventListener);
+		selectionButton.addActionListener((ActionListener) eventListener);
+		cameraButton.addActionListener((ActionListener) eventListener);
 		cameraButton.addMouseListener(new PopupListener());
-		scaleslider.addChangeListener((ChangeListener)eventListener);
-		brightSlider.addChangeListener((ChangeListener)eventListener);
+		scaleslider.addChangeListener((ChangeListener) eventListener);
+		brightSlider.addChangeListener((ChangeListener) eventListener);
 
 		// Add to toolbar
 		super.add(handButton);
@@ -151,7 +153,8 @@ public class OptionsPanel extends JPanel{
 		return cameraMenu;
 	}
 
-	public JSlider createSlider(int facing, int min, int max, int init, String name) {
+	public JSlider createSlider(int facing, int min, int max, int init,
+			String name) {
 		JSlider slider = new JSlider(facing, min, max, init);
 		// These should probably be constants..
 		slider.setMinorTickSpacing(1);
@@ -159,30 +162,6 @@ public class OptionsPanel extends JPanel{
 		slider.setName(name);
 		return slider;
 	}
-/*
-	/**
-	 * Listeners for the buttons
-	 *
-	public void actionPerformed(ActionEvent e) {
-
-		if (Constants.handbutton.equals(e.getActionCommand())) {
-			System.out.println("Handtool Enabled");
-			// TODO
-		}
-		if (Constants.addsensorbutton.equals(e.getActionCommand())) {
-			System.out.println("Add Sensortool Enabled");
-			// TODO
-		}
-		if (Constants.selectionbutton.equals(e.getActionCommand())) {
-			System.out.println("Selector Tool Enabled");
-			// TODO
-		}
-		if (Constants.camerabutton.equals(e.getActionCommand())) {
-			System.out.println("Cameras are on you....");
-			// TODO
-		}
-	}
-*/
 
 	/**
 	 * Listener for the popup menu
@@ -203,52 +182,5 @@ public class OptionsPanel extends JPanel{
 
 		}
 	}
-	/*
-	class SliderListener implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-
-		    JSlider source = (JSlider)e.getSource();
-		    if(source.getName().equals(Constants.brightslider)){
-			    if (!source.getValueIsAdjusting()) {
-			    	
-			    	int newscale = (int)source.getValue();
-			    	//Float f = Float.parseFloat(newscale);
-			    	
-			    	// set scale make call here
-			    	System.out.println("Brigthness set to " + newscale + "");
-			    	
-			    }
-		    }
-		    if(source.getName().equals(Constants.scaleslider)){
-			    if (!source.getValueIsAdjusting()) {
-			    	
-					int newscale = (int)source.getValue();
-					// set scale make call here
-					System.out.println("Scale set to " + newscale + "");
-					Robot robot = null;
-					try {
-						robot = new Robot();
-					} catch (AWTException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						System.out.println("Robot object was not initialized");
-					}
-					
-					/*
-					 * moves the mousepointer to center of 3D frame position, scrolls
-					 *
-//					int RenderFrameCenterY = GUI.getGraphicsPane().getLocationOnScreen().y + (GUI.getGraphicsPane().getHeight() / 2);
-//					int RenderFrameCenterX = GUI.getGraphicsPane().getLocationOnScreen().x + (GUI.getGraphicsPane().getWidth() / 2);
-//					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);            
-//					robot.mousePress(InputEvent.BUTTON1_MASK);
-//		            robot.mouseRelease(InputEvent.BUTTON1_MASK);
-//					robot.mouseWheel(newscale * SCALE_SPEED);
-//					scaleslider.setValue(SCALE_INIT); //reset the slider to center value
-			    	
-			    }
-		    }
-		}
-
-	}*/
 
 }

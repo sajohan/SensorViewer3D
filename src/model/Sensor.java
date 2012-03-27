@@ -3,22 +3,21 @@ package model;
 import java.io.Serializable;
 
 public class Sensor implements Serializable {
-	
+
 	/**
-	 * Title: Sensor
-	 * Description: A class that controls the sensor
+	 * Title: Sensor Description: A class that controls the sensor
 	 * 
 	 * @author dannic
-	 *
+	 * 
 	 */
-	
+
 	private SensorValues values;
-	
-	public Sensor(){
-		
+
+	public Sensor() {
+
 		// Init reading
 		// Serial flow from hardware
-		
+
 		values = new SensorValues();
 	}
 

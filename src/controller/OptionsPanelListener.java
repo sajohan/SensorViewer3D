@@ -15,8 +15,7 @@ import javax.swing.event.ChangeListener;
 
 import model.Constants;
 
-public class OptionsPanelListener extends Observable implements ActionListener,
-		ChangeListener {
+public class OptionsPanelListener extends Observable implements ActionListener {
 
 	public OptionsPanelListener() {
 	}
@@ -48,12 +47,5 @@ public class OptionsPanelListener extends Observable implements ActionListener,
 		}
 	}
 
-	@Override
-	public void stateChanged(ChangeEvent e) {
-
-		JSlider source = (JSlider) e.getSource();
-		setChanged();
-		notifyObservers(source);
-	}
 
 }

@@ -55,7 +55,7 @@ public class Main implements Observer {
 				}
 			}
 
-		} else if (obs instanceof OptionsPanelListener) {
+		} else if (obs instanceof StatusPanelListener) {
 			if (obj instanceof JSlider) {
 				JSlider source = (JSlider) obj;
 				if (source.getName().equals(Constants.brightslider)) {

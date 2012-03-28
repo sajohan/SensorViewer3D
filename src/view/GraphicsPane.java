@@ -72,7 +72,8 @@ public class GraphicsPane extends JPanel {
 		canvas.setSize(new Dimension(400, 400));
 
 		univ = new SimpleUniverse(canvas);
-		
+		//create branchgroup, add light and grid to it
+		group = new BranchGroup();
 		setUpLightAndGrid();
 
 		//set up view to nominal viewing transform
@@ -82,8 +83,6 @@ public class GraphicsPane extends JPanel {
 		// Set clipdistance
 		canvas.getView().setBackClipDistance(1000);
 		canvas.getView().setFrontClipDistance(0.1);
-
-		univ.addBranchGraph(group);
 
 		// Make camera moveable (OrbitBehavior)
 		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
@@ -103,20 +102,17 @@ public class GraphicsPane extends JPanel {
 
 	public void setObject(BranchGroup newModel) {
 		System.out.println("Update achieved");
+		
+		//detatch branchgroup from its parent, replace with new branchgroup
 		group.detach();
-		// univ.getLocale().removeBranchGraph(group);
 		group = newModel;
-		group.setCapability(BranchGroup.ALLOW_DETACH);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-
+		
+		//detatch light and grid
 		lights.detach();
 		grid.detach();
-
-		group.addChild(lights);
-		group.addChild(grid);
-		univ.addBranchGraph(group);
+		//re-setup light and grid
+		setUpLightAndGrid();
+		
 
 		univ.getViewingPlatform().setNominalViewingTransform();
 //		
@@ -150,10 +146,9 @@ public class GraphicsPane extends JPanel {
 	}
 	
 	/*
-	 * Sets up the light in the universe
+	 * Sets up the light and x,y,z origo axes in the universe.
 	 */
 	public void setUpLightAndGrid(){
-		group = new BranchGroup();
 		// Create lights
 		lights = new Lighting();
 		// Create grid
@@ -165,6 +160,8 @@ public class GraphicsPane extends JPanel {
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		group.addChild(lights);
 		group.addChild(grid);
+		
+		univ.addBranchGraph(group);
 		
 	}
 	

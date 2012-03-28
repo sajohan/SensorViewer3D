@@ -99,7 +99,10 @@ public class GraphicsPane extends JPanel {
 		
 		enableResize(canvas,500);
 	}
-
+	/*
+	 * Removes old branchgroup, adds "newModel" to it instead.
+	 * @param BranchGroup newModel	the object to replace the current objects in the branchgroup
+	 */
 	public void setObject(BranchGroup newModel) {
 		System.out.println("Update achieved");
 		
@@ -114,18 +117,19 @@ public class GraphicsPane extends JPanel {
 		setUpLightAndGrid();
 		
 
-		univ.getViewingPlatform().setNominalViewingTransform();
+//		univ.getViewingPlatform().setNominalViewingTransform();
 //		
 //        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
 //        view_tf3d = new Transform3D();
 //        view_tg.getTransform(view_tf3d);
 //		
-//		view_tf3d.lookAt(new Point3d(0d,0d,10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
+//		view_tf3d.lookAt(new Point3d(0d,0d,-10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
 //        view_tf3d.invert();
 	}
 
 	/*
-	 * Creates a thread that resizes graphicsPane every "delay" ms.
+	 * Creates a thread that resizes the canvas to the size of the JPanel (this)
+	 * every "delay" ms.
 	 * @param Canvas3D	canvas	the canvas to be resized.
 	 * @param int		delay	how long the thread will sleep between resizing.
 	 */

@@ -93,10 +93,14 @@ public class GraphicsPane extends JPanel {
 		
 		enableResize(canvas,500);
 	}
-
+	/**
+	 * Removes old branchgroup, adds "newModel" to it instead.
+	 * @param BranchGroup newModel	the object to replace the current objects in the branchgroup
+	 */
 	public void setObject(BranchGroup newModel) {
 		System.out.println("Update achieved");
 
+		//detatch branchgroup from its parent, replace with new branchgroup
 		group.detach();
 
 		
@@ -121,7 +125,7 @@ public class GraphicsPane extends JPanel {
 		group.addChild(grid);
 		univ.addBranchGraph(group);
 
-		univ.getViewingPlatform().setNominalViewingTransform();
+//		univ.getViewingPlatform().setNominalViewingTransform();
 //		
 //        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
 //        view_tf3d = new Transform3D();
@@ -132,7 +136,8 @@ public class GraphicsPane extends JPanel {
 	}
 
 	/**
-	 * Creates a thread that resizes graphicsPane every "delay" ms.
+	 * Creates a thread that resizes the canvas to the size of the JPanel (this)
+	 * every "delay" ms.
 	 * @param Canvas3D	canvas	the canvas to be resized.
 	 * @param int		delay	how long the thread will sleep between resizing.
 	 */
@@ -153,7 +158,7 @@ public class GraphicsPane extends JPanel {
 	}
 	
 	/**
-	 * Sets up the light in the universe
+	 * Sets up the light and x,y,z origo axes in the universe.
 	 */
 	public void setUpLightAndGrid(){
 

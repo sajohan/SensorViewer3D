@@ -182,8 +182,9 @@ public class GraphicsPane extends JPanel {
         case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
         }
 		
-        view_tf3d.invert(); //Transform3D.lookAt() requres .invert() after each use
-        view_tg.setTransform(view_tf3d); //
+        //Note: Transform3D.lookAt() requires .invert() call after each use
+        view_tf3d.invert(); 
+        view_tg.setTransform(view_tf3d); //Perform the camera move
 	}
 	/*
 	 * Sets up the light and x,y,z origo axes in the universe.

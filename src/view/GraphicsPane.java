@@ -42,6 +42,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
+import static model.Constants.*;
 
 /**
  * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but
@@ -119,7 +120,10 @@ public class GraphicsPane extends JPanel {
 		//detatch branchgroup from its parent, replace with new branchgroup
 		group.detach();
 		group = newModel;
-		
+		group.setCapability(BranchGroup.ALLOW_DETACH);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		//detatch light and grid
 		lights.detach();
 		grid.detach();
@@ -128,13 +132,7 @@ public class GraphicsPane extends JPanel {
 		
 
 //		univ.getViewingPlatform().setNominalViewingTransform();
-//		
-//        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
-//        view_tf3d = new Transform3D();
-//        view_tg.getTransform(view_tf3d);
-//		
-//		view_tf3d.lookAt(new Point3d(0d,0d,-10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
-//        view_tf3d.invert();
+		lockOnAxle(CAM_LOCK_X, false);
 	}
 
 	/*
@@ -159,6 +157,34 @@ public class GraphicsPane extends JPanel {
 		thr1.start();
 	}
 	
+	/*
+	 * Places camera on the axle provided as argument.
+	 * @param int	axle	from Model.Constants the axle(x,y or z) to place the camera
+	 */
+	public void lockOnAxle(int axle, boolean reversed) {
+		//get transformgroup number one (the camera), put it in view_tf3d variable
+        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
+        view_tf3d = new Transform3D();
+        view_tg.getTransform(view_tf3d);
+        //get constant camera distance from origo,
+        //reverse if argument "reversed" demands so
+        double camDistance = CAM_DISTANCE;
+        if(reversed)
+        	camDistance = (-camDistance);
+        
+        //using the camera's transformgroup, place the camera at CAM_DISTANCE
+        //from origo on the axis provided in the mathod argument
+        //note to self: argument 1 to lookAt() (eye position) 
+        //may never include z = 0 when placing camera on Y-axis
+        switch(axle){
+        case CAM_LOCK_X: view_tf3d.lookAt(new Point3d(camDistance,0d,0d),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
+        case CAM_LOCK_Y: view_tf3d.lookAt(new Point3d(0d,camDistance,0.1d),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
+        case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
+        }
+		
+        view_tf3d.invert(); //Transform3D.lookAt() requres .invert() after each use
+        view_tg.setTransform(view_tf3d); //
+	}
 	/*
 	 * Sets up the light and x,y,z origo axes in the universe.
 	 */

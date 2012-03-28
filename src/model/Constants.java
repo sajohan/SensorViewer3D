@@ -31,5 +31,12 @@ public class Constants {
 
 	public static final int SCALE_SPEED = 20; // Speed at which the scale slider
 												// will zoom
-
+	/*
+	 * Camera constants
+	 */
+	//lock camera on x or y or z axle
+	public static final int CAM_LOCK_X = 1;
+	public static final int CAM_LOCK_Y = 2;
+	public static final int CAM_LOCK_Z = 3;
+	public static final double CAM_DISTANCE = 4d;// camera distance from origo
 }

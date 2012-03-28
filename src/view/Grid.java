@@ -13,7 +13,8 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 
 /**
- * Title:Grid and axes Description: Draws grid and axes
+ * Title:Grid and axes 
+ * Description: Draws grid and axes
  * 
  * @author sajohan
  * 

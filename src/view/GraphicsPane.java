@@ -196,6 +196,7 @@ public class GraphicsPane extends JPanel {
 		lights = new Lighting();
 		// Create grid
 		grid = new Grid();
+		grid.setPickable(false);
 
 		group.addChild(lights);
 		group.addChild(grid);

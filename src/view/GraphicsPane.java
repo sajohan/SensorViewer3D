@@ -86,24 +86,18 @@ public class GraphicsPane extends JPanel {
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		group.addChild(lights);
 		group.addChild(grid);
-
+		
+		//set up view to nominal viewing transform
 		ViewingPlatform vp = univ.getViewingPlatform();
 		vp.setNominalViewingTransform();
+		
 		// Set clipdistance
 		canvas.getView().setBackClipDistance(1000);
 		canvas.getView().setFrontClipDistance(0.1);
 
 		univ.addBranchGraph(group);
 
-		// Old camera
-		// OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
-		//
-		// Camera cam = new Camera(vp);
-		// canvas.addMouseMotionListener(cam);
-		//
-		// canvas.addMouseMotionListener(originCam);
-
-		// Make camera moveable
+		// Make camera moveable (OrbitBehavior)
 		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
 				10000.0);
 		OrbitBehavior orbit = new OrbitBehavior(canvas,
@@ -111,26 +105,12 @@ public class GraphicsPane extends JPanel {
 		orbit.setSchedulingBounds(bounds);
 		vp.setViewPlatformBehavior(orbit);
 
+		//set up and make frame visible
 		frame.add(canvas);
-		// frame.addKeyListener(this);
 		frame.pack();
 		frame.setVisible(true);
-
-		// Thread resizes java3D window every 500msec
-		Runnable r1 = new Runnable() {
-			public void run() {
-				try {
-					while (true) {
-						canvas.setSize(getWidth(), getHeight());
-						Thread.sleep(500L);
-					}
-				} catch (InterruptedException iex) {
-				}
-			}
-		};
-		Thread thr1 = new Thread(r1);
-		thr1.start();
-
+		
+		enableResize(canvas,500);
 	}
 
 	public void setObject(BranchGroup newModel) {
@@ -151,9 +131,36 @@ public class GraphicsPane extends JPanel {
 		univ.addBranchGraph(group);
 
 		univ.getViewingPlatform().setNominalViewingTransform();
-
+//		
+//        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
+//        view_tf3d = new Transform3D();
+//        view_tg.getTransform(view_tf3d);
+//		
+//		view_tf3d.lookAt(new Point3d(0d,0d,10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
+//        view_tf3d.invert();
 	}
 
+	/*
+	 * Creates a thread that resizes graphicsPane every "delay" ms.
+	 * @param Canvas3D	canvas	the canvas to be resized.
+	 * @param int		delay	how long the thread will sleep between resizing.
+	 */
+	public void enableResize(final Canvas3D canvas, final int delay) {
+		Runnable r1 = new Runnable() {
+			public void run() {
+				try {
+					while (true) {
+						canvas.setSize(getWidth(), getHeight());
+						Thread.sleep(delay);
+					}
+				} catch (InterruptedException iex) {
+				}
+			}
+		};
+		Thread thr1 = new Thread(r1);
+		thr1.start();
+	}
+	
 	public Lighting getLights() {
 		return lights;
 	}

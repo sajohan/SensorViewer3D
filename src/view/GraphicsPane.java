@@ -72,10 +72,10 @@ public class GraphicsPane extends JPanel {
 		canvas.setSize(new Dimension(400, 400));
 
 		univ = new SimpleUniverse(canvas);
-<<<<<<< HEAD
+
 		//create branchgroup, add light and grid to it
 		group = new BranchGroup();
-=======
+
 		
 		//Set up branchgroup
 		group = new BranchGroup();
@@ -84,8 +84,6 @@ public class GraphicsPane extends JPanel {
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		
-		
->>>>>>> branch 'master' of ssh://git@github.com/sajohan/SensorViewer3D.git
 		setUpLightAndGrid();
 
 		//set up view to nominal viewing transform
@@ -165,10 +163,7 @@ public class GraphicsPane extends JPanel {
 	 * Sets up the light and x,y,z origo axes in the universe.
 	 */
 	public void setUpLightAndGrid(){
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of ssh://git@github.com/sajohan/SensorViewer3D.git
 		// Create lights
 		lights = new Lighting();
 		// Create grid

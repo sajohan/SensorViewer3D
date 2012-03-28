@@ -17,12 +17,18 @@ import javax.swing.event.ChangeListener;
 
 import model.Constants;
 
+/**
+ * South status panel
+ * 
+ * @author dannic
+ * 
+ */
+
 public class StatusPanel extends JPanel{
 	
 	private JSlider scaleslider;
 	private JSlider brightSlider;
 	
-
 	public StatusPanel(EventListener eventListener) {
 		super.setLayout(new FlowLayout());
 		

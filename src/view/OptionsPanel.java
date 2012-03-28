@@ -51,6 +51,9 @@ public class OptionsPanel extends JPanel {
 
 	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		// Fix overlapping on Canvas3D with this call
+		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
 		// Read icons
 		handIcon = new ImageIcon(Constants.handIconURI);

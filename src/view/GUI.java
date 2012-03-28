@@ -61,6 +61,10 @@ public class GUI {
 		JPanel statuspanel = new StatusPanel(statuspanelListener);
 		contentPane.add(statuspanel,BorderLayout.SOUTH);
 		
+		// Add tree panel
+		JPanel treepanel = new TreePanel();
+		contentPane.add(treepanel,BorderLayout.EAST);
+		
 		
 		frame.setJMenuBar(menu);
 

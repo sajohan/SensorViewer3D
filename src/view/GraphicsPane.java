@@ -73,6 +73,14 @@ public class GraphicsPane extends JPanel {
 
 		univ = new SimpleUniverse(canvas);
 		
+		//Set up branchgroup
+		group = new BranchGroup();
+		group.setCapability(BranchGroup.ALLOW_DETACH);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
+		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+		
+		
 		setUpLightAndGrid();
 
 		//set up view to nominal viewing transform
@@ -153,16 +161,12 @@ public class GraphicsPane extends JPanel {
 	 * Sets up the light in the universe
 	 */
 	public void setUpLightAndGrid(){
-		group = new BranchGroup();
+
 		// Create lights
 		lights = new Lighting();
 		// Create grid
 		grid = new Grid();
 
-		group.setCapability(BranchGroup.ALLOW_DETACH);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
-		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		group.addChild(lights);
 		group.addChild(grid);
 		

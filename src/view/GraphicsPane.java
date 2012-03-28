@@ -2,53 +2,30 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
-import java.util.Observable;
-import java.util.Observer;
 
-import com.sun.j3d.exp.swing.JCanvas3D;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.geometry.Cone;
-import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
-import controller.MenuBarListener;
-
+import core.Picker;
 import core.modelloader.ObjectLoader;
 
-import javax.media.j3d.AmbientLight;
-import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
-import javax.media.j3d.ColoringAttributes;
-import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.LineArray;
-import javax.media.j3d.LineAttributes;
-import javax.media.j3d.PointLight;
-import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
 import static model.Constants.*;
 
 /**
  * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but
  * breaks coordinates etc...
  * 
- * @author Nyx
+ * @author Nyx, sajohan, dannic, chrfra
  */
 public class GraphicsPane extends JPanel {
 
@@ -60,6 +37,7 @@ public class GraphicsPane extends JPanel {
 	private Lighting lights;
 	private Grid grid;
 	private BranchGroup group;
+	private final Canvas3D canvas;
 	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
 
 	public GraphicsPane(JFrame frame) {
@@ -68,15 +46,11 @@ public class GraphicsPane extends JPanel {
 
 		GraphicsConfiguration config = SimpleUniverse
 				.getPreferredConfiguration();
-		final Canvas3D canvas = new Canvas3D(config);
+		canvas = new Canvas3D(config);
 
 		canvas.setSize(new Dimension(400, 400));
 
 		univ = new SimpleUniverse(canvas);
-
-		//create branchgroup, add light and grid to it
-		group = new BranchGroup();
-
 		
 		//Set up branchgroup
 		group = new BranchGroup();
@@ -84,6 +58,8 @@ public class GraphicsPane extends JPanel {
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+		
+		
 		
 		setUpLightAndGrid();
 
@@ -94,10 +70,18 @@ public class GraphicsPane extends JPanel {
 		// Set clipdistance
 		canvas.getView().setBackClipDistance(1000);
 		canvas.getView().setFrontClipDistance(0.1);
-
-		// Make camera moveable (OrbitBehavior)
+		
 		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
 				10000.0);
+		
+		// Setup picking
+		Picker picker = new Picker(canvas, group, bounds);
+		group.addChild(picker);
+		
+		
+		univ.addBranchGraph(group);
+
+		// Make camera moveable (OrbitBehavior)
 		OrbitBehavior orbit = new OrbitBehavior(canvas,
 				OrbitBehavior.REVERSE_ALL);
 		orbit.setSchedulingBounds(bounds);
@@ -110,32 +94,50 @@ public class GraphicsPane extends JPanel {
 		
 		enableResize(canvas,500);
 	}
-	/*
+	/**
 	 * Removes old branchgroup, adds "newModel" to it instead.
 	 * @param BranchGroup newModel	the object to replace the current objects in the branchgroup
 	 */
 	public void setObject(BranchGroup newModel) {
 		System.out.println("Update achieved");
-		
+
 		//detatch branchgroup from its parent, replace with new branchgroup
 		group.detach();
+
+		
+		// univ.getLocale().removeBranchGraph(group);
 		group = newModel;
 		group.setCapability(BranchGroup.ALLOW_DETACH);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-		//detatch light and grid
+		
+		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
+				10000.0);
+		
+		//Set picker on the new group
+		Picker picker = new Picker(canvas, group, bounds);
+		group.addChild(picker);
+		
 		lights.detach();
 		grid.detach();
-		//re-setup light and grid
-		setUpLightAndGrid();
-		
+
+		group.addChild(lights);
+		group.addChild(grid);
+		univ.addBranchGraph(group);
 
 //		univ.getViewingPlatform().setNominalViewingTransform();
+//		
+//        view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
+//        view_tf3d = new Transform3D();
+//        view_tg.getTransform(view_tf3d);
+//		
+//		view_tf3d.lookAt(new Point3d(0d,0d,10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
+//        view_tf3d.invert();
 		lockOnAxle(CAM_LOCK_X, false);
 	}
 
-	/*
+	/**
 	 * Creates a thread that resizes the canvas to the size of the JPanel (this)
 	 * every "delay" ms.
 	 * @param Canvas3D	canvas	the canvas to be resized.
@@ -198,8 +200,6 @@ public class GraphicsPane extends JPanel {
 
 		group.addChild(lights);
 		group.addChild(grid);
-		
-		univ.addBranchGraph(group);
 		
 	}
 	

@@ -21,6 +21,11 @@ import javax.vecmath.Point3f;
  */
 
 public class Grid extends BranchGroup {
+	
+	//Line width
+	private static final float axesLineWidth = 2.0f;
+	
+	
 	// Axes
 	private Shape3D xAxis;
 	private Shape3D yAxis;
@@ -42,7 +47,7 @@ public class Grid extends BranchGroup {
 
 		// Make the pattern dashed
 		LineAttributes dashLa = new LineAttributes();
-		dashLa.setLineWidth(1.0f);
+		dashLa.setLineWidth(axesLineWidth);
 		dashLa.setLinePattern(LineAttributes.PATTERN_DASH);
 		dashLa.setLineAntialiasingEnable(true);
 		redApp.setLineAttributes(dashLa);

@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +25,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import model.Constants;
 
@@ -43,7 +43,13 @@ public class OptionsPanel extends JPanel {
 	private JButton sensorButton;
 	private JButton selectionButton;
 	private JButton cameraButton;
+	private JLabel cameraLabel;
+	//camera mode buttons
+	private JButton LockX;
+	private JButton LockXR;
+	private JButton freeView;
 
+	
 	private ImageIcon handIcon;
 	private ImageIcon addSensorIcon;
 	private ImageIcon selectionIcon;
@@ -68,37 +74,61 @@ public class OptionsPanel extends JPanel {
 				Constants.addsensorbutton);
 		selectionButton = createButton(selectionIcon,
 				Constants.selectiontooltip, Constants.selectionbutton);
-		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
-				Constants.camerabutton);
+		
+		//padding between buttons and "camera:" label
+		JLabel padding = new JLabel(" ");
+		padding.setFont(new Font("arial",Font.BOLD,1));
+		
+		cameraLabel = new JLabel("Camera:");
+		
+//		cameraLabel = new JButton("Cam:");
+//		cameraLabel.setEnabled(false);
+
+		freeView = new JButton("Free   ");
+		LockX = new JButton("Lock X");
+		LockXR = new JButton("Lock-X");
+
+//		freeView.setMinimumSize(new Dimension(cameraLabel.getSize().width, freeView.getHeight()));
+
+//		selectionButton.setText(text)
+//		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
+//				Constants.camerabutton);
+//		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
+//				Constants.camerabutton);
 		// sensorButton = createSensorCreationButton();
 		// selectionButton = createSelectionButton();
 		// cameraButton = createCameraButton();
-		cameraPopupMenu = createCameraMenu();
+		
+//				cameraPopupMenu = createCameraMenu(); //no longer using camera popup menu
 
 		// Add action listeners
 		handButton.addActionListener((ActionListener) eventListener);
 		sensorButton.addActionListener((ActionListener) eventListener);
 		selectionButton.addActionListener((ActionListener) eventListener);
-		cameraButton.addActionListener((ActionListener) eventListener);
-		cameraButton.addMouseListener(new PopupListener());
+		freeView.addActionListener((ActionListener) eventListener);
+		LockX.addActionListener((ActionListener) eventListener);
+		LockXR.addActionListener((ActionListener) eventListener);
+//		cameraButton.addActionListener((ActionListener) eventListener);
+//		cameraButton.addMouseListener(new PopupListener());
 
 		// Add to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
-		super.add(cameraButton);
+		super.add(padding);
+		super.add(cameraLabel);
+		super.add(freeView);
+		super.add(LockX);
+		super.add(LockXR);
 
 	}
 
 	/**
 	 * Creates a JButton with an icon
 	 * 
-	 * @param the
-	 *            icon for the button
-	 * @param the
-	 *            tooltip for the button as a string
-	 * @param the
-	 *            action command string
+	 * @param ico	the icon for the button
+	 * @param the tooltip for the button as a string
+	 * @param the action command string
 	 * @return JButton
 	 */
 	private JButton createButton(ImageIcon ico, String tooltip,

@@ -750,8 +750,9 @@ public class StlFile implements Loader {
 		app.setCapability(Appearance.ALLOW_MATERIAL_WRITE);
 		Material mat = new Material();
 		mat.setCapability(Material.ALLOW_COMPONENT_WRITE);
-		mat.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
-		mat.setSpecularColor(new Color3f(1.0f, 0.0f, 0.0f));
+		mat.setDiffuseColor(new Color3f(0.7f, 0.7f, 0.7f));
+		mat.setSpecularColor(new Color3f(0.7f, 0.7f, 0.7f));
+		mat.setEmissiveColor(0.7f, 0.7f,0.7f);
 		app.setMaterial(mat);
 		return app;
 	}

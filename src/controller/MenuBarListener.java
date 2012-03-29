@@ -10,6 +10,8 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import view.GUI;
+
 
 public class MenuBarListener extends Observable implements ActionListener {
 
@@ -37,6 +39,7 @@ public class MenuBarListener extends Observable implements ActionListener {
 				File file = fc.getSelectedFile();
 				setChanged();
 				notifyObservers(file);
+				GUI.printToStatus("Opened file: " + file.toString());
 				System.out.println("should've been notified");
 				// This is where a real application would open the file.
 				// log.append("Opening: " + file.getName() + "." + newline);

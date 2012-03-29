@@ -70,7 +70,9 @@ public class Main implements Observer {
 						Lighting lights = gp.getLights();
 						// Set brigthness
 						lights.setBrightness(b);
-						System.out.println("Brigthness set to " + b + "");
+						
+						GUI.printToStatus("Brigthness set to " + b);
+						//System.out.println("Brigthness set to " + b + "");
 
 					}
 				}
@@ -107,6 +109,7 @@ public class Main implements Observer {
 						source.setValue(Constants.SCALE_INIT); // reset the
 																// slider to
 																// center value
+						gui.printToStatus("Zoom set to " + newscale);
 
 					}
 				}

@@ -37,7 +37,7 @@ public class GUI {
 	private Observer menuObserver; 
 	private StatusPanelListener statuspanelListener;
 	private static StatusPanel statuspanel;
-	private static ProgressBarPopup progresspopup;
+	private ProgressBarPopup progresspopup;
 
 	// private MenuBar menu = new MenuBar();
 	public void addComponentsToPane(Container contentPane) {
@@ -126,6 +126,22 @@ public class GUI {
 	public static void printToStatus(String text){
 		JLabel label = statuspanel.getStatusLabel();
 		label.setText(text);
+	}
+	
+	/*
+	 * Show progress popup window
+	 * 
+	 */
+	public void showProgress(){
+		this.progresspopup.getDialog();
+	}
+	
+	/*
+	 * Hide progress popup window
+	 * 
+	 */
+	public void hideProgress(){
+		this.progresspopup.removeDialog();
 	}
 
 	public GUI(Observer obs) {

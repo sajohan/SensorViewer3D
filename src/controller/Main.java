@@ -74,6 +74,7 @@ public class Main implements Observer {
 		if(obj instanceof File){
 			
 			ObjectLoader ldr = new ObjectLoader((File) obj, gui);
+			gui.showProgress();
 			ldr.execute();
 //			BranchGroup tempGroup = objLoader.getObject((File) obj);
 //			gui.loadNewGraphicsWindow(tempGroup);

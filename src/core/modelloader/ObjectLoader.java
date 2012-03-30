@@ -170,8 +170,10 @@ public class ObjectLoader extends SwingWorker{
 
 	@Override
 	protected void done() {
-		//JOptionPane.showMessageDialog(null, "Work is done", "Yep", 1);
 		
+		// All done! Hide progress window
+		gui.hideProgress();
 		gui.loadNewGraphicsWindow(this.branch);
+		
 	}
 }

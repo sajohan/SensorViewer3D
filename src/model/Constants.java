@@ -28,6 +28,9 @@ public class Constants {
 
     public static final int SCALE_SPEED = 20;    //Speed at which the scale slider will zoom
     
+    public static final double ACCURACYVALUE = 0.0001;  //The smaller number the higher accuracy
+    
+    
 	
 	
 

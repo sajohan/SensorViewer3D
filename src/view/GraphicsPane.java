@@ -20,6 +20,7 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
 
 import controller.MenuBarListener;
 
+import core.Rotator;
 import core.modelloader.ObjectLoader;
 
 import javax.media.j3d.AmbientLight;
@@ -42,6 +43,10 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
+
+import testGroups.CThreePointsMockCloud;
+import testGroups.CThreePointsMockObject;
+import testGroups.ThreePointsAndACube;
 
 
 /**
@@ -81,8 +86,35 @@ public class GraphicsPane extends JPanel{
             group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 			group.addChild(lightGroup);
 			group.addChild(gridGroup);
+			
+			
+//			/**
+//			 * Uncomment this to see moveTo() in the works.
+//			 */
+//			CThreePointsMockObject CThreePO = new CThreePointsMockObject(group);
+//			CThreePointsMockCloud CThreePO2 = new CThreePointsMockCloud(group);
+//			group.addChild(CThreePO);
+//			group.addChild(CThreePO2);
+//
+//			Transform3D mockMove = new Transform3D();
+//			Transform3D mockRotate = new Transform3D();
+//			mockMove.setTranslation(new Vector3d(20, 19, 18));
+//			mockRotate.rotX(3);
+//			mockMove.mul(mockRotate);
+//			mockRotate.rotY(2);
+//			mockMove.mul(mockRotate);
+//			mockRotate.rotZ(1.111);
+//			mockMove.mul(mockRotate);
+//			CThreePO2.setTransform(mockMove);
+//
+//			
+//			CThreePO.moveTo(CThreePO2);
+
             
-            
+			
+			
+			
+			
             ViewingPlatform vp = univ.getViewingPlatform();
             vp.setNominalViewingTransform();
             //Set clipdistance
@@ -92,6 +124,11 @@ public class GraphicsPane extends JPanel{
             
 
             univ.addBranchGraph(group);
+            
+
+            
+            
+            
             
             //Old camera
 //            OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);

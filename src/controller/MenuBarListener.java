@@ -53,7 +53,12 @@ public class MenuBarListener extends Observable implements ActionListener {
 			JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem)source;
 			setChanged();
 			notifyObservers(checkBox);
+		}else if(source.getActionCommand().equals("gridVis")){
+			JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem)source;
+			setChanged();
+			notifyObservers(checkBox);
 		}
+		
 
 	}
 }

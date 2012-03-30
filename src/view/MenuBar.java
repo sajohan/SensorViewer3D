@@ -61,11 +61,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		//Axes visibility checkbox
 		JCheckBoxMenuItem axesVisibility = new JCheckBoxMenuItem("Axes Visibility");
 		axesVisibility.setModel(new JToggleButton.ToggleButtonModel());
-		axesVisibility.setState(true);
+		axesVisibility.setState(Grid.axesDefaultVis);
 		axesVisibility.setActionCommand("axesVis");
 		axesVisibility.addActionListener(al);
 		viewMenu.add(axesVisibility);
 		
+		
+		JCheckBoxMenuItem gridVisibility = new JCheckBoxMenuItem("Grid Visibility");
+		gridVisibility.setModel(new JToggleButton.ToggleButtonModel());
+		gridVisibility.setState(Grid.gridDefaultVis);
+		gridVisibility.setActionCommand("gridVis");
+		gridVisibility.addActionListener(al);
+		viewMenu.add(gridVisibility);
 		
 		return viewMenu;
 

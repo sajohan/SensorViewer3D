@@ -58,8 +58,9 @@ public class Main implements Observer {
 				JCheckBoxMenuItem chkBox = (JCheckBoxMenuItem)obj;
 				//Toggle visibility
 				if(chkBox.getActionCommand().equals("axesVis")){
-					System.out.println(chkBox.getState());
 					gui.getGraphicsPane().getGrid().axesVisibility(chkBox.getState());
+				}else if(chkBox.getActionCommand().equals("gridVis")){
+					gui.getGraphicsPane().getGrid().gridVisibility(chkBox.getState());
 				}
 			}
 

@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 
 
@@ -39,10 +40,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public JMenu createFile() {
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
-		JMenuItem tempItem = new JMenuItem("Import...");
-		tempItem.setActionCommand("import");
-		tempItem.addActionListener(al);
-		fileMenu.add(tempItem);
+		
+		//Import
+		JMenuItem importItem = new JMenuItem("Import...");
+		importItem.setActionCommand("import");
+		importItem.addActionListener(al);
+		fileMenu.add(importItem);
+		
+		//Divider
+		fileMenu.add(new JSeparator());
+		
+		//Exit
+		JMenuItem exitItem = new JMenuItem("Exit Program");
+		exitItem.setActionCommand("exit");
+		exitItem.addActionListener(al);
+		fileMenu.add(exitItem);
+		
+		
 		return fileMenu;
 
 	}

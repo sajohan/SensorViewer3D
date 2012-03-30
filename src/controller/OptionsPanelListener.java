@@ -32,7 +32,7 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 	 * Listeners for the buttons
 	 */
 	public void actionPerformed(ActionEvent e) {
-		notifyObservers();
+		setChanged();
 		if (Constants.handbutton.equals(e.getActionCommand())) {
 			System.out.println("Handtool Enabled");
 			// TODO
@@ -47,7 +47,7 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 		}
 		if (Constants.camerabutton.equals(e.getActionCommand())) {
 			System.out.println("Cameras are on you....");
-			// TODO
+			notifyObservers();
 		}
 		
 		if (Constants.freeCam.equals(e.getActionCommand())) {
@@ -56,7 +56,7 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 		}
 		if (Constants.cameraXLock.equals(e.getActionCommand())) {
 			System.out.println("cameraXLock");
-			// TODO
+			notifyObservers(e.getSource());
 		}
 		if (Constants.cameraXRLock.equals(e.getActionCommand())) {
 			System.out.println("cameraXRLock");

@@ -1,5 +1,7 @@
 package controller;
 
+import static model.Constants.*;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -8,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.media.j3d.BranchGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSlider;
 
@@ -25,6 +28,7 @@ public class Main implements Observer {
 
 	ObjectLoader objLoader;
 	GUI gui;
+	GraphicsPane graphicsPane;
 
 	/**
 	 * @param args
@@ -38,6 +42,8 @@ public class Main implements Observer {
 	public Main() {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader();
+		// get reference to graphicsPane to move camera on button presses (observavbles)
+		graphicsPane = gui.getGraphicsPane(); 
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 
@@ -116,6 +122,36 @@ public class Main implements Observer {
 					}
 				}
 			}
+		}
+		/*
+		 * event from the options panel
+		 */
+		else if(obs instanceof OptionsPanelListener){
+			if (obj instanceof JButton) {
+				System.out.println("IT'S A JBUTTON");
+				JButton source = (JButton) obj;
+				//determine which button caused the event
+				if(source.getActionCommand().equals(Constants.cameraXLock)){
+					System.out.println("HAKJSAHD");
+//						graphicsPane.lockOnAxle(CAM_LOCK_X, false);
+				}
+				else if(source.getActionCommand().equals(Constants.cameraXRLock)){
+					graphicsPane.lockOnAxle(CAM_LOCK_X, true);
+				}
+				else if(source.getActionCommand().equals(Constants.cameraYLock)){
+					graphicsPane.lockOnAxle(CAM_LOCK_Y, false);
+				}
+				else if(source.getActionCommand().equals(Constants.cameraYRLock)){
+					graphicsPane.lockOnAxle(CAM_LOCK_Y, true);
+				}
+				else if(source.getActionCommand().equals(Constants.cameraZLock)){
+					graphicsPane.lockOnAxle(CAM_LOCK_Z, false);
+				}
+				else if(source.getActionCommand().equals(Constants.cameraYRLock)){
+					graphicsPane.lockOnAxle(CAM_LOCK_Z, true);
+				}
+			}
+			
 		}
 
 	}

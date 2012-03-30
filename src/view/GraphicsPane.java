@@ -48,7 +48,7 @@ public class GraphicsPane extends JPanel {
 
 	public GraphicsPane(JFrame frame) {
 		this.frame = frame;
-		objLoader = new ObjectLoader();
+		objLoader = new ObjectLoader(null, null);
 
 		GraphicsConfiguration config = SimpleUniverse
 				.getPreferredConfiguration();

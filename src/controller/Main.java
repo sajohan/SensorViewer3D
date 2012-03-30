@@ -41,7 +41,7 @@ public class Main implements Observer {
 
 	public Main() {
 		gui = new GUI(this);
-		objLoader = new ObjectLoader();
+		objLoader = new ObjectLoader(null, null);
 		// get reference to graphicsPane to move camera on button presses (observavbles)
 		graphicsPane = gui.getGraphicsPane(); 
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
@@ -72,8 +72,11 @@ public class Main implements Observer {
 	}
 	private void menuBarUpdater(Observable obs, Object obj){
 		if(obj instanceof File){
-			BranchGroup tempGroup = objLoader.getObject((File) obj);
-			gui.loadNewGraphicsWindow(tempGroup);
+			
+			ObjectLoader ldr = new ObjectLoader((File) obj, gui);
+			ldr.execute();
+//			BranchGroup tempGroup = objLoader.getObject((File) obj);
+//			gui.loadNewGraphicsWindow(tempGroup);
 		//Is it a checkbox
 		}else if(obj instanceof JCheckBoxMenuItem){
 			JCheckBoxMenuItem chkBox = (JCheckBoxMenuItem)obj;

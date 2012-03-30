@@ -37,6 +37,7 @@ public class GUI {
 	private Observer menuObserver; 
 	private StatusPanelListener statuspanelListener;
 	private static StatusPanel statuspanel;
+	private static ProgressBarPopup progresspopup;
 
 	// private MenuBar menu = new MenuBar();
 	public void addComponentsToPane(Container contentPane) {
@@ -62,6 +63,8 @@ public class GUI {
 		statuspanelListener = new StatusPanelListener(menuObserver);
 		statuspanel = new StatusPanel(statuspanelListener);
 		contentPane.add(statuspanel,BorderLayout.SOUTH);
+		
+		progresspopup = new ProgressBarPopup();
 		
 		// Add tree panel
 		JPanel treepanel = new TreePanel();

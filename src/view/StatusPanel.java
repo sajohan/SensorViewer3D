@@ -61,7 +61,7 @@ public class StatusPanel extends JPanel{
 		// Add progressbar
 		progress = new JProgressBar();
 		progress.setPreferredSize( new Dimension( 300, 20 ) );
-//		progress.setIndeterminate(true);
+		progress.setIndeterminate(true);
 		progress.setMinimum( 0 );
 		progress.setMaximum( 20 );
 		progress.setValue( 0 );

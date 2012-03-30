@@ -9,7 +9,11 @@ import java.net.URL;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
+import view.GUI;
+import view.GraphicsPane;
 import view.StatusPanel;
 import core.modelloader.StlFile;
 import com.sun.j3d.loaders.IncorrectFormatException;
@@ -20,16 +24,26 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 
 /**
  * Title: Object Loader Description: A loader that loads objects from files.
- * Supported fileformats: .stl
+ * Supported fileformats: .stl, .obj
+ * Uses SwingWorker thread to read objects
  * 
  * @author sajohan, dannic
  * @version 1.0
  * 
  */
 
-public class ObjectLoader {
-
+public class ObjectLoader extends SwingWorker{
+	
+	
 	private File chosenfile = null;
+	private BranchGroup branch = null;
+	private GUI gui;
+	
+	public ObjectLoader(File file, GUI gui){
+		this.chosenfile = file;
+		this.gui = gui;
+		
+	}
 
 	/**
 	 * 
@@ -41,12 +55,15 @@ public class ObjectLoader {
 		// Init progressbar
 		StatusPanel.setProgress(0);
 		if (file.getName().endsWith(".stl") || file.getName().endsWith(".STL")) {
-			return getSTLObject(file);
+			branch = getSTLObject(file);
+			System.out.println("Object group done");
 		} else if (file.getName().endsWith(".obj")
 				|| file.getName().endsWith(".OBJ")) {
-			return getWavefrontObjObject(file);
+			System.out.println("Object group done");
+			branch = getWavefrontObjObject(file);
+			System.out.println("hej");
 		}
-		return null;
+		return branch;
 	}
 
 	/**
@@ -145,4 +162,16 @@ public class ObjectLoader {
 		return group;
 	}
 
+	@Override
+	protected Object doInBackground() throws Exception {
+		branch = getObject(chosenfile);
+		return null;
+	}
+
+	@Override
+	protected void done() {
+		//JOptionPane.showMessageDialog(null, "Work is done", "Yep", 1);
+		
+		gui.loadNewGraphicsWindow(this.branch);
+	}
 }

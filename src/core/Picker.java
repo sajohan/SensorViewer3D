@@ -1,9 +1,14 @@
 package core;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.vecmath.Point3d;
+
+import view.GUI;
 
 import com.sun.j3d.utils.picking.PickIntersection;
 import com.sun.j3d.utils.picking.PickResult;
@@ -51,10 +56,24 @@ public class Picker extends PickMouseBehavior {
             PickIntersection pi = pickResult.getClosestIntersection(eyePos);
             // get the closest intersect to the eyePos point
             Point3d intercept = pi.getPointCoordinatesVW();
-            System.out.println("You pointed at: " + intercept);
+            
+            double x = roundValue(intercept.x);
+            double y = roundValue(intercept.y);
+            double z = roundValue(intercept.z);
+            
+            GUI.printToStatus("You pointed at X: " + x + " Y:" + y + " Z: " + z);
+            
+            //System.out.println("You pointed at: " + intercept);
             // extract the intersection pt in scene coords space
             // use the intersection pt in some way...
         }
+	}
+	public double roundValue(double toRound){
+		// Round with 2 decimalplaces
+        int decimalPlaces = 2;
+        BigDecimal big = new BigDecimal(toRound);
+        big = big.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
+        return big.doubleValue();
 	}
 
 }

@@ -9,6 +9,8 @@ import java.net.URL;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+
+import view.StatusPanel;
 import core.modelloader.StlFile;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.ParsingErrorException;
@@ -36,6 +38,8 @@ public class ObjectLoader {
 	 * @return BranchGroup a BranchGroup with the object
 	 */
 	public BranchGroup getObject(File file) {
+		// Init progressbar
+		StatusPanel.setProgress(0);
 		if (file.getName().endsWith(".stl") || file.getName().endsWith(".STL")) {
 			return getSTLObject(file);
 		} else if (file.getName().endsWith(".obj")
@@ -53,9 +57,14 @@ public class ObjectLoader {
 	 * 
 	 */
 	private BranchGroup getWavefrontObjObject(File file) {
+		
+		int prog = 5;
+		StatusPanel.setProgress(prog);
+		
 		ObjectFile loader = new ObjectFile(ObjectFile.RESIZE);
 		BranchGroup group = new BranchGroup();
 
+		StatusPanel.setProgress(prog+20);
 		Scene scene = null;
 		try {
 			scene = loader.load(file.toURI().toURL());
@@ -68,7 +77,11 @@ public class ObjectLoader {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		StatusPanel.setProgress(prog+20);
 		group.addChild(scene.getSceneGroup());
+		
+		// Done loading
+		StatusPanel.setProgress(100);
 		return group;
 	}
 
@@ -126,7 +139,9 @@ public class ObjectLoader {
 
 		objTrans.addChild(scene.getSceneGroup());
 		// group.addChild(objTrans);
-
+		
+		// Done loading
+		StatusPanel.setProgress(100);
 		return group;
 	}
 

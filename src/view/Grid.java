@@ -29,12 +29,13 @@ public class Grid extends BranchGroup {
 	/*Axes constants*/
 	public static final float axesLineWidth = 2.0f;
 	public static final boolean axesDefaultVis = true;
+	public static final float axesOpacity = 0.3f;
 	
 	/*Grid Constants*/
 	public static final float gridLineWidth = 2.0f;
-	public static final float gridLinesDistance = 0.2f; //The distance between the gridlines
-	public static final int nrGridLines = 40; // Needs to be an even number
-	public static final boolean gridDefaultVis = false;
+	public static final float gridLinesDistance = 1f; //The distance between the gridlines
+	public static final int nrGridLines = 50; // Needs to be an even number
+	public static final boolean gridDefaultVis = true;
 	public static final float gridOpacity = 0.9f; //1.0 is invisible, 0.0 is completely visible
 	
 	
@@ -66,6 +67,14 @@ public class Grid extends BranchGroup {
 		redApp.setCapability(Appearance.ALLOW_RENDERING_ATTRIBUTES_WRITE);
 		blueApp.setCapability(Appearance.ALLOW_RENDERING_ATTRIBUTES_WRITE);
 		greenApp.setCapability(Appearance.ALLOW_RENDERING_ATTRIBUTES_WRITE);
+		
+		//Set transparency of lines
+		TransparencyAttributes transparency = new TransparencyAttributes();
+		transparency.setTransparency(axesOpacity);
+		redApp.setTransparencyAttributes(transparency);
+		blueApp.setTransparencyAttributes(transparency);
+		greenApp.setTransparencyAttributes(transparency);
+		
 
 		// Make the pattern dashed
 		LineAttributes dashLa = new LineAttributes();
@@ -143,13 +152,52 @@ public class Grid extends BranchGroup {
 		app.setColoringAttributes(ca);
 		
 
-	
+		//XZ-grid
 		xzGrid = getXZGridShape(app);
 		xzGrid.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
 		//Set visibility to default
 		gridVisibility(gridDefaultVis);
 		this.addChild(xzGrid);
 		
+		
+		//Commented because it kind of looks like crap.
+		
+		//YZ-grid
+//		yzGrid = getYZGridShape(app);
+//		yzGrid.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
+//		//Set visibility to default
+//		gridVisibility(gridDefaultVis);
+//		this.addChild(yzGrid);
+		
+	}
+	
+
+
+	/**
+	 * Set visibility of axes lines
+	 * 
+	 * @param visible Visibility of the axes
+	 */
+	public void axesVisibility(boolean visible) {
+		RenderingAttributes renderAtt = new RenderingAttributes();
+		renderAtt.setVisible(visible);
+
+		xAxis.getAppearance().setRenderingAttributes(renderAtt);
+		yAxis.getAppearance().setRenderingAttributes(renderAtt);
+		zAxis.getAppearance().setRenderingAttributes(renderAtt);
+
+	}
+	
+	/**
+	 * Set visibility of grid lines
+	 * 
+	 * @param visible Visibility of the grid
+	 */
+	public void gridVisibility(boolean visible){
+		RenderingAttributes renderAtt = new RenderingAttributes();
+		renderAtt.setVisible(visible);
+
+		xzGrid.getAppearance().setRenderingAttributes(renderAtt);
 	}
 	
 	/**
@@ -195,32 +243,48 @@ public class Grid extends BranchGroup {
 		pla.setCoordinates(0, plaPts);
 		return new Shape3D(pla, app);
 	}
-
-	/**
-	 * Set visibility of axes lines
-	 * 
-	 * @param visible Visibility of the axes
-	 */
-	public void axesVisibility(boolean visible) {
-		RenderingAttributes renderAtt = new RenderingAttributes();
-		renderAtt.setVisible(visible);
-
-		xAxis.getAppearance().setRenderingAttributes(renderAtt);
-		yAxis.getAppearance().setRenderingAttributes(renderAtt);
-		zAxis.getAppearance().setRenderingAttributes(renderAtt);
-
-	}
 	
 	/**
-	 * Set visibility of grid lines
+	 * Creates the grid lines over the Y and Z axes. (X=0)
 	 * 
-	 * @param visible Visibility of the grid
+	 * @param app The appearance of the gridlines
+	 * @return Shape3D The shape that contain the grid
 	 */
-	public void gridVisibility(boolean visible){
-		RenderingAttributes renderAtt = new RenderingAttributes();
-		renderAtt.setVisible(visible);
-
-		xzGrid.getAppearance().setRenderingAttributes(renderAtt);
+	private Shape3D getYZGridShape(Appearance app){
+		Point3f[] plaPts = new Point3f[nrGridLines*4];
+		float nrLinesDrawn = 0;
+		int index = 0;
+		for(float i = gridLinesDistance ; nrLinesDrawn<nrGridLines*2 ; i+=gridLinesDistance ){
+			//Negative y from Z -> -Z
+			plaPts[index] = new Point3f(0.0f, -i, nrGridLines*(gridLinesDistance/2));
+			index++;
+			plaPts[index] = new Point3f(0.0f, -i, -nrGridLines*(gridLinesDistance/2));
+			index++;
+			nrLinesDrawn++;
+			//Positive y from Z -> -Z
+			plaPts[index] = new Point3f(0.0f, i, nrGridLines*(gridLinesDistance/2));
+			index++;
+			plaPts[index] = new Point3f(0.0f, i, -nrGridLines*(gridLinesDistance/2));
+			index++;
+			nrLinesDrawn++;
+			
+			//Negative z from X -> -X
+			plaPts[index] = new Point3f(0.0f, nrGridLines*(gridLinesDistance/2), -i);
+			index++;
+			plaPts[index] = new Point3f(0.0f, -nrGridLines*(gridLinesDistance/2), -i);
+			index++;
+			nrLinesDrawn++;
+			//Positive z from X -> -X
+			plaPts[index] = new Point3f(0.0f, nrGridLines*(gridLinesDistance/2), i);
+			index++;
+			plaPts[index] = new Point3f(0.0f, -nrGridLines*(gridLinesDistance/2), i);
+			index++;
+			nrLinesDrawn++;
+		}
+		
+		LineArray pla = new LineArray(nrGridLines*4, LineArray.COORDINATES);
+		pla.setCoordinates(0, plaPts);
+		return new Shape3D(pla, app);
 	}
 
 }

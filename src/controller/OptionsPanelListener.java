@@ -14,7 +14,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.Constants;
-
+/**
+ * 
+ * Listens to clicks on the options panel, is observed by Main.java
+ *
+ */
 public class OptionsPanelListener extends Observable implements ActionListener {
 
 	public OptionsPanelListener() {
@@ -43,6 +47,35 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 		}
 		if (Constants.camerabutton.equals(e.getActionCommand())) {
 			System.out.println("Cameras are on you....");
+			// TODO
+		}
+		
+		if (Constants.freeCam.equals(e.getActionCommand())) {
+			System.out.println("FreeCam");
+			// TODO
+		}
+		if (Constants.cameraXLock.equals(e.getActionCommand())) {
+			System.out.println("cameraXLock");
+			// TODO
+		}
+		if (Constants.cameraXRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraXRLock");
+			// TODO
+		}
+		if (Constants.cameraYLock.equals(e.getActionCommand())) {
+			System.out.println("cameraYLock");
+			// TODO
+		}
+		if (Constants.cameraYRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraYRLock");
+			// TODO
+		}
+		if (Constants.cameraZLock.equals(e.getActionCommand())) {
+			System.out.println("cameraZLock");
+			// TODO
+		}
+		if (Constants.cameraZRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraZRLock");
 			// TODO
 		}
 	}

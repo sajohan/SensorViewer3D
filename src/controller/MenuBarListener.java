@@ -12,7 +12,10 @@ import javax.swing.JMenuItem;
 
 import view.GUI;
 
-
+/**
+ * 
+ * Listens to the menu bar only, eg. file, edit, view... *
+ */
 public class MenuBarListener extends Observable implements ActionListener {
 
 	final JFileChooser fc = new JFileChooser();

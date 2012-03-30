@@ -26,8 +26,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-import model.Constants;
-
 import static model.Constants.*;
 
 /**
@@ -48,13 +46,19 @@ public class OptionsPanel extends JPanel {
 	private JButton LockX;
 	private JButton LockXR;
 	private JButton freeView;
-
+	private JButton LockY;
+	private JButton LockYR;
+	private JButton LockZ;
+	private JButton LockZR;
 	
 	private ImageIcon handIcon;
 	private ImageIcon addSensorIcon;
 	private ImageIcon selectionIcon;
 	private ImageIcon cameraIcon;
 
+	/*
+	 * receives Main.java as listener
+	 */
 	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
@@ -62,44 +66,32 @@ public class OptionsPanel extends JPanel {
 		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
 		// Read icons
-		handIcon = new ImageIcon(Constants.handIconURI);
-		addSensorIcon = new ImageIcon(Constants.addSensorIconURI);
-		selectionIcon = new ImageIcon(Constants.selectionIconURI);
-		cameraIcon = new ImageIcon(Constants.cameraIconURI);
+		handIcon = new ImageIcon(handIconURI);
+		addSensorIcon = new ImageIcon(addSensorIconURI);
+		selectionIcon = new ImageIcon(selectionIconURI);
+		cameraIcon = new ImageIcon(cameraIconURI);
 
-		// Create buttons and menues
-		handButton = createButton(handIcon, Constants.handtooltip,
-				Constants.handbutton);
-		sensorButton = createButton(addSensorIcon, Constants.addsensortooltip,
-				Constants.addsensorbutton);
+		// Create buttons and menus
+		handButton = createButton(handIcon, handtooltip,
+				handbutton);
+		sensorButton = createButton(addSensorIcon, addsensortooltip,
+				addsensorbutton);
 		selectionButton = createButton(selectionIcon,
-				Constants.selectiontooltip, Constants.selectionbutton);
+				selectiontooltip, selectionbutton);
 		
 		//padding between buttons and "camera:" label
 		JLabel padding = new JLabel(" ");
 		padding.setFont(new Font("arial",Font.BOLD,1));
-		
 		cameraLabel = new JLabel("Camera:");
 		
-//		cameraLabel = new JButton("Cam:");
-//		cameraLabel.setEnabled(false);
-
-		freeView = new JButton("Free   ");
-		LockX = new JButton("Lock X");
-		LockXR = new JButton("Lock-X");
-
-//		freeView.setMinimumSize(new Dimension(cameraLabel.getSize().width, freeView.getHeight()));
-
-//		selectionButton.setText(text)
-//		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
-//				Constants.camerabutton);
-//		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
-//				Constants.camerabutton);
-		// sensorButton = createSensorCreationButton();
-		// selectionButton = createSelectionButton();
-		// cameraButton = createCameraButton();
-		
-//				cameraPopupMenu = createCameraMenu(); //no longer using camera popup menu
+		//Create camera control buttons
+		freeView = createTextButton("Free    ","Free cam",freeCam);
+		LockX = createTextButton("Lock X ","lock camera on x axis (Front)",cameraXLock);
+		LockXR = createTextButton("Lock-X","lock camera on x axis (Back)",cameraXRLock);
+		LockY = createTextButton("Lock Y ","lock camera on y axis (Front)",cameraYLock);
+		LockYR = createTextButton("Lock-Y","lock camera on y axis (Back)",cameraYRLock);
+		LockZ = createTextButton("Lock Z ","lock camera on z axis (Front)",cameraZLock);
+		LockZR = createTextButton("Lock-Z","lock camera on z axis (Back)",cameraZRLock);
 
 		// Add action listeners
 		handButton.addActionListener((ActionListener) eventListener);
@@ -108,10 +100,12 @@ public class OptionsPanel extends JPanel {
 		freeView.addActionListener((ActionListener) eventListener);
 		LockX.addActionListener((ActionListener) eventListener);
 		LockXR.addActionListener((ActionListener) eventListener);
-//		cameraButton.addActionListener((ActionListener) eventListener);
-//		cameraButton.addMouseListener(new PopupListener());
+		LockY.addActionListener((ActionListener) eventListener);
+		LockYR.addActionListener((ActionListener) eventListener);
+		LockZ.addActionListener((ActionListener) eventListener);
+		LockZR.addActionListener((ActionListener) eventListener);
 
-		// Add to toolbar
+		// Add all items to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
@@ -120,6 +114,10 @@ public class OptionsPanel extends JPanel {
 		super.add(freeView);
 		super.add(LockX);
 		super.add(LockXR);
+		super.add(LockY);
+		super.add(LockYR);
+		super.add(LockZ);
+		super.add(LockZR);
 
 	}
 
@@ -129,11 +127,26 @@ public class OptionsPanel extends JPanel {
 	 * @param ico	the icon for the button
 	 * @param the tooltip for the button as a string
 	 * @param the action command string
-	 * @return JButton
+	 * @return JButton button	the button created according to method arguments
 	 */
 	private JButton createButton(ImageIcon ico, String tooltip,
 			String actioncommand) {
 		JButton button = new JButton(ico);
+		button.setToolTipText(tooltip);
+		button.setActionCommand(actioncommand);
+		return button;
+	}
+	/**
+	 * Creates a JButton with text
+	 * 
+	 * @param String text	the text for the button
+	 * @param the tooltip for the button as a string
+	 * @param the action command string
+	 * @return JButton button	the button created according to method arguments
+	 */
+	private JButton createTextButton(String label, String tooltip,
+			String actioncommand) {
+		JButton button = new JButton(label);
 		button.setToolTipText(tooltip);
 		button.setActionCommand(actioncommand);
 		return button;

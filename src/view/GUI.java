@@ -33,7 +33,8 @@ public class GUI {
 	private MenuBarListener menubarListener;
 	private OptionsPanelListener optionspanelListener;
 	private GraphicsPane graphicsPane;
-	private Observer menuObserver;
+	//initialized in constructor, observer is currently Main.java
+	private Observer menuObserver; 
 	private StatusPanelListener statuspanelListener;
 	private static StatusPanel statuspanel;
 

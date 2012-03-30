@@ -9,12 +9,21 @@ public class Constants {
 	public static final String selectionIconURI = "./Icons/selecticonsmall.png";
 
 	// Options Panel Strings
+	//tool control buttons
 	public static final String handbutton = "handbutton";
 	public static final String addsensorbutton = "sensorbutton";
 	public static final String camerabutton = "camerabutton";
 	public static final String selectionbutton = "selectionbutton";
 	public static final String scaleslider = "scaleslider";
 	public static final String brightslider = "brightslider";
+	//camera control buttons
+	public static final String freeCam= "freeCam";
+	public static final String cameraXLock= "cameraXLock";
+	public static final String cameraXRLock= "cameraXRLock";
+	public static final String cameraYLock = "cameraYLock";
+	public static final String cameraYRLock = "cameraYRLock";
+	public static final String cameraZLock = "cameraZLock";
+	public static final String cameraZRLock = "cameraZRLock";
 
 	public static final String handtooltip = "Hand Tool";
 	public static final String addsensortooltip = "Sensor Creation Tool";

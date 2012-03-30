@@ -18,7 +18,9 @@ import core.modelloader.ObjectLoader;
 import view.GUI;
 import view.GraphicsPane;
 import view.Lighting;
-
+/**
+ * Observes user input, eg. button clicks, sliders etc.
+ */
 public class Main implements Observer {
 
 	ObjectLoader objLoader;

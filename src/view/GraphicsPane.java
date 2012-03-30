@@ -25,7 +25,6 @@ import static model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
 import testGroups.CThreePointsMockObject;
-import testGroups.ThreePointsAndACube;
 
 
 /**

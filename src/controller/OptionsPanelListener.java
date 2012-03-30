@@ -28,7 +28,7 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 	 * Listeners for the buttons
 	 */
 	public void actionPerformed(ActionEvent e) {
-
+		notifyObservers();
 		if (Constants.handbutton.equals(e.getActionCommand())) {
 			System.out.println("Handtool Enabled");
 			// TODO

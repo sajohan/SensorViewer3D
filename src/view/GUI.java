@@ -35,6 +35,7 @@ public class GUI {
 	private GraphicsPane graphicsPane;
 	private Observer menuObserver;
 	private StatusPanelListener statuspanelListener;
+	private static StatusPanel statuspanel;
 
 	// private MenuBar menu = new MenuBar();
 	public void addComponentsToPane(Container contentPane) {
@@ -58,7 +59,7 @@ public class GUI {
 		
 		// Add status panel
 		statuspanelListener = new StatusPanelListener(menuObserver);
-		JPanel statuspanel = new StatusPanel(statuspanelListener);
+		statuspanel = new StatusPanel(statuspanelListener);
 		contentPane.add(statuspanel,BorderLayout.SOUTH);
 		
 		// Add tree panel
@@ -113,6 +114,15 @@ public class GUI {
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	/*
+	 * Static method used to print statustext to statuslabel in south panel 
+	 * 
+	 */
+	public static void printToStatus(String text){
+		JLabel label = statuspanel.getStatusLabel();
+		label.setText(text);
+	}
 
 	public GUI(Observer obs) {
 		menuObserver = obs;
@@ -123,6 +133,5 @@ public class GUI {
 				createAndShowGUI();
 			}
 		});
-
 	}
 }

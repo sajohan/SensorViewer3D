@@ -8,11 +8,13 @@ import static model.Constants.SCALE_MAX;
 import static model.Constants.SCALE_MIN;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.EventListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SpringLayout;
 import javax.swing.event.ChangeListener;
 
 import model.Constants;
@@ -25,12 +27,15 @@ import model.Constants;
  */
 
 public class StatusPanel extends JPanel{
-	
+
 	private JSlider scaleslider;
 	private JSlider brightSlider;
+	private JLabel status;
 	
 	public StatusPanel(EventListener eventListener) {
-		super.setLayout(new FlowLayout());
+		
+		// 1 row 4 columns
+		super.setLayout(new GridLayout(1,4));
 		
 		// Create slider for scaling
 		JLabel scaleLabel = new JLabel("Scale", JLabel.CENTER);
@@ -45,10 +50,13 @@ public class StatusPanel extends JPanel{
 		scaleslider.addChangeListener((ChangeListener) eventListener);
 		brightSlider.addChangeListener((ChangeListener) eventListener);
 		
+		status = new JLabel("No object loaded..", JLabel.CENTER);
+		
 		super.add(scaleLabel);
 		super.add(scaleslider);
 		super.add(brigthLabel);
 		super.add(brightSlider);
+		super.add(status);
 	}
 	
 	public JSlider createSlider(int facing, int min, int max, int init,
@@ -60,6 +68,12 @@ public class StatusPanel extends JPanel{
 		slider.setName(name);
 		return slider;
 	}
+	
+	public JLabel getStatusLabel() {
+		return status;
+	}
 
-
+	public void setStatusLabel(JLabel status) {
+		this.status = status;
+	}
 }

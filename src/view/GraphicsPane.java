@@ -159,7 +159,7 @@ public class GraphicsPane extends JPanel {
 		thr1.start();
 	}
 	
-	/*
+	/**
 	 * Places camera on the axle provided as argument.
 	 * @param int	axle	from Model.Constants the axle(x,y or z) to place the camera
 	 */
@@ -188,7 +188,7 @@ public class GraphicsPane extends JPanel {
         view_tf3d.invert(); 
         view_tg.setTransform(view_tf3d); //Perform the camera move
 	}
-	/*
+	/**
 	 * Sets up the light and x,y,z origo axes in the universe.
 	 */
 	public void setUpLightAndGrid(){
@@ -197,6 +197,7 @@ public class GraphicsPane extends JPanel {
 		lights = new Lighting();
 		// Create grid
 		grid = new Grid();
+		grid.setPickable(false);
 
 		group.addChild(lights);
 		group.addChild(grid);

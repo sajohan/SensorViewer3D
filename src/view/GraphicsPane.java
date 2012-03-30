@@ -7,6 +7,8 @@ import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
+
+
 import core.Picker;
 import core.modelloader.ObjectLoader;
 
@@ -20,6 +22,11 @@ import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import static model.Constants.*;
+
+import testGroups.CThreePointsMockCloud;
+import testGroups.CThreePointsMockObject;
+import testGroups.ThreePointsAndACube;
+
 
 /**
  * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but
@@ -58,9 +65,30 @@ public class GraphicsPane extends JPanel {
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
 		group.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-		
-		
-		
+			
+			
+//			/**
+//			 * Uncomment this to see moveTo() in the works.
+//			 */
+//			CThreePointsMockObject CThreePO = new CThreePointsMockObject(group);
+//			CThreePointsMockCloud CThreePO2 = new CThreePointsMockCloud(group);
+//			group.addChild(CThreePO);
+//			group.addChild(CThreePO2);
+//
+//			Transform3D mockMove = new Transform3D();
+//			Transform3D mockRotate = new Transform3D();
+//			mockMove.setTranslation(new Vector3d(20, 19, 18));
+//			mockRotate.rotX(3);
+//			mockMove.mul(mockRotate);
+//			mockRotate.rotY(2);
+//			mockMove.mul(mockRotate);
+//			mockRotate.rotZ(1.111);
+//			mockMove.mul(mockRotate);
+//			CThreePO2.setTransform(mockMove);
+//
+//			
+//			CThreePO.moveTo(CThreePO2);
+
 		setUpLightAndGrid();
 
 		//set up view to nominal viewing transform

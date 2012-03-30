@@ -259,6 +259,8 @@ public class CThreePObject extends TransformGroup{
 		if(this.getParent() != null){
 			mainGroup.removeChild(this);
 		}
+		
+		//Create hierarchy of TransformGroups, to take care of different rotations
 		innerRotationGroup.addChild(this);
 		outerRotationGroup.addChild(innerRotationGroup);
 		axisRotationGroup.addChild(outerRotationGroup);
@@ -278,6 +280,8 @@ public class CThreePObject extends TransformGroup{
 	 * Places the object in Origo
 	 */
 	private void placeInOrigo(){
+		//Takes a zero-vector and subtract the vector of the first point.
+		//Moving to this point with the entire TransformGroup will then result in point1 appearing at origo
 		Transform3D tf3d = new Transform3D();
 		Vector3d zeroVec = new Vector3d(0,0,0);
 		zeroVec.sub(this.getPosOfPoint1());
@@ -294,6 +298,10 @@ public class CThreePObject extends TransformGroup{
 		Vector3d point1Vec = this.getPosOfPoint1();
 		Vector3d point2Vec = this.getPosOfPoint2();
 //		System.out.println(point1Vec.toString() + "\n" + point2Vec.toString());
+		
+		// The rotationFactor SHOULD be enough to rotate the TG to where we want it.
+		// However, since I'm not sure about directions etc we have the rest of this class
+		// which basically is a trial-and-error rotation untill we're satisfied.
 		double rotationFactor = Math.atan2(point2Vec.x , point2Vec.z);
 		Transform3D rotationTransform = new Transform3D();
 		Transform3D tpaacTransform = new Transform3D();
@@ -326,6 +334,8 @@ public class CThreePObject extends TransformGroup{
 			point1x = point1Vec.x;
 			point2x = point2Vec.x;
 			
+			//I've forgotten what the purpose of this is, but it works, usually.
+			// Shouldn't use this any way, see the comment above the RotationFactor
 			if(Math.abs(point1x - point2x) == Math.abs(point1xOld - point2xOld)){
 				rotationFactor = rotationFactor / 2;
 				point1xOld = point1x;
@@ -350,7 +360,11 @@ public class CThreePObject extends TransformGroup{
 	private void outerAlign() {
 		Vector3d point1Vec = this.getPosOfPoint1();
 		Vector3d point2Vec = this.getPosOfPoint2();
-		System.out.println(point1Vec.toString() + "\n" + point2Vec.toString());
+//		System.out.println(point1Vec.toString() + "\n" + point2Vec.toString());
+		
+		// The rotationFactor SHOULD be enough to rotate the TG to where we want it.
+		// However, since I'm not sure about directions etc we have the rest of this class
+		// which basically is a trial-and-error rotation untill we're satisfied.
 		double rotationFactor = Math.atan2(point2Vec.y , point2Vec.z);
 		Transform3D rotationTransform = new Transform3D();
 		Transform3D tpaacTransform = new Transform3D();
@@ -383,6 +397,8 @@ public class CThreePObject extends TransformGroup{
 			point1x = point1Vec.y;
 			point2x = point2Vec.y;
 			
+			//I've forgotten what the purpose of this is, but it works, usually.
+			// Shouldn't use this any way, see the comment above the RotationFactor
 			if(Math.abs(point1x - point2x) == Math.abs(point1xOld - point2xOld)){
 				rotationFactor = rotationFactor / 2;
 				point1xOld = point1x;
@@ -412,7 +428,6 @@ public class CThreePObject extends TransformGroup{
 	private void objectAlign(CThreePObject alignmentObject){
 		Vector3d aObjPoint1 = alignmentObject.getPosOfPoint1();
 		Vector3d aObjPoint2 = alignmentObject.getPosOfPoint2();
-		Vector3d aObjPoint3 = alignmentObject.getPosOfPoint3();
 		
 		Point3d posPoint = new Point3d();
 		Point3d lookPoint = new Point3d();
@@ -420,16 +435,21 @@ public class CThreePObject extends TransformGroup{
 		posPoint.x = aObjPoint1.x;
 		posPoint.y = aObjPoint1.y;
 		posPoint.z = aObjPoint1.z;
-		System.out.println(posPoint);
+//		System.out.println(posPoint);
 		
 		lookPoint.x = aObjPoint2.x;
 		lookPoint.y = aObjPoint2.y;
 		lookPoint.z = aObjPoint2.z;
-		System.out.println(lookPoint);
+//		System.out.println(lookPoint);
 		
+		//Positions the object at point1 of the other object, and looks at the other objects point 2.
 		transformer.lookAt(posPoint, lookPoint, new Vector3d(0,1,0));
 		transformer.invert();
 		Transform3D rotTrans = new Transform3D();
+		
+		//Spins it 180° since the alignment classes are off by exactly this. It's a bit like using .invert after lookAt
+		//Note to self: if we get a bug later on where it sometimes is mis-aligned by 180°, make the rotation later, after
+		//checking if the second points align.
 		rotTrans.rotY(Math.PI);
 		transformer.mul(rotTrans);
 		
@@ -446,6 +466,8 @@ public class CThreePObject extends TransformGroup{
 		Transform3D tempTrans = new Transform3D();
 		boolean rotpositive = true;
 		
+		
+		//Rotates slowly untill the two third points are aligned.
 		while(true){
 			if(thisVec3.equals(alignVec3) || (thisCompPoint.distance(alignCompPoint) < model.Constants.ACCURACYVALUE)){
 				return;

@@ -17,38 +17,42 @@ import com.sun.j3d.loaders.objectfile.ObjectFile;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 /**
- * Title: Object Loader
- * Description: A loader that loads objects from files. Supported fileformats: .stl
+ * Title: Object Loader Description: A loader that loads objects from files.
+ * Supported fileformats: .stl
  * 
  * @author sajohan, dannic
  * @version 1.0
- *
+ * 
  */
 
 public class ObjectLoader {
 
 	private File chosenfile = null;
-	
+
 	/**
 	 * 
-	 * @param file The file to be loaded
+	 * @param file
+	 *            The file to be loaded
 	 * @return BranchGroup a BranchGroup with the object
 	 */
-	public BranchGroup getObject(File file){
-		if(file.getName().endsWith(".stl") || file.getName().endsWith(".STL")){
+	public BranchGroup getObject(File file) {
+		if (file.getName().endsWith(".stl") || file.getName().endsWith(".STL")) {
 			return getSTLObject(file);
-		}else if (file.getName().endsWith(".obj") || file.getName().endsWith(".OBJ")) {
+		} else if (file.getName().endsWith(".obj")
+				|| file.getName().endsWith(".OBJ")) {
 			return getWavefrontObjObject(file);
 		}
 		return null;
 	}
+
 	/**
 	 * 
-	 * @param file File to read
-	 * @return BranchGroup returns a BranchGroup containing the read obj-object 
+	 * @param file
+	 *            File to read
+	 * @return BranchGroup returns a BranchGroup containing the read obj-object
 	 * 
 	 */
-	private BranchGroup getWavefrontObjObject(File file){
+	private BranchGroup getWavefrontObjObject(File file) {
 		ObjectFile loader = new ObjectFile(ObjectFile.RESIZE);
 		BranchGroup group = new BranchGroup();
 
@@ -63,21 +67,22 @@ public class ObjectLoader {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} 
+		}
 		group.addChild(scene.getSceneGroup());
 		return group;
 	}
-	
+
 	/**
 	 * 
-	 * @param file File to read
-	 * @return BranchGroup returns a BranchGroup containing the read stl-object 
+	 * @param file
+	 *            File to read
+	 * @return BranchGroup returns a BranchGroup containing the read stl-object
 	 * 
 	 */
 	private BranchGroup getSTLObject(File file) {
 		// Init filename
 		chosenfile = file;
-		
+
 		// Create the root of the branch graph
 		BranchGroup group = new BranchGroup();
 
@@ -101,8 +106,9 @@ public class ObjectLoader {
 		StlFile stlfile = new StlFile();
 		Scene scene = null;
 		try {
-			// stlfile.load() need to be able to handle a File object instead of a String to a classpath file.
-//			scene = stlfile.load(chosenfile);
+			// stlfile.load() need to be able to handle a File object instead of
+			// a String to a classpath file.
+			// scene = stlfile.load(chosenfile);
 			scene = stlfile.load(file.toURI().toURL());
 		} catch (FileNotFoundException e) {
 			System.err.println(e);
@@ -119,7 +125,7 @@ public class ObjectLoader {
 		}
 
 		objTrans.addChild(scene.getSceneGroup());
-		//group.addChild(objTrans);
+		// group.addChild(objTrans);
 
 		return group;
 	}

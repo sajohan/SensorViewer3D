@@ -14,20 +14,25 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.Constants;
+/**
+ * 
+ * Listens to clicks on the options panel, is observed by Main.java
+ *
+ */
+public class OptionsPanelListener extends Observable implements ActionListener {
 
-public class OptionsPanelListener extends Observable implements ActionListener, ChangeListener  {
-	
-	public OptionsPanelListener(){}
-	
-	public OptionsPanelListener(Observer obs){
+	public OptionsPanelListener() {
+	}
+
+	public OptionsPanelListener(Observer obs) {
 		addObserver(obs);
 	}
-	
+
 	/**
 	 * Listeners for the buttons
 	 */
 	public void actionPerformed(ActionEvent e) {
-
+		notifyObservers();
 		if (Constants.handbutton.equals(e.getActionCommand())) {
 			System.out.println("Handtool Enabled");
 			// TODO
@@ -44,64 +49,36 @@ public class OptionsPanelListener extends Observable implements ActionListener, 
 			System.out.println("Cameras are on you....");
 			// TODO
 		}
+		
+		if (Constants.freeCam.equals(e.getActionCommand())) {
+			System.out.println("FreeCam");
+			// TODO
+		}
+		if (Constants.cameraXLock.equals(e.getActionCommand())) {
+			System.out.println("cameraXLock");
+			// TODO
+		}
+		if (Constants.cameraXRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraXRLock");
+			// TODO
+		}
+		if (Constants.cameraYLock.equals(e.getActionCommand())) {
+			System.out.println("cameraYLock");
+			// TODO
+		}
+		if (Constants.cameraYRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraYRLock");
+			// TODO
+		}
+		if (Constants.cameraZLock.equals(e.getActionCommand())) {
+			System.out.println("cameraZLock");
+			// TODO
+		}
+		if (Constants.cameraZRLock.equals(e.getActionCommand())) {
+			System.out.println("cameraZRLock");
+			// TODO
+		}
 	}
-
-
-
-
-	@Override
-	public void stateChanged(ChangeEvent e) {
-
-	    JSlider source = (JSlider)e.getSource();
-	    setChanged();
-	    notifyObservers(source);
-	    /*
-	    if(source.getName().equals(Constants.brightslider)){
-		    if (!source.getValueIsAdjusting()) {
-		    	
-		    	int newscale = (int)source.getValue();
-		    	//Float f = Float.parseFloat(newscale);
-		    	
-		    	// set scale make call here
-		    	System.out.println("Brigthness set to " + newscale + "");
-		    	
-		    }
-	    }
-	    if(source.getName().equals(Constants.scaleslider)){
-		    if (!source.getValueIsAdjusting()) {
-		    	
-				int newscale = (int)source.getValue();
-				// set scale make call here
-				System.out.println("Scale set to " + newscale + "");
-				Robot robot = null;
-				try {
-					robot = new Robot();
-				} catch (AWTException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					System.out.println("Robot object was not initialized");
-				}
-				
-				/*
-				 * moves the mousepointer to center of 3D frame position, scrolls
-				 *
-//					int RenderFrameCenterY = GUI.getGraphicsPane().getLocationOnScreen().y + (GUI.getGraphicsPane().getHeight() / 2);
-//					int RenderFrameCenterX = GUI.getGraphicsPane().getLocationOnScreen().x + (GUI.getGraphicsPane().getWidth() / 2);
-//					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);            
-//					robot.mousePress(InputEvent.BUTTON1_MASK);
-//		            robot.mouseRelease(InputEvent.BUTTON1_MASK);
-//					robot.mouseWheel(newscale * SCALE_SPEED);
-//					scaleslider.setValue(SCALE_INIT); //reset the slider to center value
-		    	*
-		    }
-	    }*/
-	}
-
-	
-
-
-
-
 
 
 }

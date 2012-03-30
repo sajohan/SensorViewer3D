@@ -37,8 +37,7 @@ public class SensorValues implements Serializable {
 		Float val = map.get(key);
 		if (val != null) {
 			return val;
-		}
-		else{
+		} else {
 			return null;
 		}
 	}

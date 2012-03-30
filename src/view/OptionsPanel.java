@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +25,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-
-import model.Constants;
 
 import static model.Constants.*;
 
@@ -36,87 +34,119 @@ import static model.Constants.*;
  * @author Simon
  * 
  */
-public class OptionsPanel extends JPanel{
+public class OptionsPanel extends JPanel {
 
 	private JPopupMenu cameraPopupMenu;
 	private JButton handButton;
 	private JButton sensorButton;
 	private JButton selectionButton;
 	private JButton cameraButton;
-
+	private JLabel cameraLabel;
+	//camera mode buttons
+	private JButton LockX;
+	private JButton LockXR;
+	private JButton freeView;
+	private JButton LockY;
+	private JButton LockYR;
+	private JButton LockZ;
+	private JButton LockZR;
+	
 	private ImageIcon handIcon;
 	private ImageIcon addSensorIcon;
 	private ImageIcon selectionIcon;
 	private ImageIcon cameraIcon;
 
-	private JSlider scaleslider;
-	private JSlider brigthslider;
-
+	/*
+	 * receives Main.java as listener
+	 */
 	public OptionsPanel(EventListener eventListener) {
 		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		// Fix overlapping on Canvas3D with this call
+		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
 		// Read icons
-		handIcon = new ImageIcon(Constants.handIconURI);
-		addSensorIcon = new ImageIcon(Constants.addSensorIconURI);
-		selectionIcon = new ImageIcon(Constants.selectionIconURI);
-		cameraIcon = new ImageIcon(Constants.cameraIconURI);
+		handIcon = new ImageIcon(handIconURI);
+		addSensorIcon = new ImageIcon(addSensorIconURI);
+		selectionIcon = new ImageIcon(selectionIconURI);
+		cameraIcon = new ImageIcon(cameraIconURI);
 
-		// Create buttons and menues
-		handButton = createButton(handIcon, Constants.handtooltip,
-				Constants.handbutton);
-		sensorButton = createButton(addSensorIcon, Constants.addsensortooltip,
-				Constants.addsensorbutton);
+		// Create buttons and menus
+		handButton = createButton(handIcon, handtooltip,
+				handbutton);
+		sensorButton = createButton(addSensorIcon, addsensortooltip,
+				addsensorbutton);
 		selectionButton = createButton(selectionIcon,
-				Constants.selectiontooltip, Constants.selectionbutton);
-		cameraButton = createButton(cameraIcon, Constants.cameratooltip,
-				Constants.camerabutton);
-		// sensorButton = createSensorCreationButton();
-		// selectionButton = createSelectionButton();
-		// cameraButton = createCameraButton();
-		cameraPopupMenu = createCameraMenu();
-
-		// Create slider for scaling
-		JLabel sliderLabel = new JLabel("Scale", JLabel.CENTER);
-		scaleslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.scaleslider);
+				selectiontooltip, selectionbutton);
 		
-		// Create slider for brightness
-		JLabel brigthLabel = new JLabel("Brightness", JLabel.CENTER);
-		brigthslider = createSlider(JSlider.HORIZONTAL, SCALE_MIN, SCALE_MAX, SCALE_INIT, Constants.brightslider);
+		//padding between buttons and "camera:" label
+		JLabel padding = new JLabel(" ");
+		padding.setFont(new Font("arial",Font.BOLD,1));
+		cameraLabel = new JLabel("Camera:");
+		
+		//Create camera control buttons
+		freeView = createTextButton("Free    ","Free cam",freeCam);
+		LockX = createTextButton("Lock X ","lock camera on x axis (Front)",cameraXLock);
+		LockXR = createTextButton("Lock-X","lock camera on x axis (Back)",cameraXRLock);
+		LockY = createTextButton("Lock Y ","lock camera on y axis (Front)",cameraYLock);
+		LockYR = createTextButton("Lock-Y","lock camera on y axis (Back)",cameraYRLock);
+		LockZ = createTextButton("Lock Z ","lock camera on z axis (Front)",cameraZLock);
+		LockZR = createTextButton("Lock-Z","lock camera on z axis (Back)",cameraZRLock);
 
 		// Add action listeners
-		handButton.addActionListener((ActionListener)eventListener);
-		sensorButton.addActionListener((ActionListener)eventListener);
-		selectionButton.addActionListener((ActionListener)eventListener);
-		cameraButton.addActionListener((ActionListener)eventListener);
-		cameraButton.addMouseListener(new PopupListener());
-		scaleslider.addChangeListener((ChangeListener)eventListener);
+		handButton.addActionListener((ActionListener) eventListener);
+		sensorButton.addActionListener((ActionListener) eventListener);
+		selectionButton.addActionListener((ActionListener) eventListener);
+		freeView.addActionListener((ActionListener) eventListener);
+		LockX.addActionListener((ActionListener) eventListener);
+		LockXR.addActionListener((ActionListener) eventListener);
+		LockY.addActionListener((ActionListener) eventListener);
+		LockYR.addActionListener((ActionListener) eventListener);
+		LockZ.addActionListener((ActionListener) eventListener);
+		LockZR.addActionListener((ActionListener) eventListener);
 
-		// Add to toolbar
+		// Add all items to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
-		super.add(cameraButton);
-		super.add(sliderLabel);
-		super.add(scaleslider);
-		super.add(brigthLabel);
-		super.add(brigthslider);
+		super.add(padding);
+		super.add(cameraLabel);
+		super.add(freeView);
+		super.add(LockX);
+		super.add(LockXR);
+		super.add(LockY);
+		super.add(LockYR);
+		super.add(LockZ);
+		super.add(LockZR);
 
 	}
 
 	/**
 	 * Creates a JButton with an icon
 	 * 
-	 * @param the
-	 *            icon for the button
-	 * @param the
-	 *            tooltip for the button as a string
-	 * @param the
-	 *            action command string
-	 * @return JButton
+	 * @param ico	the icon for the button
+	 * @param the tooltip for the button as a string
+	 * @param the action command string
+	 * @return JButton button	the button created according to method arguments
 	 */
 	private JButton createButton(ImageIcon ico, String tooltip,
 			String actioncommand) {
 		JButton button = new JButton(ico);
+		button.setToolTipText(tooltip);
+		button.setActionCommand(actioncommand);
+		return button;
+	}
+	/**
+	 * Creates a JButton with text
+	 * 
+	 * @param String text	the text for the button
+	 * @param the tooltip for the button as a string
+	 * @param the action command string
+	 * @return JButton button	the button created according to method arguments
+	 */
+	private JButton createTextButton(String label, String tooltip,
+			String actioncommand) {
+		JButton button = new JButton(label);
 		button.setToolTipText(tooltip);
 		button.setActionCommand(actioncommand);
 		return button;
@@ -150,39 +180,6 @@ public class OptionsPanel extends JPanel{
 		return cameraMenu;
 	}
 
-	public JSlider createSlider(int facing, int min, int max, int init, String name) {
-		JSlider slider = new JSlider(facing, min, max, init);
-		// These should probably be constants..
-		slider.setMinorTickSpacing(1);
-		slider.setPaintTicks(true);
-		slider.setName(name);
-		return slider;
-	}
-/*
-	/**
-	 * Listeners for the buttons
-	 *
-	public void actionPerformed(ActionEvent e) {
-
-		if (Constants.handbutton.equals(e.getActionCommand())) {
-			System.out.println("Handtool Enabled");
-			// TODO
-		}
-		if (Constants.addsensorbutton.equals(e.getActionCommand())) {
-			System.out.println("Add Sensortool Enabled");
-			// TODO
-		}
-		if (Constants.selectionbutton.equals(e.getActionCommand())) {
-			System.out.println("Selector Tool Enabled");
-			// TODO
-		}
-		if (Constants.camerabutton.equals(e.getActionCommand())) {
-			System.out.println("Cameras are on you....");
-			// TODO
-		}
-	}
-*/
-
 	/**
 	 * Listener for the popup menu
 	 * 
@@ -202,52 +199,5 @@ public class OptionsPanel extends JPanel{
 
 		}
 	}
-	/*
-	class SliderListener implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-
-		    JSlider source = (JSlider)e.getSource();
-		    if(source.getName().equals(Constants.brightslider)){
-			    if (!source.getValueIsAdjusting()) {
-			    	
-			    	int newscale = (int)source.getValue();
-			    	//Float f = Float.parseFloat(newscale);
-			    	
-			    	// set scale make call here
-			    	System.out.println("Brigthness set to " + newscale + "");
-			    	
-			    }
-		    }
-		    if(source.getName().equals(Constants.scaleslider)){
-			    if (!source.getValueIsAdjusting()) {
-			    	
-					int newscale = (int)source.getValue();
-					// set scale make call here
-					System.out.println("Scale set to " + newscale + "");
-					Robot robot = null;
-					try {
-						robot = new Robot();
-					} catch (AWTException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						System.out.println("Robot object was not initialized");
-					}
-					
-					/*
-					 * moves the mousepointer to center of 3D frame position, scrolls
-					 *
-//					int RenderFrameCenterY = GUI.getGraphicsPane().getLocationOnScreen().y + (GUI.getGraphicsPane().getHeight() / 2);
-//					int RenderFrameCenterX = GUI.getGraphicsPane().getLocationOnScreen().x + (GUI.getGraphicsPane().getWidth() / 2);
-//					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);            
-//					robot.mousePress(InputEvent.BUTTON1_MASK);
-//		            robot.mouseRelease(InputEvent.BUTTON1_MASK);
-//					robot.mouseWheel(newscale * SCALE_SPEED);
-//					scaleslider.setValue(SCALE_INIT); //reset the slider to center value
-			    	
-			    }
-		    }
-		}
-
-	}*/
 
 }

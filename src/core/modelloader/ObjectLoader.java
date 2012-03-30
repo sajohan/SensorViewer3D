@@ -2,25 +2,17 @@ package core.modelloader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
-
 import view.GUI;
-import view.GraphicsPane;
-import view.StatusPanel;
 import core.modelloader.StlFile;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.ParsingErrorException;
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
-import com.sun.j3d.utils.universe.SimpleUniverse;
 
 /**
  * Title: Object Loader Description: A loader that loads objects from files.
@@ -33,8 +25,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  */
 
 public class ObjectLoader extends SwingWorker{
-	
-	
+
 	private File chosenfile = null;
 	private BranchGroup branch = null;
 	private GUI gui;
@@ -52,8 +43,6 @@ public class ObjectLoader extends SwingWorker{
 	 * @return BranchGroup a BranchGroup with the object
 	 */
 	public BranchGroup getObject(File file) {
-		// Init progressbar
-		StatusPanel.setProgress(0);
 		if (file.getName().endsWith(".stl") || file.getName().endsWith(".STL")) {
 			branch = getSTLObject(file);
 			System.out.println("Object group done");
@@ -75,13 +64,8 @@ public class ObjectLoader extends SwingWorker{
 	 */
 	private BranchGroup getWavefrontObjObject(File file) {
 		
-		int prog = 5;
-		StatusPanel.setProgress(prog);
-		
 		ObjectFile loader = new ObjectFile(ObjectFile.RESIZE);
 		BranchGroup group = new BranchGroup();
-
-		StatusPanel.setProgress(prog+20);
 		Scene scene = null;
 		try {
 			scene = loader.load(file.toURI().toURL());
@@ -94,11 +78,8 @@ public class ObjectLoader extends SwingWorker{
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		StatusPanel.setProgress(prog+20);
 		group.addChild(scene.getSceneGroup());
 		
-		// Done loading
-		StatusPanel.setProgress(100);
 		return group;
 	}
 
@@ -157,8 +138,6 @@ public class ObjectLoader extends SwingWorker{
 		objTrans.addChild(scene.getSceneGroup());
 		// group.addChild(objTrans);
 		
-		// Done loading
-		StatusPanel.setProgress(100);
 		return group;
 	}
 

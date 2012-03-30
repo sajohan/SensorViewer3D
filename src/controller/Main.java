@@ -1,23 +1,17 @@
 package controller;
 
 import static model.Constants.*;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.media.j3d.BranchGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSlider;
-
 import model.Constants;
-
 import core.modelloader.ObjectLoader;
-
 import view.GUI;
 import view.GraphicsPane;
 import view.Lighting;

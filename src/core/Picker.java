@@ -1,15 +1,11 @@
 package core;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-
 import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.vecmath.Point3d;
-
 import view.GUI;
-
 import com.sun.j3d.utils.picking.PickIntersection;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.picking.PickTool;

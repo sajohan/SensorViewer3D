@@ -718,15 +718,10 @@ public class StlFile implements Loader {
 	 */
 	private SceneBase makeScene() {
 		
-		int prog = 5;
-		StatusPanel.setProgress(prog);
-		
 		// Create Scene to pass back
 		SceneBase scene = new SceneBase();
 		BranchGroup group = new BranchGroup();
 		scene.setSceneGroup(group);
-		
-		StatusPanel.setProgress(prog+20);
 
 		// Store the scene info on a GeometryInfo
 		GeometryInfo gi = new GeometryInfo(GeometryInfo.TRIANGLE_STRIP_ARRAY);
@@ -736,7 +731,6 @@ public class StlFile implements Loader {
 			coordArray = objectToPoint3Array(coordList);
 			normArray = objectToVectorArray(normList);
 		}
-		StatusPanel.setProgress(prog+20);
 
 		gi.setCoordinates(coordArray);
 		gi.setNormals(normArray);
@@ -744,16 +738,12 @@ public class StlFile implements Loader {
 
 		// Put geometry into Shape3d
 		Shape3D shape = new Shape3D();
-		
-		StatusPanel.setProgress(prog+20);
 
 		shape.setGeometry(gi.getGeometryArray());
 		shape.setAppearance(createAppearance());
 
 		group.addChild(shape);
 		scene.addNamedObject(objectName, shape);
-		
-		StatusPanel.setProgress(prog+20);
 
 		return scene;
 	} // end of makeScene

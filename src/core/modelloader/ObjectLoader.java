@@ -120,7 +120,8 @@ public class ObjectLoader extends SwingWorker{
 			// stlfile.load() need to be able to handle a File object instead of
 			// a String to a classpath file.
 			// scene = stlfile.load(chosenfile);
-			scene = stlfile.load(file.toURI().toURL());
+			// Send both URL and File to make sure STL loader can read both
+			scene = stlfile.load(file.toURI().toURL(), file);
 		} catch (FileNotFoundException e) {
 			System.err.println(e);
 			System.exit(1);

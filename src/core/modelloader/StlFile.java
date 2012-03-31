@@ -91,6 +91,9 @@ public class StlFile implements Loader {
 	// Default = Not available
 	private String objectName = new String("Not available");
 
+	// For binary files
+	private File binaryfile = null;
+
 	/**
 	 * Constructor
 	 */
@@ -446,70 +449,68 @@ public class StlFile implements Loader {
 		if (DEBUG == 1)
 			System.out.println("Machine's endian: " + ByteOrder.nativeOrder());
 
+		// Fix to read binary too
+		file = binaryfile.toString();
+
 		// Get file's name
-		if (fromUrl) {
-			// FileInputStream can only read local files!?
-			System.out
-					.println("This version doesn't support reading binary files from internet");
-		} else { // It's a local file
-			data = new FileInputStream(file);
+		// // It's a local file
+		data = new FileInputStream(file);
 
-			// First 80 bytes aren't important
-			if (80 != data.read(Info)) { // File is incorrect
-											// System.out.println("Format Error: 80 bytes expected");
-				throw new IncorrectFormatException();
-			} else { // We must first read the number of faces -> 4 bytes int
-						// It depends on the endian so..
+		// First 80 bytes aren't important
+		if (80 != data.read(Info)) { // File is incorrect
+										// System.out.println("Format Error: 80 bytes expected");
+			throw new IncorrectFormatException();
+		} else { // We must first read the number of faces -> 4 bytes int
+					// It depends on the endian so..
 
-				data.read(Array_number); // We get the 4 bytes
-				dataBuffer = ByteBuffer.wrap(Array_number); // ByteBuffer for
-															// reading correctly
-															// the int
-				dataBuffer.order(ByteOrder.nativeOrder()); // Set the right
-															// order
-				Number_faces = dataBuffer.getInt();
+			data.read(Array_number); // We get the 4 bytes
+			dataBuffer = ByteBuffer.wrap(Array_number); // ByteBuffer for
+														// reading correctly
+														// the int
+			dataBuffer.order(ByteOrder.nativeOrder()); // Set the right
+														// order
+			Number_faces = dataBuffer.getInt();
 
-				Temp_Info = new byte[50 * Number_faces]; // Each face has 50
-															// bytes of data
+			Temp_Info = new byte[50 * Number_faces]; // Each face has 50
+														// bytes of data
 
-				data.read(Temp_Info); // We get the rest of the file
+			data.read(Temp_Info); // We get the rest of the file
 
-				dataBuffer = ByteBuffer.wrap(Temp_Info); // Now we have all the
-															// data in this
-															// ByteBuffer
-				dataBuffer.order(ByteOrder.nativeOrder());
+			dataBuffer = ByteBuffer.wrap(Temp_Info); // Now we have all the
+														// data in this
+														// ByteBuffer
+			dataBuffer.order(ByteOrder.nativeOrder());
 
-				if (DEBUG == 1)
-					System.out.println("Number of faces= " + Number_faces);
+			if (DEBUG == 1)
+				System.out.println("Number of faces= " + Number_faces);
 
-				// We can create that array directly as we know how big it's
-				// going to be
-				coordArray = new Point3f[Number_faces * 3]; // Each face has 3
-															// vertex
-				normArray = new Vector3f[Number_faces];
-				stripCounts = new int[Number_faces];
+			// We can create that array directly as we know how big it's
+			// going to be
+			coordArray = new Point3f[Number_faces * 3]; // Each face has 3
+														// vertex
+			normArray = new Vector3f[Number_faces];
+			stripCounts = new int[Number_faces];
 
-				for (int i = 0; i < Number_faces; i++) {
-					stripCounts[i] = 3;
-					try {
-						readFacetB(dataBuffer, i);
-						// After each facet there are 2 bytes without
-						// information
-						// In the last iteration we dont have to skip those
-						// bytes..
-						if (i != Number_faces - 1) {
-							dataBuffer.get();
-							dataBuffer.get();
-						}
-					} catch (IOException e) {
-						// Quitar
-						System.out.println("Format Error: iteration number "
-								+ i);
-						throw new IncorrectFormatException();
+			for (int i = 0; i < Number_faces; i++) {
+				stripCounts[i] = 3;
+				try {
+					readFacetB(dataBuffer, i);
+					// After each facet there are 2 bytes without
+					// information
+					// In the last iteration we dont have to skip those
+					// bytes..
+					if (i != Number_faces - 1) {
+						dataBuffer.get();
+						dataBuffer.get();
 					}
-				}// End for
-			}// End file reading
-		}// End else
+				} catch (IOException e) {
+					// Quitar
+					System.out.println("Format Error: iteration number " + i);
+					throw new IncorrectFormatException();
+				}
+			}// End for
+		}// End file reading
+		// End else
 	}// End of readBinaryFile
 
 	/**
@@ -609,6 +610,7 @@ public class StlFile implements Loader {
 	 * 
 	 * @param url
 	 *            The url to load the onject from
+	 * @param file
 	 * 
 	 * @return Scene The scene with the object loaded.
 	 * 
@@ -616,11 +618,12 @@ public class StlFile implements Loader {
 	 * @throws IncorrectFormatException
 	 * @throws ParsingErrorException
 	 */
-	public Scene load(URL url) throws FileNotFoundException,
+	public Scene load(URL url, File file) throws FileNotFoundException,
 			IncorrectFormatException, ParsingErrorException {
 		BufferedReader reader;
 
 		setBaseUrlFromUrl(url);
+		binaryfile = file;
 
 		try {
 			reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -717,7 +720,7 @@ public class StlFile implements Loader {
 	 * @return SceneBase The scene
 	 */
 	private SceneBase makeScene() {
-		
+
 		// Create Scene to pass back
 		SceneBase scene = new SceneBase();
 		BranchGroup group = new BranchGroup();
@@ -755,7 +758,7 @@ public class StlFile implements Loader {
 		mat.setCapability(Material.ALLOW_COMPONENT_WRITE);
 		mat.setDiffuseColor(new Color3f(0.7f, 0.7f, 0.7f));
 		mat.setSpecularColor(new Color3f(0.7f, 0.7f, 0.7f));
-		mat.setEmissiveColor(0.7f, 0.7f,0.7f);
+		mat.setEmissiveColor(0.7f, 0.7f, 0.7f);
 		app.setMaterial(mat);
 		return app;
 	}
@@ -882,6 +885,13 @@ public class StlFile implements Loader {
 
 	public void setObjectName(String name) {
 		this.objectName = name;
+	}
+
+	@Override
+	public Scene load(URL arg0) throws FileNotFoundException,
+			IncorrectFormatException, ParsingErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 } // End of package stl_loader

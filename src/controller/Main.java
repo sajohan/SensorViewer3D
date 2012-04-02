@@ -36,8 +36,7 @@ public class Main implements Observer {
 	public Main() {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader(null, null);
-		// get reference to graphicsPane to move camera on button presses (observavbles)
-		graphicsPane = gui.getGraphicsPane(); 
+
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 
@@ -66,13 +65,13 @@ public class Main implements Observer {
 	}
 	private void menuBarUpdater(Observable obs, Object obj){
 		if(obj instanceof File){
-			
+
 			ObjectLoader ldr = new ObjectLoader((File) obj, gui);
 			gui.showProgress();
 			ldr.execute();
-//			BranchGroup tempGroup = objLoader.getObject((File) obj);
-//			gui.loadNewGraphicsWindow(tempGroup);
-		//Is it a checkbox
+			//			BranchGroup tempGroup = objLoader.getObject((File) obj);
+			//			gui.loadNewGraphicsWindow(tempGroup);
+			//Is it a checkbox
 		}else if(obj instanceof JCheckBoxMenuItem){
 			JCheckBoxMenuItem chkBox = (JCheckBoxMenuItem)obj;
 			//Toggle visibility
@@ -98,7 +97,7 @@ public class Main implements Observer {
 					Lighting lights = gp.getLights();
 					// Set brigthness
 					lights.setBrightness(b);
-					
+
 					GUI.printToStatus("Brigthness set to " + b);
 					//System.out.println("Brigthness set to " + b + "");
 
@@ -117,7 +116,7 @@ public class Main implements Observer {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						System.out
-								.println("Robot object was not initialized");
+						.println("Robot object was not initialized");
 					}
 
 					/*
@@ -135,27 +134,34 @@ public class Main implements Observer {
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
 					robot.mouseWheel(newscale * Constants.SCALE_SPEED);
 					source.setValue(Constants.SCALE_INIT); // reset the
-															// slider to
-															// center value
+					// slider to
+					// center value
 					gui.printToStatus("Zoom set to " + newscale);
 
 				}
 			}
 		}
 	}
+	/**
+	 *Is notified by OptionsPanelUpdater on button press.
+	 *Updates view depending on what button was pressed.
+	 */
 	private void optionsPanelUpdater(Observable obs, Object obj){
 		if (obj instanceof JButton) {
-			System.out.println("IT'S A JBUTTON");
 			JButton source = (JButton) obj;
+			// get reference to graphicsPane to move camera on button presses (observavbles)
+			graphicsPane = gui.getGraphicsPane();
+			//disable mouse moveable camera, will re-enable if freeView was pressed.
+			graphicsPane.getOrbit().setRotateEnable(false);
 			//determine which button caused the event
 			if(source.getActionCommand().equals(Constants.cameraXLock)){
-				System.out.println("HAKJSAHD");
-//					graphicsPane.lockOnAxle(CAM_LOCK_X, false);
+				graphicsPane.lockOnAxle(CAM_LOCK_X, false);
 			}
 			else if(source.getActionCommand().equals(Constants.cameraXRLock)){
 				graphicsPane.lockOnAxle(CAM_LOCK_X, true);
 			}
 			else if(source.getActionCommand().equals(Constants.cameraYLock)){
+				System.out.println("CAM_LOCK_Y");
 				graphicsPane.lockOnAxle(CAM_LOCK_Y, false);
 			}
 			else if(source.getActionCommand().equals(Constants.cameraYRLock)){
@@ -164,11 +170,14 @@ public class Main implements Observer {
 			else if(source.getActionCommand().equals(Constants.cameraZLock)){
 				graphicsPane.lockOnAxle(CAM_LOCK_Z, false);
 			}
-			else if(source.getActionCommand().equals(Constants.cameraYRLock)){
+			else if(source.getActionCommand().equals(Constants.cameraZRLock)){
 				graphicsPane.lockOnAxle(CAM_LOCK_Z, true);
+			}
+			else if(source.getActionCommand().equals(Constants.freeCam)){
+				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 			}
 		}
 	}
-	
+
 
 }

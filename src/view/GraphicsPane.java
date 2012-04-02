@@ -44,6 +44,7 @@ public class GraphicsPane extends JPanel {
 	private Grid grid;
 	private BranchGroup group;
 	private final Canvas3D canvas;
+	private OrbitBehavior orbit;
 	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
 
 	public GraphicsPane(JFrame frame) {
@@ -109,11 +110,10 @@ public class GraphicsPane extends JPanel {
 		univ.addBranchGraph(group);
 
 		// Make camera moveable (OrbitBehavior)
-		OrbitBehavior orbit = new OrbitBehavior(canvas,
+		orbit = new OrbitBehavior(canvas,
 				OrbitBehavior.REVERSE_ALL);
 		orbit.setSchedulingBounds(bounds);
 		vp.setViewPlatformBehavior(orbit);
-
 		//set up and make frame visible
 		frame.add(canvas);
 		frame.pack();
@@ -121,6 +121,7 @@ public class GraphicsPane extends JPanel {
 		
 		enableResize(canvas,500);
 	}
+
 	/**
 	 * Removes old branchgroup, adds "newModel" to it instead.
 	 * @param BranchGroup newModel	the object to replace the current objects in the branchgroup
@@ -242,5 +243,8 @@ public class GraphicsPane extends JPanel {
 	
 	public Grid getGrid() {
 		return grid;
+	}
+	public OrbitBehavior getOrbit() {
+		return orbit;
 	}
 }

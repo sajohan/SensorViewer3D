@@ -21,55 +21,11 @@ public class OptionsPanelListener extends Observable implements ActionListener {
 	}
 
 	/**
-	 * Listeners for the buttons
+	 * Notifies listeners on button presses (currently Main.java)
 	 */
 	public void actionPerformed(ActionEvent e) {
 		setChanged();
-		if (Constants.handbutton.equals(e.getActionCommand())) {
-			System.out.println("Handtool Enabled");
-			// TODO
-		}
-		if (Constants.addsensorbutton.equals(e.getActionCommand())) {
-			System.out.println("Add Sensortool Enabled");
-			// TODO
-		}
-		if (Constants.selectionbutton.equals(e.getActionCommand())) {
-			System.out.println("Selector Tool Enabled");
-			// TODO
-		}
-		if (Constants.camerabutton.equals(e.getActionCommand())) {
-			System.out.println("Cameras are on you....");
-			notifyObservers();
-		}
-		
-		if (Constants.freeCam.equals(e.getActionCommand())) {
-			System.out.println("FreeCam");
-			// TODO
-		}
-		if (Constants.cameraXLock.equals(e.getActionCommand())) {
-			System.out.println("cameraXLock");
-			notifyObservers(e.getSource());
-		}
-		if (Constants.cameraXRLock.equals(e.getActionCommand())) {
-			System.out.println("cameraXRLock");
-			// TODO
-		}
-		if (Constants.cameraYLock.equals(e.getActionCommand())) {
-			System.out.println("cameraYLock");
-			// TODO
-		}
-		if (Constants.cameraYRLock.equals(e.getActionCommand())) {
-			System.out.println("cameraYRLock");
-			// TODO
-		}
-		if (Constants.cameraZLock.equals(e.getActionCommand())) {
-			System.out.println("cameraZLock");
-			// TODO
-		}
-		if (Constants.cameraZRLock.equals(e.getActionCommand())) {
-			System.out.println("cameraZRLock");
-			// TODO
-		}
+		notifyObservers(e.getSource());	
 	}
 
 

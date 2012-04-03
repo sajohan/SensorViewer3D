@@ -2,6 +2,8 @@ package controller;
 
 import static model.Constants.*;
 import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.io.File;
@@ -103,12 +105,11 @@ public class Main implements Observer {
 
 				}
 			}
+			//scale slider, zooms in and out
 			if (source.getName().equals(Constants.scaleslider)) {
 				if (!source.getValueIsAdjusting()) {
 
 					int newscale = (int) source.getValue();
-					// set scale make call here
-					System.out.println("Scale set to " + newscale + "");
 					Robot robot = null;
 					try {
 						robot = new Robot();
@@ -123,6 +124,7 @@ public class Main implements Observer {
 					 * moves the mousepointer to center of 3D frame
 					 * position, scrolls
 					 */
+					Point p = MouseInfo.getPointerInfo().getLocation();
 					int RenderFrameCenterY = gui.getGraphicsPane()
 							.getLocationOnScreen().y
 							+ (gui.getGraphicsPane().getHeight() / 2);
@@ -133,10 +135,10 @@ public class Main implements Observer {
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
 					robot.mouseWheel(newscale * Constants.SCALE_SPEED);
-					source.setValue(Constants.SCALE_INIT); // reset the
-					// slider to
-					// center value
-					gui.printToStatus("Zoom set to " + newscale);
+					// reset the slider to center value
+					source.setValue(Constants.SCALE_INIT); 
+					//move mousepointer back to slider
+					robot.mouseMove(p.x, p.y);
 
 				}
 			}

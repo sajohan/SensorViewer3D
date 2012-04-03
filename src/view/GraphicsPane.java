@@ -112,6 +112,14 @@ public class GraphicsPane extends JPanel {
 		// Make camera moveable (OrbitBehavior)
 		orbit = new OrbitBehavior(canvas,
 				OrbitBehavior.REVERSE_ALL);
+		
+		//enables better zooming
+		orbit.setProportionalZoom(true); 
+		
+		//disallows zooming in too close, such as zooming in past origo
+		orbit.setCapability(OrbitBehavior.STOP_ZOOM);
+		orbit.setMinRadius(2.0);
+		
 		orbit.setSchedulingBounds(bounds);
 		vp.setViewPlatformBehavior(orbit);
 		//set up and make frame visible

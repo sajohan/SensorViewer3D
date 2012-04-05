@@ -177,6 +177,7 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
+				graphicsPane.setPerspectivePolicy();
 			}
 		}
 	}

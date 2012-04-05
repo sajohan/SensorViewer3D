@@ -17,6 +17,7 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.media.j3d.View;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.vecmath.Point3d;
@@ -195,6 +196,22 @@ public class GraphicsPane extends JPanel {
 		thr1.start();
 	}
 	
+	
+	/**
+	 * Sets the view to parallel, that is, things far away looks as close as things up close.
+	 */
+	public void setParallelPolicy(){
+		canvas.getView().setProjectionPolicy(View.PARALLEL_PROJECTION);
+	}
+	
+	/**
+	 * Sets the view to perspective, that is, things far away looks like they're far away.
+	 */
+	public void setPerspectivePolicy(){
+		canvas.getView().setProjectionPolicy(View.PERSPECTIVE_PROJECTION);
+	}
+	
+	
 	/**
 	 * Places camera on the axle provided as argument.
 	 * @param int	axle	from Model.Constants the axle(x,y or z) to place the camera
@@ -223,6 +240,7 @@ public class GraphicsPane extends JPanel {
         //Note: Transform3D.lookAt() requires .invert() call after each use
         view_tf3d.invert(); 
         view_tg.setTransform(view_tf3d); //Perform the camera move
+        setParallelPolicy();
 	}
 	/**
 	 * Sets up the light and x,y,z origo axes in the universe.

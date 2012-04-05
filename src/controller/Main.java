@@ -163,7 +163,6 @@ public class Main implements Observer {
 				graphicsPane.lockOnAxle(CAM_LOCK_X, true);
 			}
 			else if(source.getActionCommand().equals(Constants.cameraYLock)){
-				System.out.println("CAM_LOCK_Y");
 				graphicsPane.lockOnAxle(CAM_LOCK_Y, false);
 			}
 			else if(source.getActionCommand().equals(Constants.cameraYRLock)){
@@ -177,7 +176,6 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
-				graphicsPane.setPerspectivePolicy();
 			}
 		}
 	}

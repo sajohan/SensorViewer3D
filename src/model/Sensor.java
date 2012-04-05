@@ -12,17 +12,9 @@ public class Sensor implements Serializable {
 	 */
 
 	private SensorValues values;
-	private String name;
-	private float rangeMin;
-	private float rangeMax;
-	
 
-	public Sensor(String name, float min, float max) {
-		
-		this.name = name;
-		this.rangeMin = min;
-		this.rangeMax = max;
-		
+	public Sensor() {
+
 		// Init reading
 		// Serial flow from hardware
 
@@ -35,9 +27,5 @@ public class Sensor implements Serializable {
 
 	public void setValuesMap(SensorValues values) {
 		this.values = values;
-	}
-	
-	public String toString(){
-		return "Sensor: " + name + " " + rangeMin + " " + rangeMax;
 	}
 }

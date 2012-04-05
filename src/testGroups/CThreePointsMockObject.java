@@ -3,6 +3,7 @@ package testGroups;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Material;
+import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -43,6 +44,11 @@ public class CThreePointsMockObject extends CThreePObject{
 		Appearance ap = sphere1.getAppearance();
 		 Material mat = ap.getMaterial();
 		 mat.setDiffuseColor(new Color3f(0,0,1));
+
+	     RenderingAttributes ra  = new RenderingAttributes();
+//	     ra.setDepthBufferEnable(false);
+	     ra.setDepthTestFunction(RenderingAttributes.NEVER);
+		 ap.setRenderingAttributes(ra);
 		 // set appearance back
 		 sphere1.setAppearance(ap);
 
@@ -51,6 +57,7 @@ public class CThreePointsMockObject extends CThreePObject{
 		 mat = ap.getMaterial();
 		 mat.setDiffuseColor(new Color3f(0,0,1));
 		 // set appearance back
+		 ap.setRenderingAttributes(ra);
 		 sh3D.setAppearance(ap);
 		 
 		 
@@ -64,6 +71,7 @@ public class CThreePointsMockObject extends CThreePObject{
 		ap = sphere2.getAppearance();
 		 mat = ap.getMaterial();
 		 mat.setDiffuseColor(new Color3f(0,1,0));
+		 ap.setRenderingAttributes(ra);
 		 // set appearance back
 		 sphere2.setAppearance(ap);
 
@@ -71,6 +79,7 @@ public class CThreePointsMockObject extends CThreePObject{
 		 ap = sh3D.getAppearance();
 		 mat = ap.getMaterial();
 		 mat.setDiffuseColor(new Color3f(0,1,0));
+		 ap.setRenderingAttributes(ra);
 		 // set appearance back
 		 sh3D.setAppearance(ap);
 		 

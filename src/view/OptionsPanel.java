@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,8 +47,8 @@ public class OptionsPanel extends JPanel {
 	 * receives Main.java as listener
 	 */
 	public OptionsPanel(EventListener eventListener) {
-		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
+//		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		super.setLayout(new GridLayout(19,1));
 		// Fix overlapping on Canvas3D with this call
 		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
@@ -94,7 +96,7 @@ public class OptionsPanel extends JPanel {
 		super.add(handButton);
 		super.add(sensorButton);
 		super.add(selectionButton);
-		super.add(padding);
+//		super.add(padding);
 		super.add(cameraLabel);
 		super.add(freeView);
 		super.add(LockX);

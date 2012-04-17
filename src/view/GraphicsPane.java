@@ -43,6 +43,7 @@ public class GraphicsPane extends JPanel {
 	private ObjectLoader objLoader;
 	private Lighting lights;
 	private Grid grid;
+	private Quantities quantities;
 	private BranchGroup group;
 	private final Canvas3D canvas;
 	private OrbitBehavior orbit;
@@ -91,7 +92,12 @@ public class GraphicsPane extends JPanel {
 			CThreePO.moveTo(CThreePO2);
 
 		setUpLightAndGrid();
-
+		
+		//create the object that displays the measured quantities in 3d
+		quantities = new Quantities();
+		quantities.drawSphere(9.9f,0.0f,0.0f,0.2f); //drawing a quantity sphere for testing
+		group.addChild(quantities);
+		
 		//set up view to nominal viewing transform
 		ViewingPlatform vp = univ.getViewingPlatform();
 		vp.setNominalViewingTransform();

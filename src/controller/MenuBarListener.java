@@ -18,13 +18,20 @@ import view.GUI;
  */
 public class MenuBarListener extends Observable implements ActionListener {
 
-	final JFileChooser fc = new JFileChooser();
+	private final JFileChooser fc;
+	private ValueFileFilter valFilter;
 
 	public MenuBarListener() {
+		valFilter = new ValueFileFilter();
+		fc = new JFileChooser();
+		fc.setFileFilter(valFilter);
 	}
 
 	public MenuBarListener(Observer obs) {
 		addObserver(obs);
+		valFilter = new ValueFileFilter();
+		fc = new JFileChooser();
+		fc.setFileFilter(valFilter);
 	}
 
 	@Override

@@ -47,6 +47,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		importItem.addActionListener(al);
 		fileMenu.add(importItem);
 		
+		
 		//Divider
 		fileMenu.add(new JSeparator());
 		

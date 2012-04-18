@@ -21,7 +21,7 @@ public class SensorReader {
 
 	public SensorValues readFile(File file) throws IOException {
 		br = new BufferedReader(new FileReader(file));
-		sv = new SensorValues();
+//		sv = new SensorValues();
 		// check that file is the right type
 		
 		float x, y, z,value;

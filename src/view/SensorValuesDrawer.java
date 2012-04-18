@@ -38,9 +38,10 @@ public class SensorValuesDrawer extends BranchGroup{
 		this.addChild(transformGrp);
 	}
 	
+	
 	public void drawSensorValue(SensorValue s){
-//		if(s.isVisible())
-//			drawSphere(s.getX(),s.getY(),s.getZ(),s.getValue());
-		drawSphere(1,1,1,1);
+		if(s.isVisible())
+			drawSphere(s.getX(),s.getY(),s.getZ(),s.getValue());
+
 	}
 }

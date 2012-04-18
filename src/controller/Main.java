@@ -42,9 +42,8 @@ public class Main implements Observer {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader(null, null);
 		
-		values = new SensorValues();
-		values.addValueToList(new SensorValue(1,1,1,5));
-		
+		values = new SensorValues(this);
+		values.addValueToList(new SensorValue(1,1,0,5));
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 
@@ -68,6 +67,15 @@ public class Main implements Observer {
 		 */
 		else if(obs instanceof OptionsPanelListener){
 			optionsPanelUpdater(obs, obj);
+		}
+		/*
+		 * Called upon updating values in SensorValues
+		 */
+		else if (obs instanceof SensorValues){
+			// draws the sensorvalue
+			// if receiving values before graphicsPane is initialized, discard
+			if (graphicsPane != null) 
+				graphicsPane.updateSensorValue((SensorValue)obj);
 		}
 
 	}
@@ -183,10 +191,6 @@ public class Main implements Observer {
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 				graphicsPane.setPerspectivePolicy();
-				/*
-				 * draws the sensorvalue
-				 */
-				graphicsPane.updateSensorValue(values.getValuesList().get(0));
 			}
 		}
 	}

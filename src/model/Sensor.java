@@ -18,7 +18,7 @@ public class Sensor implements Serializable {
 		// Init reading
 		// Serial flow from hardware
 
-		values = new SensorValues();
+//		values = new SensorValues();
 	}
 
 	public SensorValues getValuesMap() {

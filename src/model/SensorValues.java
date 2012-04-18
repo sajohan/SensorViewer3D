@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.vecmath.Point3d;
 
 /**
@@ -12,15 +15,19 @@ import javax.vecmath.Point3d;
  * 
  */
 
-public class SensorValues implements Serializable {
+public class SensorValues extends Observable implements Serializable{
 
 	// Map of points connected to values
 //	private HashMap<Point3d, Float> map;
 	private ArrayList<SensorValue> l;
 	
-	public SensorValues() {
+	/**
+	 * @param	Observer	obs	the object to observe new sensor values added
+	 */
+	public SensorValues(Observer obs) {
 //		map = new HashMap<Point3d, Float>();
 		l = new ArrayList<SensorValue>();
+		this.addObserver(obs);
 	}
 
 	public void setValuesList(ArrayList<SensorValue> l) {
@@ -28,6 +35,8 @@ public class SensorValues implements Serializable {
 	}
 	public void addValueToList(SensorValue s) {
 		this.l.add(s);
+		this.setChanged();
+		this.notifyObservers(s);
 	}
 
 	public ArrayList<SensorValue> getValuesList() {

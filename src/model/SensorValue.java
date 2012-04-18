@@ -2,9 +2,9 @@ package model;
 
 import javax.vecmath.Point3d;
 
-public class SensorValue {
+public class SensorValue{
 	private float x,y,z,a;
-	private boolean visible = true; 
+	private boolean visible = false; 
 	
 	public SensorValue(float x,float y,float z,float a){
 		this.setX(x);

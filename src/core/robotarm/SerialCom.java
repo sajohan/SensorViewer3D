@@ -1,4 +1,4 @@
-package core;
+package core.robotarm;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
@@ -10,11 +10,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
+/**
+ * Title: Serial communicator
+ * Description: Writes data and reads data on com-port.
+ * Eventbased listener.
+ * 
+ * @version 1.0
+ *
+ */
 public class SerialCom {
 
     public SerialCom()
     {
-        super();
     }
     
     void connect ( String portName ) throws Exception

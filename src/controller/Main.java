@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSlider;
 import model.Constants;
+import model.SensorValue;
+import model.SensorValues;
 import core.modelloader.ObjectLoader;
 import view.GUI;
 import view.GraphicsPane;
@@ -25,6 +27,7 @@ public class Main implements Observer {
 	ObjectLoader objLoader;
 	GUI gui;
 	GraphicsPane graphicsPane;
+	SensorValues values;
 
 	/**
 	 * @param args
@@ -38,7 +41,10 @@ public class Main implements Observer {
 	public Main() {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader(null, null);
-
+		
+		values = new SensorValues();
+		values.addValueToList(new SensorValue(1,1,1,5));
+		
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 
@@ -177,6 +183,10 @@ public class Main implements Observer {
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 				graphicsPane.setPerspectivePolicy();
+				/*
+				 * draws the sensorvalue
+				 */
+				graphicsPane.updateSensorValue(values.getValuesList().get(0));
 			}
 		}
 	}

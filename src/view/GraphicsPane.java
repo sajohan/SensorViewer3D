@@ -22,6 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
+
+import model.SensorValue;
 import static model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
@@ -43,7 +45,7 @@ public class GraphicsPane extends JPanel {
 	private ObjectLoader objLoader;
 	private Lighting lights;
 	private Grid grid;
-	private Quantities quantities;
+	private SensorValuesDrawer sensorValuesDrawer;
 	private BranchGroup group;
 	private final Canvas3D canvas;
 	private OrbitBehavior orbit;
@@ -93,10 +95,15 @@ public class GraphicsPane extends JPanel {
 
 		setUpLightAndGrid();
 		
+		//move the grid to center of CThreePO 
+//		grid.detach();
+//		CThreePO.addChild(grid);
+
+		
 		//create the object that displays the measured quantities in 3d
-		quantities = new Quantities();
-		quantities.drawSphere(9.9f,0.0f,0.0f,0.2f); //drawing a quantity sphere for testing
-		group.addChild(quantities);
+		sensorValuesDrawer = new SensorValuesDrawer();
+		sensorValuesDrawer.drawSphere(0, 0, 0, 1);
+		group.addChild(sensorValuesDrawer);
 		
 		//set up view to nominal viewing transform
 		ViewingPlatform vp = univ.getViewingPlatform();
@@ -128,6 +135,7 @@ public class GraphicsPane extends JPanel {
 		orbit.setMinRadius(2.0);
 		
 		orbit.setSchedulingBounds(bounds);
+		orbit.setRotationCenter(new Point3d(CThreePO.getPosOfPoint1()));
 		vp.setViewPlatformBehavior(orbit);
 		//set up and make frame visible
 		frame.add(canvas);
@@ -267,10 +275,16 @@ public class GraphicsPane extends JPanel {
 		grid.setPickable(false);
 
 		group.addChild(lights);
-		group.addChild(grid);
-		
+		group.addChild(grid);	
 	}
-	
+	/*
+	 * makes the call to draw the graphical representation of argument on the screen
+	 */
+	public void updateSensorValue(SensorValue s){
+		group.detach();
+		sensorValuesDrawer.drawSensorValue(s);
+		univ.addBranchGraph(group);
+	}
 	
 	public Lighting getLights() {
 		return lights;

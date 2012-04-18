@@ -7,12 +7,14 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
+import model.SensorValue;
+
 import com.sun.j3d.utils.geometry.Sphere;
 
-public class Quantities extends BranchGroup{
+public class SensorValuesDrawer extends BranchGroup{
 
 	
-	public Quantities(){
+	public SensorValuesDrawer(){
 		
 	}
 
@@ -34,5 +36,11 @@ public class Quantities extends BranchGroup{
 		
 		transformGrp.addChild(sphere);
 		this.addChild(transformGrp);
+	}
+	
+	public void drawSensorValue(SensorValue s){
+//		if(s.isVisible())
+//			drawSphere(s.getX(),s.getY(),s.getZ(),s.getValue());
+		drawSphere(1,1,1,1);
 	}
 }

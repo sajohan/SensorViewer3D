@@ -38,7 +38,7 @@ public class SensorReader {
 			
 			// Add to structure
 			p = new Point3d(x,y,z);
-			sv.addValue(p, value);
+//			sv.addValue(p, value);
 			
 			// Get next line
 			line = br.readLine();

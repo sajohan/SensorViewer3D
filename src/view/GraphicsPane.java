@@ -102,7 +102,7 @@ public class GraphicsPane extends JPanel {
 		
 		//create the object that displays the measured quantities in 3d
 		sensorValuesDrawer = new SensorValuesDrawer();
-		sensorValuesDrawer.drawSphere(0, 0, 0, 1);
+//		sensorValuesDrawer.drawSphere(0, 0, 0, 1);
 		group.addChild(sensorValuesDrawer);
 		
 		//set up view to nominal viewing transform
@@ -135,7 +135,7 @@ public class GraphicsPane extends JPanel {
 		orbit.setMinRadius(2.0);
 		
 		orbit.setSchedulingBounds(bounds);
-		orbit.setRotationCenter(new Point3d(CThreePO.getPosOfPoint1()));
+		orbit.setRotationCenter(new Point3d(0,0,0));
 		vp.setViewPlatformBehavior(orbit);
 		//set up and make frame visible
 		frame.add(canvas);

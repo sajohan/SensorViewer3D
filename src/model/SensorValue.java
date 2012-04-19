@@ -4,7 +4,7 @@ import javax.vecmath.Point3d;
 
 public class SensorValue{
 	private float x,y,z,a;
-	private boolean visible = false; 
+	private boolean visible = true; 
 	
 	public SensorValue(float x,float y,float z,float a){
 		this.setX(x);

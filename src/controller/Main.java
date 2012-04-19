@@ -12,10 +12,13 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JSlider;
+import javax.vecmath.Point3d;
+
 import model.Constants;
 import model.SensorValue;
 import model.SensorValues;
 import core.modelloader.ObjectLoader;
+import core.robotarm.RobotHandler;
 import view.GUI;
 import view.GraphicsPane;
 import view.Lighting;
@@ -28,6 +31,7 @@ public class Main implements Observer {
 	GUI gui;
 	GraphicsPane graphicsPane;
 	SensorValues values;
+	RobotHandler robotHandler;
 
 	/**
 	 * @param args
@@ -41,9 +45,7 @@ public class Main implements Observer {
 	public Main() {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader(null, null);
-		
-		values = new SensorValues(this);
-		values.addValueToList(new SensorValue(1,1,0,5));
+
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 
@@ -190,6 +192,20 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
+				
+				//testing 
+				values = new SensorValues(this);
+				robotHandler = new RobotHandler(values);
+				Point3d point1 = new Point3d(1,1,1);
+				Point3d point2 = new Point3d(-1, 5, 0);
+				Point3d[] points = {point1, point2};
+
+				robotHandler.readSensorGroup(points);
+				
+				
+
+//				values.addValueToList(new SensorValue(4,4,0,50));
+				
 				graphicsPane.setPerspectivePolicy();
 			}
 		}

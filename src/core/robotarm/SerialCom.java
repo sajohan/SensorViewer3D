@@ -21,8 +21,11 @@ import java.io.OutputStream;
  */
 public class SerialCom {
 
-    public SerialCom()
+	private static RobotHandler robotHandler;
+	
+    public SerialCom(RobotHandler robotHandler)
     {
+    	this.robotHandler = robotHandler;
     }
     
     void connect ( String portName ) throws Exception
@@ -66,6 +69,8 @@ public class SerialCom {
         private InputStream in;
         private byte[] buffer = new byte[1024];
         
+        
+        
         public SerialReader ( InputStream in )
         {
             this.in = in;
@@ -84,7 +89,9 @@ public class SerialCom {
                     }
                     buffer[len++] = (byte) data;
                 }
-                System.out.print(new String(buffer,0,len));
+                robotHandler.setInData(buffer);
+
+                System.out.print("Read data: "+new String(buffer,0,len));
             }
             catch ( IOException e )
             {
@@ -92,6 +99,10 @@ public class SerialCom {
                 System.exit(-1);
             }             
         }
+        
+        public byte[] getBuffer() {
+			return buffer;
+		}
 
     }
 

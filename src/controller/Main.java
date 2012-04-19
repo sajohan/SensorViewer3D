@@ -193,6 +193,11 @@ public class Main implements Observer {
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 				
+				graphicsPane.setPerspectivePolicy();
+			}
+			else if(source.getActionCommand().equals(Constants.addsensorbutton)){
+				System.out.println("add sensor");
+
 				//testing 
 				values = new SensorValues(this);
 				robotHandler = new RobotHandler(values);
@@ -202,11 +207,8 @@ public class Main implements Observer {
 
 				robotHandler.readSensorGroup(points);
 				
-				
-
 //				values.addValueToList(new SensorValue(4,4,0,50));
 				
-				graphicsPane.setPerspectivePolicy();
 			}
 		}
 	}

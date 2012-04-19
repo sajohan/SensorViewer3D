@@ -4,8 +4,12 @@ import java.math.BigDecimal;
 import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
+import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
 import view.GUI;
+import view.SensorValuesDrawer;
+
+import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.picking.PickIntersection;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.picking.PickTool;
@@ -28,9 +32,15 @@ public class Picker extends PickMouseBehavior {
 	 * @param group
 	 * @param bounds
 	 */
+	
+	BranchGroup group;
+	PickerMarker pickerMarker;
+	
 	public Picker(Canvas3D canvas, BranchGroup group, Bounds bounds) {
 		super(canvas, group, bounds);
 		 setSchedulingBounds(bounds);
+		 
+		 this.group = group;
 
          pickCanvas.setMode(PickTool.GEOMETRY_INTERSECT_INFO);
          // allows PickIntersection objects to be returned
@@ -58,6 +68,15 @@ public class Picker extends PickMouseBehavior {
             double z = roundValue(intercept.z);
             
             GUI.printToStatus("You pointed at X: " + x + " Y:" + y + " Z: " + z);
+            
+            if(pickerMarker != null){
+            	pickerMarker.detach();
+            }
+
+            // Add a sphere to where we clicked
+            pickerMarker = new PickerMarker();
+            pickerMarker.drawSphere((float)x, (float)y, (float)z);
+    		group.addChild(pickerMarker);
             
             //System.out.println("You pointed at: " + intercept);
             // extract the intersection pt in scene coords space

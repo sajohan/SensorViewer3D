@@ -17,6 +17,9 @@ public class ValueFileFilter extends FileFilter{
 	 */
 	@Override
 	public boolean accept(File f) {
+		if (f.isDirectory()) {
+	        return true;
+	    }
 
 		String extension = getExtension(f);
 		if (extension != null) {

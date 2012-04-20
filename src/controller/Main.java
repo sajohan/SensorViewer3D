@@ -196,19 +196,22 @@ public class Main implements Observer {
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){
-				System.out.println("add sensor");
-
-				//testing 
-				values = new SensorValues(this);
-				robotHandler = new RobotHandler(values);
-				Point3d point1 = new Point3d(1,1,1);
-				Point3d point2 = new Point3d(-1, 5, 0);
-				Point3d[] points = {point1, point2};
-
-				robotHandler.readSensorGroup(points);
-				
+//				System.out.println("add sensor");
+//
+//				//testing 
+//				values = new SensorValues(this);
+//				robotHandler = new RobotHandler(values);
+//				Point3d point1 = new Point3d(1,1,1);
+//				Point3d point2 = new Point3d(-1, 5, 0);
+//				Point3d[] points = {point1, point2};
+//
+//				robotHandler.readSensorGroup(points);
+//				
 //				values.addValueToList(new SensorValue(4,4,0,50));
 				
+			}
+			else if(source.getActionCommand().equals(Constants.handbutton)){
+				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 			}
 		}
 	}

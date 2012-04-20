@@ -96,6 +96,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public JMenu createPreferences() {
 		JMenu preferencesMenu = new JMenu("Preferences");
 		preferencesMenu.setMnemonic(KeyEvent.VK_P);
+		
+		JMenuItem importItem = new JMenuItem("Set Com Port");
+		importItem.setActionCommand("setComPort");
+		importItem.addActionListener(al);
+		preferencesMenu.add(importItem);
+		
+		
+		
 		return preferencesMenu;
 
 	}

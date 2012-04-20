@@ -9,8 +9,12 @@ import java.awt.event.InputEvent;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.vecmath.Point3d;
 
@@ -32,6 +36,7 @@ public class Main implements Observer {
 	GraphicsPane graphicsPane;
 	SensorValues values;
 	RobotHandler robotHandler;
+	String comPort;
 
 	/**
 	 * @param args
@@ -90,13 +95,27 @@ public class Main implements Observer {
 			//			BranchGroup tempGroup = objLoader.getObject((File) obj);
 			//			gui.loadNewGraphicsWindow(tempGroup);
 			//Is it a checkbox
-		}else if(obj instanceof JCheckBoxMenuItem){
+		}
+		/*
+		 * View dropdown
+		 */ 
+		else if(obj instanceof JCheckBoxMenuItem){
 			JCheckBoxMenuItem chkBox = (JCheckBoxMenuItem)obj;
 			//Toggle visibility
 			if(chkBox.getActionCommand().equals("axesVis")){
 				gui.getGraphicsPane().getGrid().axesVisibility(chkBox.getState());
 			}else if(chkBox.getActionCommand().equals("gridVis")){
 				gui.getGraphicsPane().getGrid().gridVisibility(chkBox.getState());
+			}
+		}
+		/*
+		 * Preferences dropdown
+		 */
+		else if(obj instanceof JMenuItem){
+//			while()
+			comPort = JOptionPane.showInputDialog("Input com port");
+			if(!comPort.matches("\\d{1,2}")){
+				JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
 			}
 		}
 	}
@@ -196,18 +215,18 @@ public class Main implements Observer {
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){
-//				System.out.println("add sensor");
-//
-//				//testing 
-//				values = new SensorValues(this);
-//				robotHandler = new RobotHandler(values);
-//				Point3d point1 = new Point3d(1,1,1);
-//				Point3d point2 = new Point3d(-1, 5, 0);
-//				Point3d[] points = {point1, point2};
-//
-//				robotHandler.readSensorGroup(points);
-//				
-//				values.addValueToList(new SensorValue(4,4,0,50));
+				System.out.println("add sensor");
+
+				//testing 
+				values = new SensorValues(this);
+				robotHandler = new RobotHandler(values);
+				Point3d point1 = new Point3d(1,1,1);
+				Point3d point2 = new Point3d(-1, 5, 0);
+				Point3d[] points = {point1, point2};
+
+				robotHandler.readSensorGroup(points,comPort);
+				
+				values.addValueToList(new SensorValue(4,4,0,50));
 				
 			}
 			else if(source.getActionCommand().equals(Constants.handbutton)){

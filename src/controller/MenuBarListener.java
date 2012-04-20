@@ -38,7 +38,7 @@ public class MenuBarListener extends Observable implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem source = (JMenuItem) (e.getSource());
 
-		
+
 		if (source.getActionCommand().equals("import")) {
 			int returnVal = fc.showOpenDialog(null);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -55,7 +55,7 @@ public class MenuBarListener extends Observable implements ActionListener {
 		}else if(source.getActionCommand().equals("exit")){
 			//TODO prompt user to save work?
 			System.exit(0);
-			
+
 		}else if(source.getActionCommand().equals("axesVis")){
 			JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem)source;
 			setChanged();
@@ -65,7 +65,12 @@ public class MenuBarListener extends Observable implements ActionListener {
 			setChanged();
 			notifyObservers(checkBox);
 		}
-		
+		else if(source.getActionCommand().equals("setComPort")){
+			JMenuItem checkBox = (JMenuItem)source;
+			setChanged();
+			notifyObservers(checkBox);
+		}
+
 
 	}
 }

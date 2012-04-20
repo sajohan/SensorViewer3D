@@ -29,11 +29,11 @@ public class RobotHandler {
 
 	
 	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */
-	public SensorValues readSensorGroup(Point3d[] points ){
+	public SensorValues readSensorGroup(Point3d[] points, String comPort){
 		
         try{
         	serialCom = new SerialCom(this);
-            serialCom.connect("COM3");
+            serialCom.connect(comPort);
         }catch ( Exception e ){
             e.printStackTrace();
         }

@@ -112,10 +112,12 @@ public class Main implements Observer {
 		 * Preferences dropdown
 		 */
 		else if(obj instanceof JMenuItem){
-//			while()
+			//			while()
 			comPort = JOptionPane.showInputDialog("Input com port");
 			if(!comPort.matches("\\d{1,2}")){
 				JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
+			}else{
+				comPort = "COM"+comPort;
 			}
 		}
 	}
@@ -161,11 +163,11 @@ public class Main implements Observer {
 					 */
 					Point p = MouseInfo.getPointerInfo().getLocation();
 					int RenderFrameCenterY = gui.getGraphicsPane()
-							.getLocationOnScreen().y
-							+ (gui.getGraphicsPane().getHeight() / 2);
+					.getLocationOnScreen().y
+					+ (gui.getGraphicsPane().getHeight() / 2);
 					int RenderFrameCenterX = gui.getGraphicsPane()
-							.getLocationOnScreen().x
-							+ (gui.getGraphicsPane().getWidth() / 2);
+					.getLocationOnScreen().x
+					+ (gui.getGraphicsPane().getWidth() / 2);
 					robot.mouseMove(RenderFrameCenterX, RenderFrameCenterY);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					robot.mouseRelease(InputEvent.BUTTON1_MASK);
@@ -211,7 +213,7 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
-				
+
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){
@@ -225,9 +227,9 @@ public class Main implements Observer {
 				Point3d[] points = {point1, point2};
 
 				robotHandler.readSensorGroup(points,comPort);
-				
+
 				values.addValueToList(new SensorValue(4,4,0,50));
-				
+
 			}
 			else if(source.getActionCommand().equals(Constants.handbutton)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera

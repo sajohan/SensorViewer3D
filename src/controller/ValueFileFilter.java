@@ -40,7 +40,6 @@ public class ValueFileFilter extends FileFilter{
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return "Graphical files (*.val, *.stl, *.obj)";
 	}
 	

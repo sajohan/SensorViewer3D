@@ -49,7 +49,6 @@ public class RobotHandler {
 	public SensorValue readSingleSensor(float x, float y, float z){
 		
 		
-		//TODO read
 		while(inData == null){
 			//Do nothing
 		}

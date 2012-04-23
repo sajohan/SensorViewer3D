@@ -851,7 +851,6 @@ public class StlFile implements Loader {
 
 	public Scene load(File chosenfile) throws FileNotFoundException,
 			IncorrectFormatException, ParsingErrorException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -890,7 +889,6 @@ public class StlFile implements Loader {
 	@Override
 	public Scene load(URL arg0) throws FileNotFoundException,
 			IncorrectFormatException, ParsingErrorException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

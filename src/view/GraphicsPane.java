@@ -258,7 +258,6 @@ public class GraphicsPane extends JPanel {
 //        try {
 //			wait(599);
 //		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
         System.out.println("after"+canvas.getView().getFieldOfView());

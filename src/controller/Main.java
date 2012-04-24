@@ -171,7 +171,6 @@ public class Main implements Observer {
 					try {
 						robot = new Robot();
 					} catch (AWTException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 						System.out
 						.println("Robot object was not initialized");

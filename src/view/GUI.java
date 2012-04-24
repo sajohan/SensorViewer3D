@@ -82,7 +82,7 @@ public class GUI {
 		Container contentPane = frame.getContentPane();
 		// graphicsPane.resetGraphics(frame);
 		// contentPane.remove(graphicsPane);
-		// graphicsPane = new GraphicsPane(frame);
+		// graphicsPane = new GraphicsPane(frame)
 		graphicsPane.setObject(newModel);
 		// contentPane.add(graphicsPane, BorderLayout.CENTER);
 		frame.pack();

@@ -21,6 +21,7 @@ import java.io.OutputStream;
  */
 public class SerialCom {
 
+	
 	private static RobotHandler robotHandler;
 	
     public SerialCom(RobotHandler robotHandler)

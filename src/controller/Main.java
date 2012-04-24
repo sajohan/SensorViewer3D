@@ -40,6 +40,13 @@ public class Main implements Observer {
 	RobotHandler robotHandler;
 	String comPort;
 
+
+	private static String PORT_NAMES[] = { 
+		"/dev/tty.usbserial-A9007UX1", // Mac OS X
+		"/dev/ttyUSB0", // Linux
+		"COM4", // Windows
+	};
+
 	/**
 	 * @param args
 	 */
@@ -52,10 +59,16 @@ public class Main implements Observer {
 	public Main() {
 		gui = new GUI(this);
 		objLoader = new ObjectLoader(null, null);
-
+		System.out.println("OS: " + System.getProperty("os.name"));
+		
+		//remove
+		for(int i = 0; i<3;i++){
+//			PORT_NAMES[2] = chop(PORT_NAMES[i]);
+			System.out.println("portnames: "+ PORT_NAMES[i]);
+		}
 		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
-
+	
 	@Override
 	public void update(Observable obs, Object obj) {
 		/*
@@ -111,7 +124,7 @@ public class Main implements Observer {
 			}
 		}
 		/*
-		 * Preferences dropdown
+		 * Preferences dropdown, com-port
 		 */
 		else if(obj instanceof JMenuItem){
 			JMenuItem chkBox = (JMenuItem)obj;
@@ -120,7 +133,11 @@ public class Main implements Observer {
 				if(!comPort.matches("\\d{1,2}")){
 					JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
 				}else{
-					comPort = "COM"+comPort;
+					String os = System.getProperty("os.name");
+                    if(os.equalsIgnoreCase("Windows"))
+                        comPort = "COM"+comPort;
+                    else if(os.equalsIgnoreCase("Linux"))
+                    	comPort = "/dev/ttyUSB"+comPort;
 				}				
 			}else if(chkBox.getActionCommand().equals("doCalib")){
 				//TODO Set calib window visible

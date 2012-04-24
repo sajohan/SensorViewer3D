@@ -64,6 +64,11 @@ public class RobotHandler {
 		return s;
 	}
 	
+	public Point3Dim getRobotPos(){
+		//TODO read robotposition
+		return new Point3Dim(1, 1, 2);
+	}
+	
 	private float getFloat(byte[] byteData){
 		String stringData = new String(byteData);
 		try{

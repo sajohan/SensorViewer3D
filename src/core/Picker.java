@@ -6,6 +6,8 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
+
+import model.Point3Dim;
 import view.GUI;
 import view.SensorValuesDrawer;
 
@@ -35,6 +37,8 @@ public class Picker extends PickMouseBehavior {
 	
 	BranchGroup group;
 	PickerMarker pickerMarker;
+	
+	private static Point3Dim lastPick;
 	
 	public Picker(Canvas3D canvas, BranchGroup group, Bounds bounds) {
 		super(canvas, group, bounds);
@@ -67,6 +71,8 @@ public class Picker extends PickMouseBehavior {
             double y = roundValue(intercept.y);
             double z = roundValue(intercept.z);
             
+            lastPick = new Point3Dim(x, y, z);
+            
             GUI.printToStatus("You pointed at X: " + x + " Y:" + y + " Z: " + z);
             
             if(pickerMarker != null){
@@ -90,5 +96,8 @@ public class Picker extends PickMouseBehavior {
         big = big.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
         return big.doubleValue();
 	}
-
+	
+	public static Point3Dim getLastPick() {
+		return lastPick;
+	}
 }

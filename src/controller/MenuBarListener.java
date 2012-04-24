@@ -69,6 +69,10 @@ public class MenuBarListener extends Observable implements ActionListener {
 			JMenuItem checkBox = (JMenuItem)source;
 			setChanged();
 			notifyObservers(checkBox);
+		}else if(source.getActionCommand().equals("doCalib")){
+			JMenuItem calibButton = (JMenuItem)source;
+			setChanged();
+			notifyObservers(calibButton);
 		}
 
 

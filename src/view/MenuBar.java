@@ -102,6 +102,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		importItem.addActionListener(al);
 		preferencesMenu.add(importItem);
 		
+		JMenuItem calibItem = new JMenuItem("Perform Calibration");
+		calibItem.setActionCommand("doCalib");
+		calibItem.addActionListener(al);
+		preferencesMenu.add(calibItem);
 		
 		
 		return preferencesMenu;

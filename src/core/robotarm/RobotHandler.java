@@ -2,8 +2,7 @@ package core.robotarm;
 
 import java.io.InputStream;
 
-import javax.vecmath.Point3d;
-
+import model.Point3Dim;
 import model.SensorValue;
 import model.SensorValues;
 
@@ -23,13 +22,30 @@ public class RobotHandler {
 	private SensorValues values;
 	private byte[] inData = null;
 	
+	private boolean needsCalib = true;
+	
+	private Point3Dim[] swCalibPoints;
+	private Point3Dim[] hwCalibPoints;
+	
 	public RobotHandler(SensorValues values){
 		this.values = values;
 	}
 
+	public void doCalib(){
+		
+			
+		
+		
+		
+		
+		
+		
+		needsCalib = false;
+	}
+	
 	
 	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */
-	public SensorValues readSensorGroup(Point3d[] points, String comPort){
+	public SensorValues readSensorGroup(Point3Dim[] points, String comPort){
 		
         try{
         	serialCom = new SerialCom(this);
@@ -37,7 +53,7 @@ public class RobotHandler {
         }catch ( Exception e ){
             e.printStackTrace();
         }
-        for(Point3d point : points){
+        for(Point3Dim point : points){
         	values.addValueToList(readSingleSensor((float)point.x, (float)point.y, (float)point.z));
         	System.out.println("number of sensorvalues  "+ values.getValuesList().size());
 //        	values.addValueToList(new SensorValue(5,5,5,5));

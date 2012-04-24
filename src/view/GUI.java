@@ -67,8 +67,8 @@ public class GUI {
 		progresspopup = new ProgressBarPopup();
 		
 		// Add tree panel
-		JPanel treepanel = new TreePanel();
-		contentPane.add(treepanel,BorderLayout.EAST);
+		JPanel eastPanel = new EastPanel();
+		contentPane.add(eastPanel,BorderLayout.EAST);
 		
 		
 		frame.setJMenuBar(menu);

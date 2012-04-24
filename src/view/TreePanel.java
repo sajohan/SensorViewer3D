@@ -20,8 +20,7 @@ public class TreePanel extends JPanel{
 	
 	public TreePanel(){
 		
-		// Set size to at least 400
-		this.setSize(400, 0);
+
 		
 		// Temporary content of tree
 	    Object[] hierarchy =

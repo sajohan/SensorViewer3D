@@ -4,6 +4,8 @@ import static model.Constants.*;
 import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Point;
+
+import model.Point3Dim;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.io.File;
@@ -112,12 +114,16 @@ public class Main implements Observer {
 		 * Preferences dropdown
 		 */
 		else if(obj instanceof JMenuItem){
-			//			while()
-			comPort = JOptionPane.showInputDialog("Input com port");
-			if(!comPort.matches("\\d{1,2}")){
-				JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
-			}else{
-				comPort = "COM"+comPort;
+			JMenuItem chkBox = (JMenuItem)obj;
+			if(chkBox.getActionCommand().equals("setComPort")){
+				comPort = JOptionPane.showInputDialog("Input com port");
+				if(!comPort.matches("\\d{1,2}")){
+					JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
+				}else{
+					comPort = "COM"+comPort;
+				}				
+			}else if(chkBox.getActionCommand().equals("doCalib")){
+				//TODO Set calib window visible
 			}
 		}
 	}
@@ -221,9 +227,9 @@ public class Main implements Observer {
 				//testing 
 				values = new SensorValues(this);
 				robotHandler = new RobotHandler(values);
-				Point3d point1 = new Point3d(1,1,1);
-				Point3d point2 = new Point3d(-1, 5, 0);
-				Point3d[] points = {point1, point2};
+				Point3Dim point1 = new Point3Dim(1,1,1);
+				Point3Dim point2 = new Point3Dim(-1, 5, 0);
+				Point3Dim[] points = {point1, point2};
 
 				robotHandler.readSensorGroup(points,comPort);
 

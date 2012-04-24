@@ -6,6 +6,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import controller.EastPanelListener;
+
 /**
  * East tree panel
  * 
@@ -18,7 +20,7 @@ public class TreePanel extends JPanel{
 	private	JTree tree;
 	private	JScrollPane scrollPane;
 	
-	public TreePanel(){
+	public TreePanel(EastPanelListener eastPanelListener){
 		
 
 		

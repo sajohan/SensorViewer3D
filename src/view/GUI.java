@@ -23,6 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.sun.j3d.exp.swing.JCanvas3D;
 
+import controller.EastPanelListener;
 import controller.MenuBarListener;
 import controller.OptionsPanelListener;
 import controller.StatusPanelListener;
@@ -35,8 +36,13 @@ public class GUI {
 	private GraphicsPane graphicsPane;
 	//initialized in constructor, observer is currently Main.java
 	private Observer menuObserver; 
+	
 	private StatusPanelListener statuspanelListener;
 	private static StatusPanel statuspanel;
+	
+	private EastPanelListener eastPanelListener;
+	private EastPanel eastPanel;
+	
 	private ProgressBarPopup progresspopup;
 
 	// private MenuBar menu = new MenuBar();
@@ -67,7 +73,8 @@ public class GUI {
 		progresspopup = new ProgressBarPopup();
 		
 		// Add tree panel
-		JPanel eastPanel = new EastPanel();
+		eastPanelListener = new EastPanelListener(menuObserver);
+		eastPanel = new EastPanel(eastPanelListener);
 		contentPane.add(eastPanel,BorderLayout.EAST);
 		
 		

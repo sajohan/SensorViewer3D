@@ -4,13 +4,19 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import controller.EastPanelListener;
+
 public class EastPanel extends JPanel {
 
-	private TreePanel treePanel = new TreePanel();
-	private CalibPanel calibPanel = new CalibPanel();
+	private TreePanel treePanel;
+	private CalibPanel calibPanel;
 	
 	
-	public EastPanel() {
+	public EastPanel(EastPanelListener eastPanelListener) {
+		
+		treePanel = new TreePanel(eastPanelListener);
+		calibPanel = new CalibPanel(eastPanelListener);
+		
 		// Set size to at least 400
 		this.setSize(400, 0);
 		

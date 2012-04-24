@@ -23,6 +23,7 @@ import javax.vecmath.Point3d;
 import model.Constants;
 import model.SensorValue;
 import model.SensorValues;
+import core.Picker;
 import core.modelloader.ObjectLoader;
 import core.robotarm.RobotHandler;
 import view.GUI;
@@ -98,6 +99,9 @@ public class Main implements Observer {
 			// if receiving values before graphicsPane is initialized, discard
 			if (graphicsPane != null) 
 				graphicsPane.updateSensorValue((SensorValue)obj);
+		}else if ( obs instanceof EastPanelListener){
+			eastPanelUpdater(obs, obj);
+			
 		}
 
 	}
@@ -256,6 +260,30 @@ public class Main implements Observer {
 			else if(source.getActionCommand().equals(Constants.handbutton)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
 			}
+		}
+	}
+	
+	private void eastPanelUpdater(Observable obs, Object obj){
+		if (obj instanceof JButton) {
+			JButton source = (JButton) obj;
+			Point3Dim point;
+			
+			if(source.getActionCommand().equals("swPos1")){
+				point = Picker.getLastPick();
+				source.setText("Position X: " + point.x);
+			}
+			else if(source.getActionCommand().equals("swPos2")){
+				point = Picker.getLastPick();
+				source.setText("Position X: " + point.x);
+				
+			}else if (source.getActionCommand().equals("swPos3")) {
+				point = Picker.getLastPick();
+				source.setText("Position X: " + point.x);
+				
+			}else if (source.getActionCommand().equals("hwPos3")) {
+				
+			}
+			
 		}
 	}
 

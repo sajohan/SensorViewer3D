@@ -22,26 +22,12 @@ public class RobotHandler {
 	private SensorValues values;
 	private byte[] inData = null;
 	
-	private boolean needsCalib = true;
-	
-	private Point3Dim[] swCalibPoints;
-	private Point3Dim[] hwCalibPoints;
 	
 	public RobotHandler(SensorValues values){
 		this.values = values;
 	}
 
-	public void doCalib(){
-		
-			
-		
-		
-		
-		
-		
-		
-		needsCalib = false;
-	}
+
 	
 	
 	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */

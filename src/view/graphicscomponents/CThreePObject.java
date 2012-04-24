@@ -261,9 +261,11 @@ public class CThreePObject extends TransformGroup{
 		}
 		
 		//Create hierarchy of TransformGroups, to take care of different rotations
+		rescale(alignmentObject);
 		innerRotationGroup.addChild(this);
 		outerRotationGroup.addChild(innerRotationGroup);
 		axisRotationGroup.addChild(outerRotationGroup);
+
 		placeInOrigo();
 		innerAlign();
 		outerAlign();
@@ -277,6 +279,30 @@ public class CThreePObject extends TransformGroup{
 	}
 	
 	/**
+	 * Rescales the object based on the difference of the distance between the objects two first points
+	 * @param alignmentObject
+	 */
+	private void rescale(CThreePObject alignmentObject){
+		Vector3d thisVec1 = this.getPosOfPoint1();
+		Vector3d thisVec2 = this.getPosOfPoint2();
+		Vector3d alignVec1 = alignmentObject.getPosOfPoint1();
+		Vector3d alignVec2 = alignmentObject.getPosOfPoint2();
+		Point3d thisPoint1 = vectorToPoint(thisVec1);
+		Point3d thisPoint2 = vectorToPoint(thisVec2);
+		Point3d alignPoint1 = vectorToPoint(alignVec1);
+		Point3d alignPoint2 = vectorToPoint(alignVec2);
+		double thisDist = thisPoint1.distance(thisPoint2);
+		double alignDist = alignPoint1.distance(alignPoint2);
+		Transform3D scaleTrans = new Transform3D();
+		Transform3D ourTrans = new Transform3D();
+		this.getTransform(ourTrans);
+		scaleTrans.setScale(40);
+		ourTrans.mul(scaleTrans);
+		this.setTransform(ourTrans);
+		
+	}
+	
+	/**
 	 * Places the object in Origo
 	 */
 	private void placeInOrigo(){
@@ -286,7 +312,7 @@ public class CThreePObject extends TransformGroup{
 		Vector3d zeroVec = new Vector3d(0,0,0);
 		zeroVec.sub(this.getPosOfPoint1());
 		tf3d.setTranslation(zeroVec);
-		System.out.println(zeroVec);
+//		System.out.println(zeroVec);
 		this.setTransform(tf3d);
 	}
 	
@@ -447,8 +473,8 @@ public class CThreePObject extends TransformGroup{
 		transformer.invert();
 		Transform3D rotTrans = new Transform3D();
 		
-		//Spins it 180° since the alignment classes are off by exactly this. It's a bit like using .invert after lookAt
-		//Note to self: if we get a bug later on where it sometimes is mis-aligned by 180°, make the rotation later, after
+		//Spins it 180ï¿½ since the alignment classes are off by exactly this. It's a bit like using .invert after lookAt
+		//Note to self: if we get a bug later on where it sometimes is mis-aligned by 180ï¿½, make the rotation later, after
 		//checking if the second points align.
 		rotTrans.rotY(Math.PI);
 		transformer.mul(rotTrans);
@@ -465,18 +491,25 @@ public class CThreePObject extends TransformGroup{
 		rotTrans = new Transform3D();
 		Transform3D tempTrans = new Transform3D();
 		boolean rotpositive = true;
+		boolean hasChosenRotationDirection = false;
 		
 		
-		//Rotates slowly untill the two third points are aligned.
+		//Rotates slowly untill the two third points are aligned or as close to each other as possible.
 		while(true){
+			
+			//Check if they are the same or very close.
 			if(thisVec3.equals(alignVec3) || (thisCompPoint.distance(alignCompPoint) < model.Constants.ACCURACYVALUE)){
 				return;
 			}
+			
+			//Rotate one way or the other?
 			if(rotpositive){
 				rotTrans.rotZ(rotFactor);
 			} else {
 				rotTrans.rotZ(-rotFactor);
 			}
+			
+			//Do the transform
 			axisRotationGroup.getTransform(tempTrans);
 			tempTrans.mul(rotTrans);
 			axisRotationGroup.setTransform(tempTrans);
@@ -486,13 +519,20 @@ public class CThreePObject extends TransformGroup{
 			thisCompPoint = vectorToPoint(thisVec3);
 			alignCompPoint = vectorToPoint(alignVec3);
 			
+			//Check if we've come as close as we can
 			if(thisCompPoint.distance(alignCompPoint) > thisCompPointOld.distance(alignCompPointOld)){
-				rotFactor = rotFactor / 2;
-				rotpositive = !rotpositive;
-				thisCompPointOld = thisCompPoint;
-				alignCompPointOld = alignCompPoint;
+				if(hasChosenRotationDirection){
+					return;
+				} else {
+					hasChosenRotationDirection = !hasChosenRotationDirection;
+					rotpositive = !rotpositive;
+				}
+
 				
 			}
+			
+			thisCompPointOld = thisCompPoint;
+			alignCompPointOld = alignCompPoint;
 //			System.out.println(thisCompPoint.toString() + "\n" + alignCompPoint.toString());
 //			break;
 

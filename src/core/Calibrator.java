@@ -27,7 +27,7 @@ public class Calibrator {
 			
 			
 			//TODO Use C3P0 to calibrate
-			
+			System.out.println(toString());
 			
 		}
 		needsCalib = false;
@@ -47,5 +47,20 @@ public class Calibrator {
 	
 	public void setSwCalibPoint(Point3Dim point, int index) {
 		swCalibPoints[index] = point;
+	}
+	
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		s.append("SW Calibration Points \n");
+		for(Point3Dim p : swCalibPoints){
+			s.append(p.toString());
+			s.append("\n");
+		}
+		s.append("HW Calibration Points \n");
+		for(Point3Dim p : hwCalibPoints){
+			s.append(p.toString());
+			s.append("\n");
+		}
+		return s.toString();
 	}
 }

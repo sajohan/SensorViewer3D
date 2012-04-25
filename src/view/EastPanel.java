@@ -23,7 +23,15 @@ public class EastPanel extends JPanel {
 		this.setLayout(new GridLayout(2, 1));
 		
 		this.add(treePanel);
-		this.add(calibPanel);
-		
+	}
+	
+	public void showCalibration(boolean b){
+		if (b == true) {
+			this.add(calibPanel);
+			this.updateUI();
+		}else{
+			this.remove(calibPanel);
+			this.updateUI();
+		}
 	}
 }

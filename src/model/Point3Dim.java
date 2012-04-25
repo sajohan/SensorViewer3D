@@ -10,4 +10,7 @@ public class Point3Dim {
 		this.z = z;
 	}
 	
+	public String toString(){
+		return new String("X: "+x+" Y: "+y+" Z: "+z);
+	}
 }

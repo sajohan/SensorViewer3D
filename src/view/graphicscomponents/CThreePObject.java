@@ -32,6 +32,8 @@ public class CThreePObject extends TransformGroup{
 	private TransformGroup innerRotationGroup;
 	private TransformGroup outerRotationGroup;
 	private TransformGroup axisRotationGroup;
+	private TransformGroup scaleGroup;
+	private TransformGroup moveGroup;
 	
 	private BranchGroup mainGroup;
 	
@@ -53,6 +55,8 @@ public class CThreePObject extends TransformGroup{
 		innerRotationGroup= new TransformGroup();
 		outerRotationGroup = new TransformGroup();
 		axisRotationGroup = new TransformGroup();
+		scaleGroup = new TransformGroup();
+		moveGroup = new TransformGroup();
 		
 		transformer = new Transform3D();
 
@@ -75,6 +79,8 @@ public class CThreePObject extends TransformGroup{
 		innerRotationGroup= new TransformGroup();
 		outerRotationGroup = new TransformGroup();
 		axisRotationGroup = new TransformGroup();
+		scaleGroup = new TransformGroup();
+		moveGroup = new TransformGroup();
 		
 		transformer = new Transform3D();
 		
@@ -103,6 +109,8 @@ public class CThreePObject extends TransformGroup{
 		innerRotationGroup= new TransformGroup();
 		outerRotationGroup = new TransformGroup();
 		axisRotationGroup = new TransformGroup();
+		scaleGroup = new TransformGroup();
+		moveGroup = new TransformGroup();
 		
 		transformer = new Transform3D();
 		
@@ -133,6 +141,8 @@ public class CThreePObject extends TransformGroup{
 		innerRotationGroup= new TransformGroup();
 		outerRotationGroup = new TransformGroup();
 		axisRotationGroup = new TransformGroup();
+		scaleGroup = new TransformGroup();
+		moveGroup = new TransformGroup();
 		
 		transformer = new Transform3D();
 		
@@ -261,11 +271,13 @@ public class CThreePObject extends TransformGroup{
 		}
 		
 		//Create hierarchy of TransformGroups, to take care of different rotations
-		rescale(alignmentObject);
-		innerRotationGroup.addChild(this);
+		scaleGroup.addChild(this);
+		moveGroup.addChild(scaleGroup);
+		innerRotationGroup.addChild(moveGroup);
 		outerRotationGroup.addChild(innerRotationGroup);
 		axisRotationGroup.addChild(outerRotationGroup);
 
+		rescale(alignmentObject);
 		placeInOrigo();
 		innerAlign();
 		outerAlign();
@@ -295,10 +307,23 @@ public class CThreePObject extends TransformGroup{
 		double alignDist = alignPoint1.distance(alignPoint2);
 		Transform3D scaleTrans = new Transform3D();
 		Transform3D ourTrans = new Transform3D();
-		this.getTransform(ourTrans);
-		scaleTrans.setScale(40);
+		scaleGroup.getTransform(ourTrans);
+		System.out.println(alignDist/thisDist);
+		scaleTrans.setScale(alignDist/thisDist);
 		ourTrans.mul(scaleTrans);
-		this.setTransform(ourTrans);
+		scaleGroup.setTransform(ourTrans);
+		
+		
+		//DEBUG FOLLOWS!
+		thisVec1 = this.getPosOfPoint1();
+		thisVec2 = this.getPosOfPoint2();
+		alignVec1 = alignmentObject.getPosOfPoint1();
+		alignVec2 = alignmentObject.getPosOfPoint2();
+		thisPoint1 = vectorToPoint(thisVec1);
+		thisPoint2 = vectorToPoint(thisVec2);
+		alignPoint1 = vectorToPoint(alignVec1);
+		alignPoint2 = vectorToPoint(alignVec2);
+		System.out.println(thisPoint1.distance(thisPoint2) + ", " + alignPoint1.distance(alignPoint2));
 		
 	}
 	
@@ -310,10 +335,11 @@ public class CThreePObject extends TransformGroup{
 		//Moving to this point with the entire TransformGroup will then result in point1 appearing at origo
 		Transform3D tf3d = new Transform3D();
 		Vector3d zeroVec = new Vector3d(0,0,0);
+//		System.out.println(this.getPosOfPoint1());
 		zeroVec.sub(this.getPosOfPoint1());
 		tf3d.setTranslation(zeroVec);
 //		System.out.println(zeroVec);
-		this.setTransform(tf3d);
+		moveGroup.setTransform(tf3d);
 	}
 	
 	
@@ -461,17 +487,19 @@ public class CThreePObject extends TransformGroup{
 		posPoint.x = aObjPoint1.x;
 		posPoint.y = aObjPoint1.y;
 		posPoint.z = aObjPoint1.z;
-//		System.out.println(posPoint);
+		System.out.println(posPoint);
+
 		
 		lookPoint.x = aObjPoint2.x;
 		lookPoint.y = aObjPoint2.y;
 		lookPoint.z = aObjPoint2.z;
-//		System.out.println(lookPoint);
+		System.out.println(lookPoint);
 		
 		//Positions the object at point1 of the other object, and looks at the other objects point 2.
 		transformer.lookAt(posPoint, lookPoint, new Vector3d(0,1,0));
 		transformer.invert();
 		Transform3D rotTrans = new Transform3D();
+
 		
 		//Spins it 180� since the alignment classes are off by exactly this. It's a bit like using .invert after lookAt
 		//Note to self: if we get a bug later on where it sometimes is mis-aligned by 180�, make the rotation later, after
@@ -480,6 +508,8 @@ public class CThreePObject extends TransformGroup{
 		transformer.mul(rotTrans);
 		
 		axisRotationGroup.setTransform(transformer);
+		System.out.println(this.getPosOfPoint1() + ", " + this.getPosOfPoint2());
+	
 		
 		Vector3d thisVec3 = this.getPosOfPoint3();
 		Vector3d alignVec3 = alignmentObject.getPosOfPoint3();

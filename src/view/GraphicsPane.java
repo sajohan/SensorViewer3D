@@ -78,6 +78,13 @@ public class GraphicsPane extends JPanel {
 			CThreePointsMockCloud CThreePO = new CThreePointsMockCloud(group);
 			//Object containing measurements (i.e. our fluffy cloud) that we move around a bit at first.
 			CThreePointsMockCloud CThreePO2 = new CThreePointsMockCloud(group);
+			
+			
+			/* Crazyvals
+			CThreePO2.setPoint3(new Vector3d(11,8,4));
+			CThreePO2.setPoint1(new Vector3d(2, -11, 5));
+			CThreePO2.setPoint2(new Vector3d(-3, 5, 22));
+			*/
 			group.addChild(CThreePO);
 			group.addChild(CThreePO2);
 
@@ -87,7 +94,7 @@ public class GraphicsPane extends JPanel {
 			Transform3D mockMove = new Transform3D();
 			Transform3D mockRotate = new Transform3D();
 			Transform3D mockScale = new Transform3D();
-			mockScale.setScale(1);
+			mockScale.setScale(3);
 //			CThreePO2.setTransform(mockScale);
 			mockMove.setTranslation(new Vector3d(20, 19, 18));
 			mockMove.mul(mockScale);

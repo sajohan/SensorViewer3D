@@ -31,14 +31,8 @@ public class RobotHandler {
 	
 	
 	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */
-	public SensorValues readSensorGroup(Point3Dim[] points, String comPort){
-		
-        try{
-        	serialCom = new SerialCom(this);
-            serialCom.connect(comPort);
-        }catch ( Exception e ){
-            e.printStackTrace();
-        }
+	public SensorValues readSensorGroup(Point3Dim[] points){
+
         for(Point3Dim point : points){
         	values.addValueToList(readSingleSensor((float)point.x, (float)point.y, (float)point.z));
         	System.out.println("number of sensorvalues  "+ values.getValuesList().size());
@@ -83,6 +77,15 @@ public class RobotHandler {
 	
 	public void setInData(byte[] inData) {
 		this.inData = inData;
+	}
+
+	public void connect(String comPort) {
+        try{
+        	serialCom = new SerialCom(this);
+            serialCom.connect(comPort);
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }
 	}
 	
 }

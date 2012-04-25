@@ -277,23 +277,29 @@ public class Main implements Observer {
 			
 			if(source.getActionCommand().equals("swPos1")){
 				point = Picker.getLastPick();
-				source.setText("Position X: " + point.x);
-				calibrator.setSwCalibPoint(point, 0);
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setSwCalibPoint(point, 0);					
+				}
 			}
 			else if(source.getActionCommand().equals("swPos2")){
 				point = Picker.getLastPick();
-				source.setText("Position X: " + point.x);
-				calibrator.setSwCalibPoint(point, 1);
-				
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setSwCalibPoint(point, 1);
+				}
 			}else if (source.getActionCommand().equals("swPos3")) {
 				point = Picker.getLastPick();
-				source.setText("Position X: " + point.x);
-				calibrator.setSwCalibPoint(point, 2);
-				
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setSwCalibPoint(point, 2);
+				}
 			}else if (source.getActionCommand().equals("hwPos1")) {
 				point = robotHandler.getRobotPos();
-				source.setText("Position X: " + point.x);
-				calibrator.setHwCalibPoint(point, 0);
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setHwCalibPoint(point, 0);
+				}
 				
 			}else if (source.getActionCommand().equals("hwPos2")) {
 				point = robotHandler.getRobotPos();

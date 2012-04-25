@@ -45,6 +45,18 @@ public class GUI {
 	
 	private ProgressBarPopup progresspopup;
 
+	public GUI(Observer obs) {
+		menuObserver = obs;
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+
+				createAndShowGUI();
+			}
+		});
+	}
+	
+	
 	// private MenuBar menu = new MenuBar();
 	public void addComponentsToPane(Container contentPane) {
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -151,14 +163,8 @@ public class GUI {
 		this.progresspopup.removeDialog();
 	}
 
-	public GUI(Observer obs) {
-		menuObserver = obs;
 
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-
-				createAndShowGUI();
-			}
-		});
+	public EastPanel getEastPanel() {
+		return eastPanel;
 	}
 }

@@ -151,7 +151,7 @@ public class Main implements Observer {
                     	comPort = "/dev/ttyUSB"+comPort;
 				}				
 			}else if(chkBox.getActionCommand().equals("doCalib")){
-				//TODO Set calib window visible
+				gui.getEastPanel().showCalibration(true);
 			}
 		}
 	}
@@ -310,6 +310,10 @@ public class Main implements Observer {
 				point = robotHandler.getRobotPos();
 				source.setText("Position X: " + point.x);
 				calibrator.setHwCalibPoint(point, 2);
+				
+			}else if (source.getActionCommand().equals("calibrate")){
+				calibrator.doCalib();
+				gui.getEastPanel().showCalibration(false);
 				
 			}
 			

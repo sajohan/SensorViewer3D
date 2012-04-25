@@ -83,7 +83,6 @@ public class RobotHandler {
 	
 	public void setInData(byte[] inData) {
 		this.inData = inData;
-//		read
 	}
 	
 }

@@ -2,6 +2,7 @@ package core;
 
 import core.robotarm.RobotHandler;
 import view.GUI;
+import view.GraphicsPane;
 import model.Point3Dim;
 
 public class Calibrator {
@@ -9,13 +10,15 @@ public class Calibrator {
 	private boolean needsCalib = true;
 	
 	private RobotHandler robot;
+	private GUI gui;
 	
 	private Point3Dim[] swCalibPoints = new Point3Dim[3];
 	private Point3Dim[] hwCalibPoints = new Point3Dim[3];
 	
 	
-	public Calibrator(RobotHandler robot) {
+	public Calibrator(RobotHandler robot, GUI gui) {
 		this.robot = robot;
+		this.gui = gui;
 	}
 	
 	
@@ -24,11 +27,10 @@ public class Calibrator {
 		if (swCalibPoints.length != 3 || hwCalibPoints.length != 3) {
 			GUI.printToStatus("You need to set all the calibration points");
 		}else{
-			
-			
-			//TODO Use C3P0 to calibrate
+			System.out.println("Before calibration");
 			System.out.println(toString());
-			
+			GraphicsPane gp = gui.getGraphicsPane();
+			gp.align(swCalibPoints, hwCalibPoints);
 		}
 		needsCalib = false;
 	}

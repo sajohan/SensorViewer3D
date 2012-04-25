@@ -67,7 +67,7 @@ public class Main implements Observer {
 		values = new SensorValues(this);
 		robotHandler = new RobotHandler(values);
 		
-		calibrator = new Calibrator(robotHandler);
+		calibrator = new Calibrator(robotHandler, gui);
 		
 		//remove
 		for(int i = 0; i<3;i++){

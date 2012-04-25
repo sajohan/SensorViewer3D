@@ -194,7 +194,10 @@ public class GraphicsPane extends JPanel {
 		cloud.setPoint3(new Vector3d(physicalRefPoints[2].x,physicalRefPoints[2].y,physicalRefPoints[2].z));
 
 //		group.addChild(object); object is already added to group on setObject()
+		group.detach();
 		group.addChild(cloud);
+		univ.addBranchGraph(group);
+		
 		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
 	}

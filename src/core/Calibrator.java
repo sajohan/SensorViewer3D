@@ -24,14 +24,26 @@ public class Calibrator {
 	
 	public void doCalib(){
 		
-		if (swCalibPoints.length != 3 || hwCalibPoints.length != 3) {
-			GUI.printToStatus("You need to set all the calibration points");
-		}else{
-			System.out.println("Before calibration");
-			System.out.println(toString());
-			GraphicsPane gp = gui.getGraphicsPane();
-			gp.align(swCalibPoints, hwCalibPoints);
+		for(Point3Dim p : hwCalibPoints){
+			if(p == null){
+				GUI.printToStatus("You haven't set all the hardware calibration points");
+				return;
+			}
 		}
+		for(Point3Dim p : swCalibPoints){
+			if(p == null){
+				GUI.printToStatus("You haven't set all the software calibration points");
+				return;
+			}
+		}
+		
+		System.out.println("Before calibration");
+		System.out.println(toString());
+		GraphicsPane gp = gui.getGraphicsPane();
+		gp.align(swCalibPoints, hwCalibPoints);
+		
+		System.out.println("Calibration done");
+		
 		needsCalib = false;
 	}
 	
@@ -44,7 +56,12 @@ public class Calibrator {
 	}
 	
 	public void setHwCalibPoint(Point3Dim point, int index) {
-		hwCalibPoints[index] = point;
+		Point3Dim p = swCalibPoints[index];
+		p.x += 10;
+		p.z += 5;
+		hwCalibPoints[index] = p;
+		
+//		hwCalibPoints[index] = point;
 	}
 	
 	public void setSwCalibPoint(Point3Dim point, int index) {

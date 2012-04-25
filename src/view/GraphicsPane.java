@@ -74,24 +74,44 @@ public class GraphicsPane extends JPanel {
 			/**
 			 * Uncomment this to see moveTo() in the works.
 			 */
-			CThreePointsMockObject CThreePO = new CThreePointsMockObject(group);
+			//This is the object to be moved by the moveTo
+			CThreePointsMockCloud CThreePO = new CThreePointsMockCloud(group);
+			//Object containing measurements (i.e. our fluffy cloud) that we move around a bit at first.
 			CThreePointsMockCloud CThreePO2 = new CThreePointsMockCloud(group);
+			
+			
+			/* Crazyvals
+			CThreePO2.setPoint3(new Vector3d(11,8,4));
+			CThreePO2.setPoint1(new Vector3d(2, -11, 5));
+			CThreePO2.setPoint2(new Vector3d(-3, 5, 22));
+			*/
 			group.addChild(CThreePO);
 			group.addChild(CThreePO2);
 
+			/*
+			 * move,rotate and rescale cloud so object can be moved,rotated and scaled to the cloud in testing
+			 */
 			Transform3D mockMove = new Transform3D();
 			Transform3D mockRotate = new Transform3D();
+			Transform3D mockScale = new Transform3D();
+			mockScale.setScale(3);
+//			CThreePO2.setTransform(mockScale);
 			mockMove.setTranslation(new Vector3d(20, 19, 18));
+			mockMove.mul(mockScale);
 			mockRotate.rotX(3);
 			mockMove.mul(mockRotate);
 			mockRotate.rotY(2);
 			mockMove.mul(mockRotate);
 			mockRotate.rotZ(1.111);
 			mockMove.mul(mockRotate);
+
+
 			CThreePO2.setTransform(mockMove);
 
 			
 			CThreePO.moveTo(CThreePO2);
+
+			
 
 		setUpLightAndGrid();
 		

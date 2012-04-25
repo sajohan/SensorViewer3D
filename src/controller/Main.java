@@ -141,7 +141,7 @@ public class Main implements Observer {
 					JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
 				}else{
 					String os = System.getProperty("os.name");
-                    if(os.equalsIgnoreCase("Windows")){
+                    if(os.startsWith("Windows")){
                         comPort = "COM"+comPort;
                     }
                     else if(os.equalsIgnoreCase("Linux")){
@@ -259,8 +259,6 @@ public class Main implements Observer {
 				Point3Dim[] points = {point1, point2};
 
 				robotHandler.readSensorGroup(points);
-
-				values.addValueToList(new SensorValue(4,4,0,50));
 
 			}
 			else if(source.getActionCommand().equals(Constants.handbutton)){

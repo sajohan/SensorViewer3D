@@ -23,6 +23,9 @@ public class EastPanel extends JPanel {
 		this.setLayout(new GridLayout(2, 1));
 		
 		this.add(treePanel);
+		
+		//TODO Remove after debugging
+		showCalibration(true);
 	}
 	
 	public void showCalibration(boolean b){

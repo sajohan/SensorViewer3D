@@ -9,6 +9,7 @@ import javax.swing.JLabel;
  */
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -138,12 +139,22 @@ public class GUI {
 		frame.setVisible(true);
 	}
 	
-	/*
+	/**
 	 * Static method used to print statustext to statuslabel in south panel 
 	 * 
 	 */
 	public static void printToStatus(String text){
 		JLabel label = statuspanel.getStatusLabel();
+		label.setForeground(Color.BLACK);
+		label.setText(text);
+	}
+	/**
+	 * Static method used to print statustext to statuslabel in south panel 
+	 * 
+	 */
+	public static void printErrorToStatus(String text){
+		JLabel label = statuspanel.getStatusLabel();
+		label.setForeground(Color.RED);
 		label.setText(text);
 	}
 	

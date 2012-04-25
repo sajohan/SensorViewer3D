@@ -57,7 +57,7 @@ public class Calibrator {
 	
 	public void setHwCalibPoint(Point3Dim point, int index) {
 		Point3Dim sw = swCalibPoints[index];
-		Point3Dim p = new Point3Dim(sw.x+10, sw.y, sw.z+5);
+		Point3Dim p = new Point3Dim(sw.x+10, sw.y+2, sw.z+5);
 		hwCalibPoints[index] = p;
 		
 //		hwCalibPoints[index] = point;

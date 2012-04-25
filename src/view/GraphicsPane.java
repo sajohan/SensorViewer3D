@@ -168,7 +168,7 @@ public class GraphicsPane extends JPanel {
 		orbit.setMinRadius(2.0);
 
 		orbit.setSchedulingBounds(bounds);
-		orbit.setRotationCenter(new Point3d(0,0,0));
+		
 		vp.setViewPlatformBehavior(orbit);
 		//set up and make frame visible
 		frame.add(canvas);
@@ -185,6 +185,8 @@ public class GraphicsPane extends JPanel {
 	 */
 	public void align(Point3Dim[] virtualRefPoints , Point3Dim[] physicalRefPoints){
 
+		group.detach();
+		
 		object.setPoint1(new Vector3d(virtualRefPoints[0].x,virtualRefPoints[0].y,virtualRefPoints[0].z));
 		object.setPoint2(new Vector3d(virtualRefPoints[1].x,virtualRefPoints[1].y,virtualRefPoints[1].z));
 		object.setPoint3(new Vector3d(virtualRefPoints[2].x,virtualRefPoints[2].y,virtualRefPoints[2].z));
@@ -194,12 +196,27 @@ public class GraphicsPane extends JPanel {
 		cloud.setPoint3(new Vector3d(physicalRefPoints[2].x,physicalRefPoints[2].y,physicalRefPoints[2].z));
 
 //		group.addChild(object); object is already added to group on setObject()
-		group.detach();
+		
 		group.addChild(cloud);
-		univ.addBranchGraph(group);
+		
 		
 		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
+		
+		univ.addBranchGraph(group);
+		float x = (float) ( object.getPosOfPoint1().x + object.getPosOfPoint2().x + object.getPosOfPoint3().x )/3;
+		float y = (float) ( object.getPosOfPoint1().y + object.getPosOfPoint2().y + object.getPosOfPoint3().y )/3;
+		float z = (float) ( object.getPosOfPoint1().z + object.getPosOfPoint2().z + object.getPosOfPoint3().z )/3;
+		
+		System.out.println("XYZ: "+ x +" "+ y+ " "+ z);
+		orbit.setRotationCenter(new Point3d(x,y,z));
+		
+		ViewingPlatform vp = univ.getViewingPlatform();
+//		vp.moveTo(object);
+		Transform3D objTrans = new Transform3D();
+		object.getLocalToVworld(objTrans);
+		vp.getViewPlatformTransform().setTransform(objTrans);
+
 	}
 
 	/**

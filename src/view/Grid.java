@@ -211,7 +211,7 @@ public class Grid extends BranchGroup {
 		Point3f[] plaPts = new Point3f[nrGridLines*4];
 		float nrLinesDrawn = 0;
 		int index = 0;
-		for(float i = gridLinesDistance ; nrLinesDrawn<nrGridLines*2 ; i+=gridLinesDistance ){
+		for(float i = 0 ; nrLinesDrawn<nrGridLines*2 ; i+=gridLinesDistance ){
 			//Negative x from Z -> -Z
 			plaPts[index] = new Point3f(-i, 0.0f, nrGridLines*(gridLinesDistance/2));
 			index++;

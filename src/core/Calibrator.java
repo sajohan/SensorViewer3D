@@ -26,13 +26,13 @@ public class Calibrator {
 		
 		for(Point3Dim p : hwCalibPoints){
 			if(p == null){
-				GUI.printToStatus("You haven't set all the hardware calibration points");
+				GUI.printErrorToStatus("You haven't set all the hardware calibration points");
 				return;
 			}
 		}
 		for(Point3Dim p : swCalibPoints){
 			if(p == null){
-				GUI.printToStatus("You haven't set all the software calibration points");
+				GUI.printErrorToStatus("You haven't set all the software calibration points");
 				return;
 			}
 		}

@@ -1,6 +1,7 @@
 package view.graphicscomponents;
 
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Node;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
@@ -21,7 +22,7 @@ public class CThreePObject extends TransformGroup{
 	private TransformGroup pointGroup1;
 	private TransformGroup pointGroup2;
 	private TransformGroup pointGroup3;
-	private TransformGroup object;
+	private Node object;
 	
 	private BranchGroup anchor1;
 	private BranchGroup anchor2;
@@ -202,7 +203,7 @@ public class CThreePObject extends TransformGroup{
 	 * Sets the visible object. NOTE: This will also remove the old object!
 	 * @param TransformGroup object The visible object.
 	 */
-	public void setObject(TransformGroup object){
+	public void setObject(Node object){
 		if(object == null){
 			this.object = object;
 			this.addChild(this.object);

@@ -11,14 +11,12 @@ import java.awt.event.InputEvent;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
-import javax.vecmath.Point3d;
 
 import model.Constants;
 import model.SensorValue;
@@ -35,7 +33,6 @@ import view.Lighting;
  */
 public class Main implements Observer {
 
-	private ObjectLoader objLoader;
 	private GUI gui;
 	private GraphicsPane graphicsPane;
 	private SensorValues values;
@@ -61,7 +58,6 @@ public class Main implements Observer {
 
 	public Main() {
 		gui = new GUI(this);
-		objLoader = new ObjectLoader(null, null);
 		System.out.println("OS: " + System.getProperty("os.name"));
 		
 		values = new SensorValues(this);
@@ -145,10 +141,13 @@ public class Main implements Observer {
 					JOptionPane.showMessageDialog(null, "Invalid portnumber, input port 0-99");
 				}else{
 					String os = System.getProperty("os.name");
-                    if(os.equalsIgnoreCase("Windows"))
+                    if(os.equalsIgnoreCase("Windows")){
                         comPort = "COM"+comPort;
-                    else if(os.equalsIgnoreCase("Linux"))
+                    }
+                    else if(os.equalsIgnoreCase("Linux")){
                     	comPort = "/dev/ttyUSB"+comPort;
+                    }
+                    robotHandler.connect(comPort);
 				}				
 			}else if(chkBox.getActionCommand().equals("doCalib")){
 				gui.getEastPanel().showCalibration(true);
@@ -259,7 +258,7 @@ public class Main implements Observer {
 				Point3Dim point2 = new Point3Dim(-1, 5, 0);
 				Point3Dim[] points = {point1, point2};
 
-				robotHandler.readSensorGroup(points,comPort);
+				robotHandler.readSensorGroup(points);
 
 				values.addValueToList(new SensorValue(4,4,0,50));
 

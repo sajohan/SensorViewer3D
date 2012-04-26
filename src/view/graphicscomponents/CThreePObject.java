@@ -37,6 +37,8 @@ public class CThreePObject extends TransformGroup{
 	private TransformGroup moveGroup;
 	
 	private BranchGroup mainGroup;
+	//stores the estimated center of the object ( the mean value of ref1,2,3 )
+	private Point3d objectCenter;
 	
 	
 	
@@ -60,6 +62,8 @@ public class CThreePObject extends TransformGroup{
 		moveGroup = new TransformGroup();
 		
 		transformer = new Transform3D();
+		//object will be spawned in origo
+		objectCenter = new Point3d(0,0,0);
 
 
 	}
@@ -340,13 +344,16 @@ public class CThreePObject extends TransformGroup{
 		outerAlign();
 		objectAlign(alignmentObject);
 		
-		
+		//estimate the center of the object by finding the mean of ref1,2,3
+		float x = (float) ( getPosOfPoint1().x + getPosOfPoint2().x + getPosOfPoint3().x )/3;
+		float y = (float) ( getPosOfPoint1().y + getPosOfPoint2().y + getPosOfPoint3().y )/3;
+		float z = (float) ( getPosOfPoint1().z + getPosOfPoint2().z + getPosOfPoint3().z )/3;
+		objectCenter = new Point3d(x,y,z);
 		
 		mainGroup.addChild(axisRotationGroup);
 		
 		
 	}
-	
 	/**
 	 * Rescales the object based on the difference of the distance between the objects two first points
 	 * @param alignmentObject
@@ -649,6 +656,14 @@ public class CThreePObject extends TransformGroup{
 		retval.y = vector.y;
 		retval.z = vector.z;
 		return retval;
+	}
+
+	
+	public Point3d getObjectCenter() {
+		return objectCenter;
+	}
+	public void setObjectCenter(Point3d objectCenter) {
+		this.objectCenter = objectCenter;
 	}
 	
 	

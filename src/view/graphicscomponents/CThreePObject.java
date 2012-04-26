@@ -257,6 +257,52 @@ public class CThreePObject extends TransformGroup{
 		return retVec;
 	}
 	
+	/**
+	 * Calculates the distortion between this object and the parameter object. The lower the better.
+	 * Does not count scale errors, for obvious reasons. Also possible for errors to take each other out.
+	 * @param alignmentObject
+	 * @return int 	A value representing how skewed the points are.
+	 */
+	public double computeDistortion(CThreePObject alignmentObject){
+		
+		//Variables coming from this object
+		Point3d thisPoint1 = vectorToPoint(this.getPosOfPoint1());
+		Point3d thisPoint2 = vectorToPoint(this.getPosOfPoint2());
+		Point3d thisPoint3 = vectorToPoint(this.getPosOfPoint3());
+		double thisDist1and2 = thisPoint1.distance(thisPoint2);
+		double thisDist1and3 = thisPoint1.distance(thisPoint3);
+		double thisDist2and3 = thisPoint2.distance(thisPoint3);
+		double thisRatio1 = thisDist1and2 / thisDist1and3;
+		double thisRatio2 = thisDist1and2 / thisDist2and3;
+		double thisRatio3 = thisDist1and3 / thisDist2and3;
+		
+		//Variables coming from the alignment object
+		Point3d alignPoint1 = vectorToPoint(alignmentObject.getPosOfPoint1());
+		Point3d alignPoint2 = vectorToPoint(alignmentObject.getPosOfPoint2());
+		Point3d alignPoint3 = vectorToPoint(alignmentObject.getPosOfPoint3());
+		double alignDist1and2 = alignPoint1.distance(alignPoint2);
+		double alignDist1and3 = alignPoint1.distance(alignPoint3);
+		double alignDist2and3 = alignPoint2.distance(alignPoint3);
+		double alignRatio1 = alignDist1and2 / alignDist1and3;
+		double alignRatio2 = alignDist1and2 / alignDist2and3;
+		double alignRatio3 = alignDist1and3 / alignDist2and3;
+		
+		//Difference in ratios between this object and the alignment object
+		double difference1 = thisRatio1 - alignRatio1;
+		double difference2 = thisRatio2 - alignRatio2;
+		double difference3 = thisRatio3 - alignRatio3;
+		
+		//Average difference
+		double avgDifference = (difference1 + difference2 + difference3) / 3;
+		
+		//Rounding
+		avgDifference = avgDifference*100;
+		avgDifference = Math.round(avgDifference);
+		avgDifference = avgDifference/100;
+		
+		return avgDifference;
+	}
+	
 	
 	
 	/**

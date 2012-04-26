@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Observer;
 
@@ -131,6 +132,7 @@ public class GUI {
 
 		frame.setPreferredSize(new Dimension(900, 900));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Icons/appicon.png"));
 
 		// Set up the content pane and add swing components to it
 		addComponentsToPane(frame.getContentPane());

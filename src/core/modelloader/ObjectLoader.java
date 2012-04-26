@@ -50,7 +50,6 @@ public class ObjectLoader extends SwingWorker{
 				|| file.getName().endsWith(".OBJ")) {
 			System.out.println("Object group done");
 			branch = getWavefrontObjObject(file);
-			System.out.println("hej");
 		}
 		return branch;
 	}

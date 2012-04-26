@@ -348,14 +348,14 @@ public class GraphicsPane extends JPanel {
 		view_tf3d.invert(); 
 		view_tg.setTransform(view_tf3d); //Perform the camera move
 		setParallelPolicy();
-		System.out.println(canvas.getView().getFieldOfView());
+		System.out.println("FOV: "+ canvas.getView().getFieldOfView());
 		canvas.getView().setFieldOfView(0.29);
 		//        try {
 		//			wait(599);
 		//		} catch (InterruptedException e) {
 		//			e.printStackTrace();
 		//		}
-		System.out.println("after"+canvas.getView().getFieldOfView());
+		System.out.println("FOV after: "+canvas.getView().getFieldOfView());
 	}
 	/**
 	 * Sets up the light and x,y,z origo axes in the universe.

@@ -61,7 +61,7 @@ public class Main implements Observer {
 		System.out.println("OS: " + System.getProperty("os.name"));
 		
 		values = new SensorValues(this);
-		robotHandler = new RobotHandler(values);
+		robotHandler = new RobotHandler(values, calibrator);
 		
 		calibrator = new Calibrator(robotHandler, gui);
 		

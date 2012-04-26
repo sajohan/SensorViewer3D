@@ -318,8 +318,18 @@ public class CThreePObject extends TransformGroup{
 	 */
 	public void moveTo(CThreePObject alignmentObject){
 		if(this.getParent() != null){
-			mainGroup.removeChild(this);
+			if(this.getParent() instanceof BranchGroup){
+				mainGroup.removeChild(this);
+			} else {
+				((TransformGroup)this.getParent()).removeChild(this);
+			}
 		}
+		
+		innerRotationGroup= new TransformGroup();
+		outerRotationGroup = new TransformGroup();
+		axisRotationGroup = new TransformGroup();
+		scaleGroup = new TransformGroup();
+		moveGroup = new TransformGroup();
 		
 		//Create hierarchy of TransformGroups, to take care of different rotations
 		scaleGroup.addChild(this);
@@ -362,7 +372,7 @@ public class CThreePObject extends TransformGroup{
 		Transform3D scaleTrans = new Transform3D();
 		Transform3D ourTrans = new Transform3D();
 		scaleGroup.getTransform(ourTrans);
-		System.out.println(alignDist/thisDist);
+		System.out.println("Scaled by: " + alignDist/thisDist);
 		scaleTrans.setScale(alignDist/thisDist);
 		ourTrans.mul(scaleTrans);
 		scaleGroup.setTransform(ourTrans);
@@ -377,7 +387,7 @@ public class CThreePObject extends TransformGroup{
 		thisPoint2 = vectorToPoint(thisVec2);
 		alignPoint1 = vectorToPoint(alignVec1);
 		alignPoint2 = vectorToPoint(alignVec2);
-		System.out.println(thisPoint1.distance(thisPoint2) + ", " + alignPoint1.distance(alignPoint2));
+		System.out.println("Distance between virtual and actual point after rescale: " + thisPoint1.distance(thisPoint2) + ", " + alignPoint1.distance(alignPoint2));
 		
 	}
 	

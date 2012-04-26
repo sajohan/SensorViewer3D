@@ -2,18 +2,19 @@ package core.robotarm;
 
 import java.io.InputStream;
 
+import core.Calibrator;
+
 import model.Point3Dim;
 import model.SensorValue;
 import model.SensorValues;
 
-
 /**
- * Title: Handler for the robotarm
- * Description: Communicates with the robot to populate the sensordata datastructure. 
+ * Title: Handler for the robotarm Description: Communicates with the robot to
+ * populate the sensordata datastructure.
  * 
  * @author sajohan & dannic
  * @version 1.0
- *
+ * 
  */
 public class RobotHandler {
 
@@ -21,71 +22,134 @@ public class RobotHandler {
 	private InputStream in;
 	private SensorValues values;
 	private byte[] inData = null;
-	
-	
-	public RobotHandler(SensorValues values){
+	private Point3Dim lastRobotPos;
+	private Calibrator calibrator;
+
+	public RobotHandler(SensorValues values, Calibrator calibrator) {
 		this.values = values;
+		this.calibrator = calibrator;
 	}
 
-
-	
-	
 	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */
-	public SensorValues readSensorGroup(Point3Dim[] points){
+	public SensorValues readSensorGroup(Point3Dim[] points) {
 
-        for(Point3Dim point : points){
-        	values.addValueToList(readSingleSensor((float)point.x, (float)point.y, (float)point.z));
-        	System.out.println("number of sensorvalues  "+ values.getValuesList().size());
-//        	values.addValueToList(new SensorValue(5,5,5,5));
+		for (Point3Dim point : points) {
+			values.addValueToList(readSingleSensor((float) point.x,
+					(float) point.y, (float) point.z));
+			System.out.println("Number of sensorvalues:  "
+					+ values.getValuesList().size());
 		}
 		return values;
 	}
-	
+
 	/* Reads a single sensorvalue. Called by readSensorGroup */
-	public SensorValue readSingleSensor(float x, float y, float z){
+	public SensorValue readSingleSensor(float x, float y, float z) {
+
+		// Send Position to robot
+		robotGoTo(new Point3Dim(x,y,z));
 		
-		
-		while(inData == null){
-			//Do nothing
+		SensorValue s = null;
+
+		// Wait for response from robot
+		while (inData == null) {
+			// Do nothing
 		}
-		
-		float value = getFloat(inData);
-		System.out.println(value);
-		
-		SensorValue s = new SensorValue(x, y, z, value);
-		inData = null; //reset indata after having read it
-		
+		s = readValueParser();
+		System.out.println("Read value: " + s.getValue());
+		inData = null; // reset indata after having read it
+
 		return s;
 	}
-	
-	public Point3Dim getRobotPos(){
-		//TODO read robotposition
-		return new Point3Dim(1, 1, 2);
+
+	public Point3Dim getRobotPos() {
+		while (inData == null) {
+			// Do nothing
+		}
+
+		String stringData = new String(inData);
+
+		/* Is it calibration value? */
+		if (stringData.startsWith("CAL")) {
+			String[] data = stringData.split(";");
+			Double d1 = new Double(data[1]);
+			Double d2 = new Double(data[2]);
+			Double d3 = new Double(data[3]);
+
+			// TODO Set HW Data in calibrator
+			Point3Dim point = new Point3Dim(d1, d2, d3);
+			inData = null; // reset indata after having read it
+			return point;
+		} else
+			return null;
 	}
-	
-	private float getFloat(byte[] byteData){
+
+	public float getFloat(byte[] byteData) {
 		String stringData = new String(byteData);
-		try{
-			float number  = new Float(stringData); 
+		try {
+			float number = new Float(stringData);
 			return number;
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
 		Float fl = null;
 		return fl;
 	}
-	
+
 	public void setInData(byte[] inData) {
 		this.inData = inData;
 	}
 
 	public void connect(String comPort) {
-        try{
-        	serialCom = new SerialCom(this);
-            serialCom.connect(comPort);
-        }catch ( Exception e ){
-            e.printStackTrace();
-        }
+		try {
+			serialCom = new SerialCom(this);
+			serialCom.connect(comPort);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public SensorValue readValueParser() {
+		SensorValue s = null;
+		System.out.println("Parsing value..");
+
+		String stringData = new String(inData);
+
+		/* Is it sensor value? */
+		if (stringData.startsWith("VAL")) {
+			String[] data = stringData.split(";");
+			if (data[1].equals("TEMP")) {
+				// Temperature
+				s = readTemperature(data);
+			} else if (data[1].equals("MAGN")) {
+				// Magnetic
+				// Do something else
+				s = readMagnetic(data);
+			}
+
+		}
+		return s;
+	}
+
+	public SensorValue readTemperature(String[] data) {
+		Float d1 = new Float(data[2]);
+		return new SensorValue((float) lastRobotPos.x, (float) lastRobotPos.y,
+				(float) lastRobotPos.z, d1);
+	}
+
+	public SensorValue readMagnetic(String[] data) {
+		return null;
+		// TODO Auto-generated method stub
+
 	}
 	
+	public void robotGoTo(Point3Dim point) {
+		// Save pos
+		lastRobotPos = point;
+		System.out.println("Position sent to robot X: " + point.x + " Y: " +  point.y + " Z: " + point.z);
+		
+		// TODO Construct a string with XYZ and send to SerialCom outputstream
+		String s = new String();
+		
+	}
+
 }

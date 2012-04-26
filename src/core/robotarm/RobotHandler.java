@@ -2,6 +2,8 @@ package core.robotarm;
 
 import java.io.InputStream;
 
+import view.GUI;
+
 import core.Calibrator;
 
 import model.Point3Dim;
@@ -49,11 +51,11 @@ public class RobotHandler {
 		robotGoTo(new Point3Dim(x,y,z));
 		
 		SensorValue s = null;
-
-		// Wait for response from robot
-		while (inData == null) {
-			// Do nothing
+		// Wait for response from robot, time out if no response
+		if(!waitForResponse()){
+			return null;
 		}
+		
 		s = readValueParser();
 		System.out.println("Read value: " + s.getValue());
 		inData = null; // reset indata after having read it
@@ -62,8 +64,10 @@ public class RobotHandler {
 	}
 
 	public Point3Dim getRobotPos() {
-		while (inData == null) {
-			// Do nothing
+
+		// Wait for response from robot, time out if no response
+		if(!waitForResponse()){
+			return null;
 		}
 
 		String stringData = new String(inData);
@@ -149,7 +153,29 @@ public class RobotHandler {
 		
 		// TODO Construct a string with XYZ and send to SerialCom outputstream
 		String s = new String();
-		
+	}
+	
+	/*
+	 * Wait for responese
+	 * @return false if inData is still null
+	 * 
+	 */
+	public boolean waitForResponse(){
+		int timeout = 100;
+		while (inData == null) {
+			try {
+				Thread.sleep(timeout);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if(timeout>=1000){
+				GUI.printErrorToStatus("No repsonse from robot.");
+				return false;
+			}
+			timeout = timeout+100;
+//			System.out.println(timeout);
+		}
+		return true;
 	}
 
 }

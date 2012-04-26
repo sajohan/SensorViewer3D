@@ -34,9 +34,11 @@ public class SensorValues extends Observable implements Serializable{
 		this.l = l;
 	}
 	public void addValueToList(SensorValue s) {
-		this.l.add(s);
-		this.setChanged();
-		this.notifyObservers(s);
+		if(s!=null){
+			this.l.add(s);
+			this.setChanged();
+			this.notifyObservers(s);
+		}
 	}
 
 	public ArrayList<SensorValue> getValuesList() {

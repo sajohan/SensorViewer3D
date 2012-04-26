@@ -148,6 +148,9 @@ public class GraphicsPane extends JPanel {
 		// Setup picking
 		Picker picker = new Picker(canvas, group, bounds);
 		group.addChild(picker);
+		
+		//Add a cloud
+		group.addChild(cloud);
 
 
 		univ.addBranchGraph(group);
@@ -194,11 +197,11 @@ public class GraphicsPane extends JPanel {
 		cloud.setPoint3(new Vector3d(physicalRefPoints[2].x,physicalRefPoints[2].y,physicalRefPoints[2].z));
 
 //		group.addChild(object); object is already added to group on setObject()
-		//draw the cloud
-		group.addChild(cloud);
+		
+//		group.addChild(cloud);
 		
 		
-		//perform align (move object to cloud and rotate )
+		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
 		
 		//move the grid to center of the object's new position

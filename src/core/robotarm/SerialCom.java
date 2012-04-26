@@ -92,7 +92,7 @@ public class SerialCom {
                 }
                 robotHandler.setInData(buffer);
 
-                System.out.print("Read data: "+new String(buffer,0,len));
+                System.out.println("Read data: "+new String(buffer,0,len));
             }
             catch ( IOException e )
             {

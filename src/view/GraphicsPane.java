@@ -152,6 +152,9 @@ public class GraphicsPane extends JPanel {
 		// Setup picking
 		Picker picker = new Picker(canvas, group, bounds);
 		group.addChild(picker);
+		
+		//Add a cloud
+		group.addChild(cloud);
 
 
 		univ.addBranchGraph(group);
@@ -197,7 +200,7 @@ public class GraphicsPane extends JPanel {
 
 //		group.addChild(object); object is already added to group on setObject()
 		
-		group.addChild(cloud);
+//		group.addChild(cloud);
 		
 		
 		//perform align (move object to cloud and align )

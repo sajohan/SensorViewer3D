@@ -82,6 +82,7 @@ public class GraphicsPane extends JPanel {
 		 */
 		//This is the object to be moved by the moveTo
 		object = new CThreePObject(group);
+
 		//Object containing measurement data
 		cloud = new CThreePObject(group);
 
@@ -210,11 +211,8 @@ public class GraphicsPane extends JPanel {
 		
 		//Set up camera to rotate around the object's new position
 		//by finding the center of the three reference points on the object
-		float x = (float) ( object.getPosOfPoint1().x + object.getPosOfPoint2().x + object.getPosOfPoint3().x )/3;
-		float y = (float) ( object.getPosOfPoint1().y + object.getPosOfPoint2().y + object.getPosOfPoint3().y )/3;
-		float z = (float) ( object.getPosOfPoint1().z + object.getPosOfPoint2().z + object.getPosOfPoint3().z )/3;
-			
-		orbit.setRotationCenter(new Point3d(x,y,z));
+		//which is now stored in the object variable
+		orbit.setRotationCenter(object.getObjectCenter());
 
 		//move camera platform to look at object's new position
 		ViewingPlatform vp = univ.getViewingPlatform();
@@ -234,7 +232,7 @@ public class GraphicsPane extends JPanel {
 //		T3D.get(translation_vector)
 //		translation_vector.add(z_axisVector)
 //		T3D.setTranslation(translation_vector)
-		
+
 		setPerspectivePolicy();
 		
 	}
@@ -339,9 +337,9 @@ public class GraphicsPane extends JPanel {
 		//note to self: argument 1 to lookAt() (eye position) 
 		//may never include z = 0 when placing camera on Y-axis
 		switch(axle){
-		case CAM_LOCK_X: view_tf3d.lookAt(new Point3d(camDistance,0d,0d),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
-		case CAM_LOCK_Y: view_tf3d.lookAt(new Point3d(0d,camDistance,0.1d),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
-		case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),new Point3d(0d,0d,0d),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_X: view_tf3d.lookAt(new Point3d(camDistance,0d,0d),object.getObjectCenter(),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_Y: view_tf3d.lookAt(new Point3d(0d,camDistance,0.1d),object.getObjectCenter(),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),object.getObjectCenter(),new Vector3d(0,1,0)); break;
 		}
 
 		//Note: Transform3D.lookAt() requires .invert() call after each use

@@ -1,0 +1,27 @@
+#Dummy communication with robotarm
+#Följande värden utgår från ak47'an
+
+#KALIBRERING
+
+#calibpoint 1. Mitt på pipans mynning.
+#CAL;-1.1;-1.31;-9.66 Orginal punkt innan manuell translation
+CAL;-3.1;2.69;-4.66
+
+#calibpoint 2. Mitt på kolvens undre skruv
+#CAL;0.04;0.07;9.91 Orginal punkt innan manuell translation
+CAL;-1.96;4.07;14.91
+
+#calibpoint 3. Mitt på skruven på "handtaget" på vänster sida av geväret.
+#CAL;0.19;-0.32;3.91 Orginal punkt innan manuell translation
+CAL;-1.81;3.68;8.91
+
+
+#SENSORDATA
+
+VAL;TEMP;22
+VAL;TEMP;25
+VAL;TEMP;18
+#felaktigt värde. Mjukvaran ska fråga efter värdet igen
+VAL;TEMP;k
+VAL;TEMP;27
+VAL;TEMP;15

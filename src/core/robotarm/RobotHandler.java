@@ -21,6 +21,7 @@ public class RobotHandler {
 	private InputStream in;
 	private SensorValues values;
 	private byte[] inData = null;
+	private Point3Dim lastRobotPos;
 	
 	
 	public RobotHandler(SensorValues values){
@@ -77,6 +78,7 @@ public class RobotHandler {
 	
 	public void setInData(byte[] inData) {
 		this.inData = inData;
+		commandParser();
 	}
 
 	public void connect(String comPort) {
@@ -86,6 +88,50 @@ public class RobotHandler {
         }catch ( Exception e ){
             e.printStackTrace();
         }
+	}
+	
+	public void commandParser(){
+		
+		if(inData == null){
+			//Do nothing
+			return;
+		}
+		
+		String stringData = new String(inData);
+		
+		/* Is it calibration value? */
+		if(stringData.startsWith("CAL")){
+			String[] data = stringData.split(";");
+			Double d1 = new Double(data[1]);
+			Double d2 = new Double(data[2]);
+			Double d3 = new Double(data[3]);
+			
+			Point3Dim point = new Point3Dim(d1,d2,d3);
+		}
+		
+		/* Is it sensor value? */
+		else if(stringData.startsWith("VAL")){
+			String[] data = stringData.split(";");
+			if(data[0].equals("TEMP")){
+				// Temperature
+				Float d1 = new Float(data[2]);
+				SensorValue s = new SensorValue((float)lastRobotPos.x, (float)lastRobotPos.y, (float)lastRobotPos.z, d1);
+				values.addValueToList(s);
+			}
+			else if(data[0].equals("MAGN")){
+				// Magnetic
+				// Do something else
+			}
+			
+		}
+		
+		
+	}
+	public void goToPos(Point3Dim point){
+		// Save pos
+		lastRobotPos = point;
+		// Send stringcommand to make robot to go to (X,Y,Z)
+		
 	}
 	
 }

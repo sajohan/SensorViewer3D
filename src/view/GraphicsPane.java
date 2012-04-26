@@ -42,6 +42,7 @@ public class GraphicsPane extends JPanel {
 
 	private JFrame frame;
 	private Transform3D view_tf3d;
+	private Transform3D z_axisVector;
 	private TransformGroup view_tg;
 	private SimpleUniverse univ;
 	private ObjectLoader objLoader;
@@ -128,11 +129,6 @@ public class GraphicsPane extends JPanel {
 
 		setUpLightAndGrid();
 
-		//move the grid to center of CThreePO 
-		//		grid.detach();
-		//		CThreePO.addChild(grid);
-
-
 		//create the object that displays the measured quantities in 3d
 		sensorValuesDrawer = new SensorValuesDrawer();
 		//		sensorValuesDrawer.drawSphere(0, 0, 0, 1);
@@ -187,9 +183,11 @@ public class GraphicsPane extends JPanel {
 	 * @param	 Point3Dim[]	physicalRefPoints	reference points on physical object
 	 */
 	public void align(Point3Dim[] virtualRefPoints , Point3Dim[] physicalRefPoints){
-
+		
+		//detach group to mutate it's children ( mutate it's children? :S )
 		group.detach();
 		
+		//Set the reference points provided in argument from core to the cloud and object
 		object.setPoint1(new Vector3d(virtualRefPoints[0].x,virtualRefPoints[0].y,virtualRefPoints[0].z));
 		object.setPoint2(new Vector3d(virtualRefPoints[1].x,virtualRefPoints[1].y,virtualRefPoints[1].z));
 		object.setPoint3(new Vector3d(virtualRefPoints[2].x,virtualRefPoints[2].y,virtualRefPoints[2].z));
@@ -206,20 +204,42 @@ public class GraphicsPane extends JPanel {
 		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
 		
+		//move the grid to center of the object's new position
+		grid.detach();
+		object.addChild(grid);
+		
+		//reattach group to universe after finished mutating it
 		univ.addBranchGraph(group);
+		
+		//Set up camera to rotate around the object's new position
+		//by finding the center of the three reference points on the object
 		float x = (float) ( object.getPosOfPoint1().x + object.getPosOfPoint2().x + object.getPosOfPoint3().x )/3;
 		float y = (float) ( object.getPosOfPoint1().y + object.getPosOfPoint2().y + object.getPosOfPoint3().y )/3;
 		float z = (float) ( object.getPosOfPoint1().z + object.getPosOfPoint2().z + object.getPosOfPoint3().z )/3;
-		
-		System.out.println("XYZ: "+ x +" "+ y+ " "+ z);
+			
 		orbit.setRotationCenter(new Point3d(x,y,z));
-		
+
+		//move camera platform to look at object's new position
 		ViewingPlatform vp = univ.getViewingPlatform();
 //		vp.moveTo(object);
 		Transform3D objTrans = new Transform3D();
 		object.getLocalToVworld(objTrans);
+//		objTrans.setTranslation(new Vector3d(-1,-1,-1));
 		vp.getViewPlatformTransform().setTransform(objTrans);
-
+		
+//		T3D.get(rotation_matrix)
+//		z_axisVector.set=objTrans.getElement(0,2);
+//		z_axisVector.y=objTrans.getElement(1,2)
+//		z_axisVector.z=objTrans.getElement(2,2)
+//
+//		z_axisVector.scale(moveAmt)
+//
+//		T3D.get(translation_vector)
+//		translation_vector.add(z_axisVector)
+//		T3D.setTranslation(translation_vector)
+		
+		setPerspectivePolicy();
+		
 	}
 
 	/**

@@ -37,4 +37,8 @@ public class EastPanel extends JPanel {
 			this.updateUI();
 		}
 	}
+	
+	public CalibPanel getCalibPanel() {
+		return calibPanel;
+	}
 }

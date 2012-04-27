@@ -69,6 +69,7 @@ public class CalibPanel extends JPanel {
 		
 		calibButton = new JButton("Calibrate");
 		calibButton.setActionCommand("calibrate");
+		calibButton.setEnabled(false);
 		
 		//ROW 1
 		headerLayout.fill = GridBagConstraints.HORIZONTAL;
@@ -130,8 +131,10 @@ public class CalibPanel extends JPanel {
 		getHWPos3.addActionListener(eastPanelListener);
 
 		calibButton.addActionListener(eastPanelListener);
-		
-		
+	}
+	
+	public void enableCalib(boolean b){
+		calibButton.setEnabled(b);
 	}
 	
 }

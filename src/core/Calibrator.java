@@ -66,6 +66,23 @@ public class Calibrator {
 	public void setSwCalibPoint(Point3Dim point, int index) {
 		swCalibPoints[index] = point;
 	}
+	/**
+	 * @return boolean Is the program ready to be calibrated?
+	 */
+	
+	public boolean isCalibratable(){
+		for(Point3Dim p : hwCalibPoints){
+			if(p == null){
+				return false;
+			}
+		}
+		for(Point3Dim p : swCalibPoints){
+			if(p == null){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	public String toString(){
 		StringBuilder s = new StringBuilder();

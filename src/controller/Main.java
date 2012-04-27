@@ -276,7 +276,8 @@ public class Main implements Observer {
 				point = Picker.getLastPick();
 				if(point != null){
 					source.setText("Position X: " + point.x);
-					calibrator.setSwCalibPoint(point, 0);					
+					calibrator.setSwCalibPoint(point, 0);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 			}
 			else if(source.getActionCommand().equals("swPos2")){
@@ -284,18 +285,21 @@ public class Main implements Observer {
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setSwCalibPoint(point, 1);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 			}else if (source.getActionCommand().equals("swPos3")) {
 				point = Picker.getLastPick();
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setSwCalibPoint(point, 2);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 			}else if (source.getActionCommand().equals("hwPos1")) {
 				point = robotHandler.getRobotPos();
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setHwCalibPoint(point, 0);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 				
 			}else if (source.getActionCommand().equals("hwPos2")) {
@@ -303,6 +307,7 @@ public class Main implements Observer {
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setHwCalibPoint(point, 1);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 				
 			}else if (source.getActionCommand().equals("hwPos3")) {
@@ -310,6 +315,7 @@ public class Main implements Observer {
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setHwCalibPoint(point, 2);
+					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 				
 			}else if (source.getActionCommand().equals("calibrate")){

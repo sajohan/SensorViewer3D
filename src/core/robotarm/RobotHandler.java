@@ -1,6 +1,8 @@
 package core.robotarm;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import view.GUI;
 
@@ -64,6 +66,10 @@ public class RobotHandler {
 	}
 
 	public Point3Dim getRobotPos() {
+		
+		// TestString
+//		String t = new String("GoToPOS;1;2;3");
+//		serialCom.writeString(t);
 
 		// Wait for response from robot, time out if no response
 		if(!waitForResponse()){

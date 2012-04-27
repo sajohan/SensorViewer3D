@@ -23,10 +23,21 @@ public class SerialCom {
 
 	
 	private static RobotHandler robotHandler;
+	private OutputStream out;
 	
     public SerialCom(RobotHandler robotHandler)
     {
     	this.robotHandler = robotHandler;
+    }
+    
+    public void writeString(String s){
+    	byte[] data = s.getBytes();
+    	try {
+			out.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     }
     
     void connect ( String portName ) throws Exception
@@ -46,7 +57,7 @@ public class SerialCom {
                 serialPort.setSerialPortParams(57600,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
                 
                 InputStream in = serialPort.getInputStream();
-                OutputStream out = serialPort.getOutputStream();
+                out = serialPort.getOutputStream();
                                
                 (new Thread(new SerialWriter(out))).start();
                 
@@ -58,7 +69,9 @@ public class SerialCom {
             {
                 System.out.println("Error: Only serial ports are handled by this example.");
             }
-        }     
+        }
+        
+
     }
     
     /**

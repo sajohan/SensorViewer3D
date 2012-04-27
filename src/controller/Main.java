@@ -300,13 +300,17 @@ public class Main implements Observer {
 				
 			}else if (source.getActionCommand().equals("hwPos2")) {
 				point = robotHandler.getRobotPos();
-				source.setText("Position X: " + point.x);
-				calibrator.setHwCalibPoint(point, 1);
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setHwCalibPoint(point, 1);
+				}
 				
 			}else if (source.getActionCommand().equals("hwPos3")) {
 				point = robotHandler.getRobotPos();
-				source.setText("Position X: " + point.x);
-				calibrator.setHwCalibPoint(point, 2);
+				if(point != null){
+					source.setText("Position X: " + point.x);
+					calibrator.setHwCalibPoint(point, 2);
+				}
 				
 			}else if (source.getActionCommand().equals("calibrate")){
 				calibrator.doCalib();

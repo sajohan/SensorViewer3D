@@ -42,7 +42,6 @@ public class GUI {
 	private StatusPanelListener statuspanelListener;
 	private static StatusPanel statuspanel;
 	
-	private EastPanelListener eastPanelListener;
 	private EastPanel eastPanel;
 	
 	private ProgressBarPopup progresspopup;
@@ -86,9 +85,8 @@ public class GUI {
 		
 		progresspopup = new ProgressBarPopup();
 		
-		// Add tree panel
-		eastPanelListener = new EastPanelListener(menuObserver);
-		eastPanel = new EastPanel(eastPanelListener);
+		// Add east panel
+		eastPanel = new EastPanel(menuObserver);
 		contentPane.add(eastPanel,BorderLayout.EAST);
 		
 		

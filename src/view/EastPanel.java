@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.GridLayout;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
@@ -12,10 +13,16 @@ public class EastPanel extends JPanel {
 	private CalibPanel calibPanel;
 	
 	
-	public EastPanel(EastPanelListener eastPanelListener) {
+	public EastPanel(Observer obs) {
 		
-		treePanel = new TreePanel(eastPanelListener);
-		calibPanel = new CalibPanel(eastPanelListener);
+		
+		EastPanelListener listener = new EastPanelListener(obs);
+		
+		treePanel = new TreePanel(listener);
+		calibPanel = new CalibPanel(listener);
+		
+		listener.setTreePanel(treePanel);
+		
 		
 		// Set size to at least 400
 		this.setSize(400, 0);

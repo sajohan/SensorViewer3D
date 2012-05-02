@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 
 import model.Constants;
+import model.SensorType;
 import model.SensorValue;
 import model.SensorValues;
 import core.Calibrator;
@@ -253,11 +254,11 @@ public class Main implements Observer {
 				/*
 				 * TEST VALUES
 				 */
-				values.addValueToList(new SensorValue(0,0,0,2));
+				values.addValueToList(new SensorValue(0,0,0,2,SensorType.TEMP));
 				
-				values.addValueToList(new SensorValue(1,0,0,123));
+				values.addValueToList(new SensorValue(1,0,0,123,SensorType.TEMP));
 				
-				values.addValueToList(new SensorValue(0,1,0,255));
+				values.addValueToList(new SensorValue(0,1,0,255,SensorType.TEMP));
 				
 				graphicsPane.setPerspectivePolicy();
 			}

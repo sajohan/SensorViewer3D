@@ -1,12 +1,15 @@
 package core.robotarm;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import view.GUI;
 
 import core.Calibrator;
 
 import model.Point3Dim;
+import model.SensorType;
 import model.SensorValue;
 import model.SensorValues;
 
@@ -49,13 +52,13 @@ public class RobotHandler {
 
 		// Send Position to robot
 		robotGoTo(new Point3Dim(x,y,z));
-
+		
 		SensorValue s = null;
 		// Wait for response from robot, time out if no response
 		if(!waitForResponse()){
 			return null;
 		}
-
+		
 		s = readValueParser();
 		System.out.println("Read value: " + s.getValue());
 		inData = null; // reset indata after having read it
@@ -64,6 +67,10 @@ public class RobotHandler {
 	}
 
 	public Point3Dim getRobotPos() {
+		
+		// TestString
+//		String t = new String("GoToPOS;1;2;3");
+//		serialCom.writeString(t);
 		//
 		//		// Wait for response from robot, time out if no response
 		//		if(!waitForResponse()){
@@ -138,7 +145,7 @@ public class RobotHandler {
 	public SensorValue readTemperature(String[] data) {
 		Float d1 = new Float(data[2]);
 		return new SensorValue((float) lastRobotPos.x, (float) lastRobotPos.y,
-				(float) lastRobotPos.z, d1);
+				(float) lastRobotPos.z, d1, SensorType.TEMP);
 	}
 
 	public SensorValue readMagnetic(String[] data) {
@@ -174,7 +181,7 @@ public class RobotHandler {
 				return false;
 			}
 			timeout = timeout+100;
-			//			System.out.println(timeout);
+//			System.out.println(timeout);
 		}
 		return true;
 	}

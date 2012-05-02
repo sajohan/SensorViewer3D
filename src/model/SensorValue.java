@@ -4,8 +4,13 @@ import javax.vecmath.Point3d;
 
 public class SensorValue{
 	private float x,y,z,a;
-	private boolean visible = true; 
 	
+	/**
+	 * @param	float x	x-coordinate of value
+	 * @param	float y	y-coordinate of value
+	 * @param	float z	z-coordinate of value
+	 * @param	float a	amplitude of value
+	 */
 	public SensorValue(float x,float y,float z,float a){
 		this.setX(x);
 		this.setY(y);
@@ -39,14 +44,6 @@ public class SensorValue{
 	}
 	public float getValue() {
 		return a;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	public boolean isVisible() {
-		return visible;
 	}
 	
 }

@@ -49,13 +49,13 @@ public class RobotHandler {
 
 		// Send Position to robot
 		robotGoTo(new Point3Dim(x,y,z));
-		
+
 		SensorValue s = null;
 		// Wait for response from robot, time out if no response
 		if(!waitForResponse()){
 			return null;
 		}
-		
+
 		s = readValueParser();
 		System.out.println("Read value: " + s.getValue());
 		inData = null; // reset indata after having read it
@@ -64,27 +64,28 @@ public class RobotHandler {
 	}
 
 	public Point3Dim getRobotPos() {
-
-		// Wait for response from robot, time out if no response
-		if(!waitForResponse()){
-			return null;
-		}
-
-		String stringData = new String(inData);
-
-		/* Is it calibration value? */
-		if (stringData.startsWith("CAL")) {
-			String[] data = stringData.split(";");
-			Double d1 = new Double(data[1]);
-			Double d2 = new Double(data[2]);
-			Double d3 = new Double(data[3]);
-
-			// TODO Set HW Data in calibrator
-			Point3Dim point = new Point3Dim(d1, d2, d3);
-			inData = null; // reset indata after having read it
-			return point;
-		} else
-			return null;
+		//
+		//		// Wait for response from robot, time out if no response
+		//		if(!waitForResponse()){
+		//			return null;
+		//		}
+		//
+		//		String stringData = new String(inData);
+		//
+		//		/* Is it calibration value? */
+		//		if (stringData.startsWith("CAL")) {
+		//			String[] data = stringData.split(";");
+		//			Double d1 = new Double(data[1]);
+		//			Double d2 = new Double(data[2]);
+		//			Double d3 = new Double(data[3]);
+		//
+		//			// TODO Set HW Data in calibrator
+		//			Point3Dim point = new Point3Dim(d1, d2, d3);
+		//			inData = null; // reset indata after having read it
+		//			return point;
+		//		} else
+		//			return null;
+		return new Point3Dim(0,0,0);
 	}
 
 	public float getFloat(byte[] byteData) {
@@ -145,16 +146,16 @@ public class RobotHandler {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void robotGoTo(Point3Dim point) {
 		// Save pos
 		lastRobotPos = point;
 		System.out.println("Position sent to robot X: " + point.x + " Y: " +  point.y + " Z: " + point.z);
-		
+
 		// TODO Construct a string with XYZ and send to SerialCom outputstream
 		String s = new String();
 	}
-	
+
 	/*
 	 * Wait for responese
 	 * @return false if inData is still null
@@ -173,7 +174,7 @@ public class RobotHandler {
 				return false;
 			}
 			timeout = timeout+100;
-//			System.out.println(timeout);
+			//			System.out.println(timeout);
 		}
 		return true;
 	}

@@ -101,8 +101,12 @@ public class Main implements Observer {
 			// draws the sensorvalue
 			// if receiving values before graphicsPane is initialized, discard
 			if (graphicsPane != null) 
-				graphicsPane.updateSensorValue((SensorValue)obj);
-		}else if ( obs instanceof EastPanelListener){
+				graphicsPane.updateSensorValue((SensorValues)obs);
+		}
+		/*
+		 * East panel
+		 */
+		else if ( obs instanceof EastPanelListener){
 			eastPanelUpdater(obs, obj);
 			
 		}
@@ -245,7 +249,16 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
-
+				
+				/*
+				 * TEST VALUES
+				 */
+				values.addValueToList(new SensorValue(0,0,0,2));
+				
+				values.addValueToList(new SensorValue(1,0,0,123));
+				
+				values.addValueToList(new SensorValue(0,1,0,255));
+				
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){

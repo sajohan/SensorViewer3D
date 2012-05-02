@@ -25,6 +25,7 @@ import javax.vecmath.Vector3d;
 
 import model.Point3Dim;
 import model.SensorValue;
+import model.SensorValues;
 import static model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
@@ -206,8 +207,8 @@ public class GraphicsPane extends JPanel {
 		object.moveTo(cloud);
 		
 		//move the grid to center of the object's new position
-		grid.detach();
-		object.addChild(grid);
+//		grid.detach();
+//		object.addChild(grid);
 		
 		//reattach group to universe after finished mutating it
 		univ.addBranchGraph(group);
@@ -223,7 +224,14 @@ public class GraphicsPane extends JPanel {
 		Transform3D objTrans = new Transform3D();
 		object.getLocalToVworld(objTrans);
 //		objTrans.setTranslation(new Vector3d(-1,-1,-1));
-		vp.getViewPlatformTransform().setTransform(objTrans);
+//		vp.getViewPlatformTransform().setTransform(objTrans);
+		
+		Transform3D vp_trans = new Transform3D();
+		vp.getLocalToVworld(vp_trans);
+		Point3d camPos = object.getObjectCenter();
+		vp_trans.lookAt(camPos, object.getObjectCenter(), new Vector3d(0,1,0));
+		vp_trans.invert();
+		vp.getViewPlatformTransform().setTransform(vp_trans);
 		
 //		T3D.get(rotation_matrix)
 //		z_axisVector.set=objTrans.getElement(0,2);
@@ -235,8 +243,10 @@ public class GraphicsPane extends JPanel {
 //		T3D.get(translation_vector)
 //		translation_vector.add(z_axisVector)
 //		T3D.setTranslation(translation_vector)
-
+		
+		//set up freecam
 		setPerspectivePolicy();
+		orbit.setRotateEnable(true);
 		
 	}
 
@@ -281,7 +291,7 @@ public class GraphicsPane extends JPanel {
 		//		
 		//		view_tf3d.lookAt(new Point3d(0d,0d,10d),new Point3d(0d,0d,0d),new Vector3d(0,1,0));
 		//        view_tf3d.invert();
-		lockOnAxle(CAM_LOCK_X, false);
+//		lockOnAxle(CAM_LOCK_X, false);
 	}
 
 	/**
@@ -375,7 +385,7 @@ public class GraphicsPane extends JPanel {
 	/*
 	 * makes the call to draw the graphical representation of argument on the screen
 	 */
-	public void updateSensorValue(SensorValue s){
+	public void updateSensorValue(SensorValues s){
 		group.detach();
 		sensorValuesDrawer.drawSensorValue(s);
 		univ.addBranchGraph(group);

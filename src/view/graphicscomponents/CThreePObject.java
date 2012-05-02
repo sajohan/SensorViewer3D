@@ -321,7 +321,6 @@ public class CThreePObject extends TransformGroup{
 			if(this.getParent() instanceof BranchGroup){
 				mainGroup.removeChild(this);
 			} else {
-				mainGroup.removeChild(axisRotationGroup);
 				((TransformGroup)this.getParent()).removeChild(this);
 			}
 		}
@@ -350,7 +349,6 @@ public class CThreePObject extends TransformGroup{
 		float y = (float) ( getPosOfPoint1().y + getPosOfPoint2().y + getPosOfPoint3().y )/3;
 		float z = (float) ( getPosOfPoint1().z + getPosOfPoint2().z + getPosOfPoint3().z )/3;
 		objectCenter = new Point3d(x,y,z);
-		
 		
 		mainGroup.addChild(axisRotationGroup);
 		

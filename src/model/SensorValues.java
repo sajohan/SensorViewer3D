@@ -20,11 +20,16 @@ public class SensorValues extends Observable implements Serializable{
 	// Map of points connected to values
 //	private HashMap<Point3d, Float> map;
 	private ArrayList<SensorValue> l;
-	
+	private Float min,max;
 	/**
 	 * @param	Observer	obs	the object to observe new sensor values added
 	 */
 	public SensorValues(Observer obs) {
+		/* TODO
+		 * HARDCODED VALUES
+		 */
+		min = 0f;
+		max = 255f;
 //		map = new HashMap<Point3d, Float>();
 		l = new ArrayList<SensorValue>();
 		this.addObserver(obs);
@@ -38,6 +43,17 @@ public class SensorValues extends Observable implements Serializable{
 			this.l.add(s);
 			this.setChanged();
 			this.notifyObservers(s);
+			float value = s.getValue();
+			//store min, max values
+//			if(min == null){
+//				min = max = value;
+//			}
+//			else if( value < min ){
+//				min = value;
+//			}
+//			else if( value > max ){
+//				max = value;
+//			}
 		}
 	}
 

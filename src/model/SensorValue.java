@@ -6,11 +6,14 @@ public class SensorValue{
 	private float x,y,z,a;
 	private boolean visible = true; 
 	
-	public SensorValue(float x,float y,float z,float a){
+	private SensorType type;
+	
+	public SensorValue(float x,float y,float z,float a, SensorType type){
 		this.setX(x);
 		this.setY(y);
 		this.z = z;
 		this.setValue(a);
+		this.type = type;
 	}
 	
 	public float getZ() {

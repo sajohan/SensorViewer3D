@@ -9,6 +9,7 @@ import view.GUI;
 import core.Calibrator;
 
 import model.Point3Dim;
+import model.SensorType;
 import model.SensorValue;
 import model.SensorValues;
 
@@ -143,7 +144,7 @@ public class RobotHandler {
 	public SensorValue readTemperature(String[] data) {
 		Float d1 = new Float(data[2]);
 		return new SensorValue((float) lastRobotPos.x, (float) lastRobotPos.y,
-				(float) lastRobotPos.z, d1);
+				(float) lastRobotPos.z, d1, SensorType.TEMP);
 	}
 
 	public SensorValue readMagnetic(String[] data) {

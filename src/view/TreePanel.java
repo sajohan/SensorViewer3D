@@ -1,10 +1,18 @@
 package view;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import controller.EastPanelListener;
 
@@ -19,33 +27,26 @@ public class TreePanel extends JPanel{
 	
 	private	JTree tree;
 	private	JScrollPane scrollPane;
+	private DefaultMutableTreeNode rootNode;
+	private DefaultTreeModel sensorModel;
 	
 	public TreePanel(EastPanelListener eastPanelListener){
 		
-
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		
-		// Temporary content of tree
-	    Object[] hierarchy =
-	        { "javax.swing",
-	          "javax.swing.border",
-	          "javax.swing.colorchooser",
-	          "javax.swing.event",
-	          "javax.swing.filechooser",
-	          new Object[] { "javax.swing.plaf",
-	                         "javax.swing.plaf.basic",
-	                         "javax.swing.plaf.metal",
-	                         "javax.swing.plaf.multi" },
-	          "javax.swing.table",
-	          new Object[] { "javax.swing.text",
-	                         new Object[] { "javax.swing.text.html",
-	                                        "javax.swing.text.html.parser" },
-	                         "javax.swing.text.rtf" },
-	          "javax.swing.tree",
-	          "javax.swing.undo" };
-	    DefaultMutableTreeNode root = processHierarchy(hierarchy);
-	    
+		//  Parent to all nodes
+		rootNode = new DefaultMutableTreeNode("Sensor values");
+		
+		sensorModel = new DefaultTreeModel(rootNode);
+		
+		Object hej = new Object();
+		addNode(hej);
+		
+		Object hej2 = new Object();
+		addNode(hej2);
 	    // Set the hierarchy
-	    tree = new JTree(root);
+	    tree = new JTree(sensorModel);
 
 		// Set to no icons
 	    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
@@ -58,29 +59,49 @@ public class TreePanel extends JPanel{
 		scrollPane = new JScrollPane();
 		scrollPane.getViewport().add( tree );
 	    
-	    this.add(scrollPane);
-		
+		//Add the scrollpane to the JPanel
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 2;
+	    this.add(scrollPane, c);
+	    
+	    // Remove sensor button
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.anchor = GridBagConstraints.WEST;
+        JButton removeButton = new JButton("Remove");
+        removeButton.setActionCommand("remove");
+        removeButton.addActionListener(eastPanelListener);
+        this.add(removeButton,c);
+
+        //Hide sensor button
+        c.gridx = 1;
+		c.gridy = 1;
+        JButton hideButton = new JButton("Hide");
+        hideButton.setActionCommand("hide");
+        hideButton.addActionListener(eastPanelListener);
+        this.add(hideButton,c);
 	}
 
-	  /** Small routine that will make node out of the first entry
-	   *  in the array, then make nodes out of subsequent entries
-	   *  and make them child nodes of the first one. The process is
-	   *  repeated recursively for entries that are arrays.
-	   */
-	    
-	  public DefaultMutableTreeNode processHierarchy(Object[] hierarchy) {
-	    DefaultMutableTreeNode node =
-	      new DefaultMutableTreeNode(hierarchy[0]);
-	    DefaultMutableTreeNode child;
-	    for(int i=1; i<hierarchy.length; i++) {
-	      Object nodeSpecifier = hierarchy[i];
-	      if (nodeSpecifier instanceof Object[])  // Ie node with children
-	        child = processHierarchy((Object[])nodeSpecifier);
-	      else
-	        child = new DefaultMutableTreeNode(nodeSpecifier); // Ie Leaf
-	      node.add(child);
-	    }
-	    return(node);
-	  }
 
+	public void addNode(Object child){
+		
+        DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+        
+        sensorModel.insertNodeInto(childNode, rootNode, rootNode.getChildCount());
+	}
+
+	public void removeCurrentNode(){
+		
+		TreePath currentSelection = tree.getSelectionPath();
+        if (currentSelection != null) {
+            DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)
+                         (currentSelection.getLastPathComponent());
+            MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
+            if (parent != null) {
+                sensorModel.removeNodeFromParent(currentNode);
+            }
+        } 
+	}
 }

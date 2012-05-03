@@ -29,8 +29,11 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		if(e.getSource() instanceof JButton){
 			if(e.getActionCommand().equals("remove")){
 				System.out.println("Removing sensor");
-				treePanel.removeCurrentNode();
+				treePanel.removeCurrentNodes();
 				return;
+			}else if (e.getActionCommand().equals("toggleVis")) {
+				System.out.println("Toggling visibility");
+				
 			}
 			
 		}
@@ -56,7 +59,6 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 	public void treeNodesRemoved(TreeModelEvent e) {
 		// TODO Notify observer that node has been removed
 		System.out.println("Treenode removed");
-		
 	}
 
 

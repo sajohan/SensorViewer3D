@@ -82,10 +82,10 @@ public class TreePanel extends JPanel{
         //Hide sensor button
         c.gridx = 1;
 		c.gridy = 1;
-        JButton hideButton = new JButton("Hide");
-        hideButton.setActionCommand("hide");
-        hideButton.addActionListener(eastPanelListener);
-        this.add(hideButton,c);
+        JButton toggleVisButton = new JButton("Toggle Visibility");
+        toggleVisButton.setActionCommand("toggleVis");
+        toggleVisButton.addActionListener(eastPanelListener);
+        this.add(toggleVisButton,c);
 	}
 
 
@@ -96,16 +96,20 @@ public class TreePanel extends JPanel{
         sensorModel.insertNodeInto(childNode, rootNode, rootNode.getChildCount());
 	}
 
-	public void removeCurrentNode(){
+	public void removeCurrentNodes(){
 		
-		TreePath currentSelection = tree.getSelectionPath();
+//		TreePath currentSelection = tree.getSelectionPath();
+		TreePath[] currentSelection = tree.getSelectionPaths();
         if (currentSelection != null) {
-            DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)
-                         (currentSelection.getLastPathComponent());
-            MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
-            if (parent != null) {
-                sensorModel.removeNodeFromParent(currentNode);
-            }
+        	for(TreePath path : currentSelection){
+        		DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)
+        		(path.getLastPathComponent());
+        		MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
+        		if (parent != null) {
+        			sensorModel.removeNodeFromParent(currentNode);
+        		}
+        	}
+            
         } 
 	}
 }

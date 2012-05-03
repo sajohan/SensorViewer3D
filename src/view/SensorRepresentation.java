@@ -103,5 +103,13 @@ public class SensorRepresentation extends Sphere {
 		selectedAp.getColoringAttributes().setColor(tempColor);
 		
 	}
+
+	public SensorValue getSensorValue() {
+		return sensVal;
+	}
+
+	public void setSensorValue(SensorValue sensVal) {
+		this.sensVal = sensVal;
+	}
 	
 }

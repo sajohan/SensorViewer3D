@@ -25,8 +25,9 @@ public class SensorValuesDrawer extends BranchGroup{
 
 	public float transparency = 0.3f; // transparency of values
 	
+	public ArrayList<SensorRepresentation> sensorRepList;
 	public SensorValuesDrawer(){
-
+		sensorRepList = new ArrayList<SensorRepresentation>();
 	}
 
 	/**
@@ -46,6 +47,8 @@ public class SensorValuesDrawer extends BranchGroup{
 		ap.setColoringAttributes(color);
 
 		SensorRepresentation sphere = new SensorRepresentation(0.2f,100,ap, sensVal);
+		sensorRepList.add(sphere);
+		
 		TransformGroup transformGrp = new TransformGroup();
 		Transform3D transform = new Transform3D();
 
@@ -56,10 +59,13 @@ public class SensorValuesDrawer extends BranchGroup{
 		this.addChild(transformGrp);
 	}
 
-	/*
+	/**
 	 * renders all sensor values in argument
 	 */
 	public void drawSensorValue(SensorValues sensorValues){
+		//remove all previously drawn values, then redraw all values left in list
+		this.removeAllChildren();
+		sensorRepList = new ArrayList<SensorRepresentation>();
 
 		ArrayList<SensorValue> values = sensorValues.getValuesList();
 		
@@ -70,6 +76,84 @@ public class SensorValuesDrawer extends BranchGroup{
 			 s = (SensorValue) it.next();
 				drawSphere(s);
 		}
+		
+
+		
+	}
+	
+	/**
+	 * Visualises selection ov ain sphere
+	 * @param sv the sensorvalue belonging to said spehere
+	 */
+	public void selectSphere(SensorValue sv){
+		SensorRepresentation s;
+		SensorValue tempSens;
+		Iterator it = sensorRepList.iterator();
+		
+		while(it.hasNext()){
+			 s = (SensorRepresentation)it.next();
+			 tempSens = s.getSensorValue();
+			 if(tempSens == sv){
+				 s.setSelected(true);
+			 }
+		}
+		
+	}
+	
+	/**
+	 * Visualises deselection ov ain sphere
+	 * @param sv the sensorvalue belonging to said spehere
+	 */
+	public void deselectSphere(SensorValue sv){
+		SensorRepresentation s;
+		SensorValue tempSens;
+		Iterator it = sensorRepList.iterator();
+		
+		while(it.hasNext()){
+			 s = (SensorRepresentation)it.next();
+			 tempSens = s.getSensorValue();
+			 if(tempSens == sv){
+				 s.setSelected(false);
+			 }
+		}
+		
+	}
+	
+	/**
+	 * Visualises hiding ov ain sphere
+	 * @param sv the sensorvalue belonging to said spehere
+	 */
+	public void hideSphere(SensorValue sv){
+		SensorRepresentation s;
+		SensorValue tempSens;
+		Iterator it = sensorRepList.iterator();
+		
+		while(it.hasNext()){
+			 s = (SensorRepresentation)it.next();
+			 tempSens = s.getSensorValue();
+			 if(tempSens == sv){
+				 s.setVisible(false);
+			 }
+		}
+	}
+		
+		/**
+		 * Visualises showing ov ain sphere
+		 * @param sv the sensorvalue belonging to said spehere
+		 */
+		public void showSphere(SensorValue sv){
+			SensorRepresentation s;
+			SensorValue tempSens;
+			Iterator it = sensorRepList.iterator();
+			
+			while(it.hasNext()){
+				 s = (SensorRepresentation)it.next();
+				 tempSens = s.getSensorValue();
+				 if(tempSens == sv){
+					 s.setVisible(true);
+				 }
+			}
+		
 	}
 	
 	

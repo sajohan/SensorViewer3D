@@ -279,11 +279,21 @@ public class Main implements Observer {
 				//testing 
 //				values = new SensorValues(this);
 //				robotHandler = new RobotHandler(values);
-				Point3Dim point1 = new Point3Dim(1,1,1);
-				Point3Dim point2 = new Point3Dim(-1, 5, 0);
-				Point3Dim[] points = {point1, point2};
-
-				robotHandler.readSensorGroup(points);
+				
+				/*
+				 * used for testing
+				 */
+//				Point3Dim point1 = new Point3Dim(1,1,1);
+//				Point3Dim point2 = new Point3Dim(-1, 5, 0);
+//				Point3Dim[] points = {point1, point2};
+//				robotHandler.readSensorGroup(points);
+				
+				/*
+				 * send picker's last coordinates to com-port
+				 */
+				Point3Dim pickedPoint = Picker.getLastPick();
+				SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z);
+				System.out.println("value received from com-port: x: " + s.getX() + " y: " + s.getY() + " z: " + s.getZ());
 
 			}
 			else if(source.getActionCommand().equals(Constants.handbutton)){

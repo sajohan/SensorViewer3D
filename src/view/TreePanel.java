@@ -48,12 +48,7 @@ public class TreePanel extends JPanel{
 		
 		sensorModel = new DefaultTreeModel(rootNode);
 		sensorModel.addTreeModelListener(eastPanelListener);
-		
-//		Object hej = new Object();
-//		addNode(hej);
-//		
-//		Object hej2 = new Object();
-//		addNode(hej2);
+
 	    // Set the hierarchy
 	    tree = new JTree(sensorModel);
 
@@ -112,11 +107,7 @@ public class TreePanel extends JPanel{
         		(path.getLastPathComponent());
         		MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
         		if (parent != null) {
-        			SensorValue sensor = (SensorValue)currentNode.getUserObject();
-        			
-        			removeSensorValue(sensor);
         			sensorModel.removeNodeFromParent(currentNode);
-//        			System.out.println(currentNode);
         			
         		}
         	}

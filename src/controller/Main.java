@@ -292,8 +292,17 @@ public class Main implements Observer {
 				 * send picker's last coordinates to com-port
 				 */
 				Point3Dim pickedPoint = Picker.getLastPick();
-				SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z);
-				System.out.println("value received from com-port: x: " + s.getX() + " y: " + s.getY() + " z: " + s.getZ());
+				if(pickedPoint != null){
+					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z);
+					if(s != null){
+						gui.getEastPanel().getTreePanel().addNode(s);
+						System.out.println("value received from com-port: x: " + s.getX() + " y: " + s.getY() + " z: " + s.getZ());
+					}
+				}else{
+					GUI.printErrorToStatus("No coordinate picked!");
+				}
+					
+					
 
 			}
 			else if(source.getActionCommand().equals(Constants.handbutton)){

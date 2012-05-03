@@ -24,7 +24,7 @@ import com.sun.j3d.utils.geometry.Sphere;
 public class SensorValuesDrawer extends BranchGroup{
 
 	public float transparency = 0.3f; // transparency of values
-
+	
 	public SensorValuesDrawer(){
 
 	}

@@ -63,8 +63,11 @@ public class SensorValues extends Observable implements Serializable{
 	}
 
 	public void removeValue(SensorValue s) {
-		if(l.remove(s))
+		if(l.remove(s)){
 			System.out.println("Successfully emoved object from list");
+			this.setChanged();
+			this.notifyObservers(s);
+		}
 	}
 
 

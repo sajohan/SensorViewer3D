@@ -40,13 +40,14 @@ public class SensorRepresentation extends Sphere {
 		
 		invisibilityAp.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.FASTEST,1));
 		
-		Color3f tempColor = new Color3f();
-		defaultAp.getColoringAttributes().getColor(tempColor);
-		tempColor.y = 0.5f;
-		selectedAp = defaultAp;
-		selectedAp.getColoringAttributes().setColor(tempColor);
+//		Color3f tempColor = new Color3f();
+//		defaultAp.getColoringAttributes().getColor(tempColor);
+//		tempColor.setY(0.5f);
+//		selectedAp = defaultAp;
+//		selectedAp.getColoringAttributes().setColor(tempColor);
 		
 		visible = true;
+		selected = false;
 		this.sensVal = sensVal;
 		
 	}
@@ -64,7 +65,7 @@ public class SensorRepresentation extends Sphere {
 				this.setAppearance(invisibilityAp);
 			}
 		}
-		return;
+		visible = isVisible;
 	}
 	
 	/**
@@ -75,12 +76,16 @@ public class SensorRepresentation extends Sphere {
 		//Checks if the current state differs from the desired state
 		if(selected == !isSelected){
 			if(isSelected){
-				this.setAppearance(defaultAp);
+				Color3f tempColor = new Color3f();
+				defaultAp.getColoringAttributes().getColor(tempColor);
+				tempColor.setY(0.0f);
 			} else {
-				this.setAppearance(selectedAp);
+				Color3f tempColor = new Color3f();
+				defaultAp.getColoringAttributes().getColor(tempColor);
+				tempColor.setY(0.5f);
 			}
 		}
-		return;
+		selected = isSelected;
 	}
 	
 	/**

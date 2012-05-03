@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -39,12 +41,13 @@ public class TreePanel extends JPanel{
 		rootNode = new DefaultMutableTreeNode("Sensor values");
 		
 		sensorModel = new DefaultTreeModel(rootNode);
+		sensorModel.addTreeModelListener(eastPanelListener);
 		
-		Object hej = new Object();
-		addNode(hej);
-		
-		Object hej2 = new Object();
-		addNode(hej2);
+//		Object hej = new Object();
+//		addNode(hej);
+//		
+//		Object hej2 = new Object();
+//		addNode(hej2);
 	    // Set the hierarchy
 	    tree = new JTree(sensorModel);
 
@@ -63,6 +66,7 @@ public class TreePanel extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 2;
+//		c.weightx = 1.0f;
 	    this.add(scrollPane, c);
 	    
 	    // Remove sensor button

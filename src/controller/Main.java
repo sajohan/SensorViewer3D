@@ -101,8 +101,11 @@ public class Main implements Observer {
 		else if (obs instanceof SensorValues){
 			// draws the sensorvalue
 			// if receiving values before graphicsPane is initialized, discard
-			if (graphicsPane != null) 
+			if (graphicsPane != null){
 				graphicsPane.updateSensorValue((SensorValues)obs);
+				SensorValue s = (SensorValue) obj;
+				gui.getEastPanel().getTreePanel().addNode(s);
+			}
 		}
 		/*
 		 * East panel

@@ -48,4 +48,8 @@ public class EastPanel extends JPanel {
 	public CalibPanel getCalibPanel() {
 		return calibPanel;
 	}
+	
+	public TreePanel getTreePanel() {
+		return treePanel;
+	}
 }

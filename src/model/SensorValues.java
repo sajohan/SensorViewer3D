@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,7 +19,7 @@ import javax.vecmath.Point3d;
 public class SensorValues extends Observable implements Serializable{
 
 	// Map of points connected to values
-//	private HashMap<Point3d, Float> map;
+	//	private HashMap<Point3d, Float> map;
 	private ArrayList<SensorValue> l;
 	private Float min,max;
 	/**
@@ -30,7 +31,7 @@ public class SensorValues extends Observable implements Serializable{
 		 */
 		min = 0f;
 		max = 255f;
-//		map = new HashMap<Point3d, Float>();
+		//		map = new HashMap<Point3d, Float>();
 		l = new ArrayList<SensorValue>();
 		this.addObserver(obs);
 	}
@@ -45,45 +46,50 @@ public class SensorValues extends Observable implements Serializable{
 			this.notifyObservers(s);
 			float value = s.getValue();
 			//store min, max values
-//			if(min == null){
-//				min = max = value;
-//			}
-//			else if( value < min ){
-//				min = value;
-//			}
-//			else if( value > max ){
-//				max = value;
-//			}
+			//			if(min == null){
+			//				min = max = value;
+			//			}
+			//			else if( value < min ){
+			//				min = value;
+			//			}
+			//			else if( value > max ){
+			//				max = value;
+			//			}
 		}
 	}
 
 	public ArrayList<SensorValue> getValuesList() {
 		return l;
 	}
-	
-	
-	
-	
-//
-//	public HashMap<Point3d, Float> getMap() {
-//		return map;
-//	}
-//
-//	public void setMap(HashMap<Point3d, Float> map) {
-//		this.map = map;
-//	}
-//
-//	public void addValue(Point3d key, Float value) {
-//		// TODO Check if it a good value?
-//		map.put(key, value);
-//	}
-//
-//	public Float getValue(Point3d key) {
-//		Float val = map.get(key);
-//		if (val != null) {
-//			return val;
-//		} else {
-//			return null;
-//		}
-//	}
+
+	public void removeValue(SensorValue s) {
+		if(l.remove(s))
+			System.out.println("Successfully emoved object from list");
+	}
+
+
+
+
+	//
+	//	public HashMap<Point3d, Float> getMap() {
+	//		return map;
+	//	}
+	//
+	//	public void setMap(HashMap<Point3d, Float> map) {
+	//		this.map = map;
+	//	}
+	//
+	//	public void addValue(Point3d key, Float value) {
+	//		// TODO Check if it a good value?
+	//		map.put(key, value);
+	//	}
+	//
+	//	public Float getValue(Point3d key) {
+	//		Float val = map.get(key);
+	//		if (val != null) {
+	//			return val;
+	//		} else {
+	//			return null;
+	//		}
+	//	}
 }

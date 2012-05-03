@@ -36,20 +36,20 @@ public class SensorValuesDrawer extends BranchGroup{
 	 * @param	z	position z of quantity
 	 * @param	a	measured amplitude of quantity
 	 */
-	public void drawSphere(float x, float y, float z, float a){
+	public void drawSphere(SensorValue sensVal){
 		Appearance ap = new Appearance();
 		//		RenderingAttributes ra = new RenderingAttributes();
 		//		ra.setAlphaTestValue(0.5f);
 		ap.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,transparency));
-
+		float a = sensVal.getValue();
 		ColoringAttributes color = new ColoringAttributes(new Color3f(a/255,0.0f,(1-(a/255))), 0);
 		ap.setColoringAttributes(color);
 
-		Sphere sphere = new Sphere(0.2f,0,100,ap);
+		SensorRepresentation sphere = new SensorRepresentation(0.2f,100,ap, sensVal);
 		TransformGroup transformGrp = new TransformGroup();
 		Transform3D transform = new Transform3D();
 
-		transform.setTranslation(new Vector3f(x, y, z));
+		transform.setTranslation(new Vector3f(sensVal.getX(), sensVal.getY(), sensVal.getZ()));
 		transformGrp.setTransform(transform);
 
 		transformGrp.addChild(sphere);
@@ -68,7 +68,9 @@ public class SensorValuesDrawer extends BranchGroup{
 		
 		while(it.hasNext()){
 			 s = (SensorValue) it.next();
-				drawSphere(s.getX(),s.getY(),s.getZ(),s.getValue());
+				drawSphere(s);
 		}
 	}
+	
+	
 }

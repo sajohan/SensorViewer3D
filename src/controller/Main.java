@@ -295,6 +295,7 @@ public class Main implements Observer {
 				if(pickedPoint != null){
 					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z);
 					if(s != null){
+						values.addValueToList(s);
 						gui.getEastPanel().getTreePanel().addNode(s);
 						System.out.println("value received from com-port: x: " + s.getX() + " y: " + s.getY() + " z: " + s.getZ());
 					}

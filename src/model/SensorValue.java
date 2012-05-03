@@ -48,5 +48,9 @@ public class SensorValue{
 	public float getValue() {
 		return a;
 	}
+	@Override
+	public String toString() {
+		return "Sensor: X: "+x+" Y: "+y+" Z: "+z;
+	}
 	
 }

@@ -16,6 +16,9 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import model.SensorValue;
+import model.SensorValues;
+
 import controller.EastPanelListener;
 
 /**
@@ -31,8 +34,11 @@ public class TreePanel extends JPanel{
 	private	JScrollPane scrollPane;
 	private DefaultMutableTreeNode rootNode;
 	private DefaultTreeModel sensorModel;
+	private SensorValues values;
 	
-	public TreePanel(EastPanelListener eastPanelListener){
+	public TreePanel(EastPanelListener eastPanelListener, SensorValues values){
+		
+		this.values = values;
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -106,12 +112,24 @@ public class TreePanel extends JPanel{
         		(path.getLastPathComponent());
         		MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
         		if (parent != null) {
+        			SensorValue sensor = (SensorValue)currentNode.getUserObject();
+        			
+        			removeSensorValue(sensor);
         			sensorModel.removeNodeFromParent(currentNode);
+//        			System.out.println(currentNode);
+        			
         		}
         	}
             
         } 
 	}
+	
+	public void removeSensorValue(SensorValue node){
+		
+		values.removeValue(node);
+		
+	}
+	
 	
 	public DefaultMutableTreeNode[] getSelectedNodes(){
 		

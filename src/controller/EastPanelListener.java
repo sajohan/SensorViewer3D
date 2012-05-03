@@ -8,6 +8,10 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import model.SensorValue;
+import model.SensorValues;
 
 import view.TreePanel;
 
@@ -15,8 +19,11 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 
 	private TreePanel treePanel;
 	
-	public EastPanelListener(Observer obs) {
+	private SensorValues values;
+	
+	public EastPanelListener(Observer obs, SensorValues values) {
 		addObserver(obs);
+		this.values = values;
 	}
 	
 	public void setTreePanel(TreePanel treePanel) {
@@ -29,6 +36,7 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		if(e.getSource() instanceof JButton){
 			if(e.getActionCommand().equals("remove")){
 				System.out.println("Removing sensor");
+//				removeSensorValues(treePanel.getSelectedNodes());
 				treePanel.removeCurrentNodes();
 				return;
 			}else if (e.getActionCommand().equals("toggleVis")) {
@@ -38,8 +46,6 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 			
 		}
 		
-		setChanged();
-		notifyObservers(e.getSource());	
 	}
 
 
@@ -54,11 +60,25 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		
 	}
 
+	public void removeSensorValues(DefaultMutableTreeNode[] nodes){
+		
+		for(DefaultMutableTreeNode node : nodes){
+			values.removeValue((SensorValue)node.getUserObject());
+		}
+		
+	}
+	
+	
 
 	@Override
 	public void treeNodesRemoved(TreeModelEvent e) {
-		// TODO Notify observer that node has been removed
-		System.out.println("Treenode removed");
+		
+//		Object[] objects = e.getChildren();
+//		
+//		DefaultMutableTreeNode node = (DefaultMutableTreeNode)objects[0];
+//		System.out.println((SensorValue)node.getUserObject());
+//		values.removeValue((SensorValue)node.getUserObject());
+//		System.out.println("Treenode removed");
 	}
 
 

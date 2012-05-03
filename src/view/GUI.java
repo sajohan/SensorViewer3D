@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import model.SensorValues;
+
 import com.sun.j3d.exp.swing.JCanvas3D;
 
 import controller.EastPanelListener;
@@ -45,10 +47,13 @@ public class GUI {
 	private EastPanel eastPanel;
 	
 	private ProgressBarPopup progresspopup;
+	
+	private SensorValues values;
 
-	public GUI(Observer obs) {
+	public GUI(Observer obs, SensorValues values) {
 		menuObserver = obs;
-
+		this.values = values;
+		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 
@@ -86,7 +91,7 @@ public class GUI {
 		progresspopup = new ProgressBarPopup();
 		
 		// Add east panel
-		eastPanel = new EastPanel(menuObserver);
+		eastPanel = new EastPanel(menuObserver, values);
 		contentPane.add(eastPanel,BorderLayout.EAST);
 		
 		

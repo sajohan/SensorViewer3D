@@ -5,6 +5,8 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import model.SensorValues;
+
 import controller.EastPanelListener;
 
 public class EastPanel extends JPanel {
@@ -13,12 +15,12 @@ public class EastPanel extends JPanel {
 	private CalibPanel calibPanel;
 	
 	
-	public EastPanel(Observer obs) {
+	public EastPanel(Observer obs, SensorValues values) {
 		
 		
-		EastPanelListener listener = new EastPanelListener(obs);
+		EastPanelListener listener = new EastPanelListener(obs, values);
 		
-		treePanel = new TreePanel(listener);
+		treePanel = new TreePanel(listener, values);
 		calibPanel = new CalibPanel(listener);
 		
 		listener.setTreePanel(treePanel);

@@ -58,11 +58,13 @@ public class Main implements Observer {
 	}
 
 	public Main() {
-		gui = new GUI(this);
-		System.out.println("OS: " + System.getProperty("os.name"));
-		
 		values = new SensorValues(this);
 		robotHandler = new RobotHandler(values, calibrator);
+
+		
+		gui = new GUI(this, values);
+		System.out.println("OS: " + System.getProperty("os.name"));
+		
 		
 		calibrator = new Calibrator(robotHandler, gui);
 		
@@ -103,8 +105,8 @@ public class Main implements Observer {
 			// if receiving values before graphicsPane is initialized, discard
 			if (graphicsPane != null){
 				graphicsPane.updateSensorValue((SensorValues)obs);
-				SensorValue s = (SensorValue) obj;
-				gui.getEastPanel().getTreePanel().addNode(s);
+//				SensorValue s = (SensorValue) obj;
+//				gui.getEastPanel().getTreePanel().addNode(s);
 			}
 		}
 		/*
@@ -257,11 +259,17 @@ public class Main implements Observer {
 				/*
 				 * TEST VALUES
 				 */
-				values.addValueToList(new SensorValue(0,0,0,2,SensorType.TEMP));
+				SensorValue s = new SensorValue(0,0,0,2,SensorType.TEMP);
+				values.addValueToList(s);
+				gui.getEastPanel().getTreePanel().addNode(s);
 				
-				values.addValueToList(new SensorValue(1,0,0,123,SensorType.TEMP));
+				s=new SensorValue(1,0,0,123,SensorType.TEMP);
+				values.addValueToList(s);
+				gui.getEastPanel().getTreePanel().addNode(s);
 				
-				values.addValueToList(new SensorValue(0,1,0,255,SensorType.TEMP));
+				s=new SensorValue(0,1,0,255,SensorType.TEMP);
+				values.addValueToList(s);
+				gui.getEastPanel().getTreePanel().addNode(s);
 				
 				graphicsPane.setPerspectivePolicy();
 			}

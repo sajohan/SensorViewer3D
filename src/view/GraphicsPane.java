@@ -405,4 +405,8 @@ public class GraphicsPane extends JPanel {
 	public OrbitBehavior getOrbit() {
 		return orbit;
 	}
+	
+	public SensorValuesDrawer getSensorValuesDrawer() {
+		return sensorValuesDrawer;
+	}
 }

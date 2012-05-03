@@ -91,7 +91,7 @@ public class GUI {
 		progresspopup = new ProgressBarPopup();
 		
 		// Add east panel
-		eastPanel = new EastPanel(menuObserver, values);
+		eastPanel = new EastPanel(menuObserver, values, graphicsPane.getSensorValuesDrawer());
 		contentPane.add(eastPanel,BorderLayout.EAST);
 		
 		

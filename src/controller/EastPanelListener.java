@@ -8,22 +8,29 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import model.SensorValue;
 import model.SensorValues;
 
+import view.SensorValuesDrawer;
 import view.TreePanel;
 
-public class EastPanelListener extends Observable implements ActionListener, TreeModelListener {
+public class EastPanelListener extends Observable implements ActionListener, TreeModelListener, TreeSelectionListener {
 
 	private TreePanel treePanel;
 	
 	private SensorValues values;
 	
-	public EastPanelListener(Observer obs, SensorValues values) {
+	private SensorValuesDrawer valDrawer;
+	
+	public EastPanelListener(Observer obs, SensorValues values, SensorValuesDrawer sensorValuesDrawer) {
 		addObserver(obs);
 		this.values = values;
+		this.valDrawer = sensorValuesDrawer;
 	}
 	
 	public void setTreePanel(TreePanel treePanel) {
@@ -82,6 +89,23 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 	@Override
 	public void treeStructureChanged(TreeModelEvent e) {
 		System.out.println("Treestructure modified");
+	}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		System.out.println("Node clicked");
+		
+		TreePath[] selected = e.getPaths();
+		for(TreePath path : selected){
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode)path.getLastPathComponent();
+			if(e.isAddedPath(path)){
+				valDrawer.selectSphere((SensorValue)node.getUserObject());				
+			}else{
+				System.out.println("deselect");
+				valDrawer.deselectSphere((SensorValue)node.getUserObject());				
+			}
+			
+		}
 	}
 
 	

@@ -1,6 +1,7 @@
 package view;
 
 import javax.media.j3d.Appearance;
+import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.TransparencyAttributes;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
@@ -36,6 +37,10 @@ public class SensorRepresentation extends Sphere {
 		super(radius, 0, divisions, ap);
 		defaultAp = ap;
 		
+//		this.setCapability(ColoringAttributes.);
+		this.setCapability(ColoringAttributes.ALLOW_COLOR_READ);
+		defaultAp.getColoringAttributes().setCapability(ColoringAttributes.ALLOW_COLOR_WRITE);
+		defaultAp.getColoringAttributes().setCapability(ColoringAttributes.ALLOW_COLOR_READ);
 		invisibilityAp = new Appearance();
 		
 		invisibilityAp.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.FASTEST,1));
@@ -78,11 +83,13 @@ public class SensorRepresentation extends Sphere {
 			if(isSelected){
 				Color3f tempColor = new Color3f();
 				defaultAp.getColoringAttributes().getColor(tempColor);
-				tempColor.setY(0.0f);
+				tempColor.setY(0.5f);
+				defaultAp.getColoringAttributes().setColor(tempColor);
 			} else {
 				Color3f tempColor = new Color3f();
 				defaultAp.getColoringAttributes().getColor(tempColor);
-				tempColor.setY(0.5f);
+				tempColor.setY(0.0f);
+				defaultAp.getColoringAttributes().setColor(tempColor);
 			}
 		}
 		selected = isSelected;

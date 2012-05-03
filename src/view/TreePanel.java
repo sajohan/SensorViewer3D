@@ -51,6 +51,7 @@ public class TreePanel extends JPanel{
 
 	    // Set the hierarchy
 	    tree = new JTree(sensorModel);
+	    tree.addTreeSelectionListener(eastPanelListener);
 
 		// Set to no icons
 	    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();

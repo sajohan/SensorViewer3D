@@ -15,10 +15,10 @@ public class EastPanel extends JPanel {
 	private CalibPanel calibPanel;
 	
 	
-	public EastPanel(Observer obs, SensorValues values) {
+	public EastPanel(Observer obs, SensorValues values, SensorValuesDrawer sensorValuesDrawer) {
 		
 		
-		EastPanelListener listener = new EastPanelListener(obs, values);
+		EastPanelListener listener = new EastPanelListener(obs, values, sensorValuesDrawer);
 		
 		treePanel = new TreePanel(listener, values);
 		calibPanel = new CalibPanel(listener);

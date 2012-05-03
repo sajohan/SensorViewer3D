@@ -112,4 +112,19 @@ public class TreePanel extends JPanel{
             
         } 
 	}
+	
+	public DefaultMutableTreeNode[] getSelectedNodes(){
+		
+		
+		TreePath[] currentSelection = tree.getSelectionPaths();
+		DefaultMutableTreeNode[] nodes = new DefaultMutableTreeNode[currentSelection.length];
+		int i = 0;
+		for(TreePath path : currentSelection){
+    		DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)(path.getLastPathComponent());
+    		nodes[i] = currentNode;
+    		i++;
+    	}
+		return nodes;
+		
+	}
 }

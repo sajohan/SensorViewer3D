@@ -166,7 +166,7 @@ public class GraphicsPane extends JPanel {
 
 		//disallows zooming in too close, such as zooming in past origo
 		orbit.setCapability(OrbitBehavior.STOP_ZOOM);
-		orbit.setMinRadius(2.0);
+		orbit.setMinRadius(0.5);
 
 		orbit.setSchedulingBounds(bounds);
 		
@@ -206,9 +206,15 @@ public class GraphicsPane extends JPanel {
 		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
 		
+		//add viewing platform as the object's child, 
+		//vp will now rotate around the center of the object
+		ViewingPlatform vp = univ.getViewingPlatform();
+		vp.detach();
+		object.addChild(vp);
+		
 		//move the grid to center of the object's new position
-//		grid.detach();
-//		object.addChild(grid);
+		grid.detach();
+		object.addChild(grid);
 		
 		//reattach group to universe after finished mutating it
 		univ.addBranchGraph(group);
@@ -216,23 +222,23 @@ public class GraphicsPane extends JPanel {
 		//Set up camera to rotate around the object's new position
 		//by finding the center of the three reference points on the object
 		//which is now stored in the object variable
-		orbit.setRotationCenter(object.getObjectCenter());
+//		orbit.setRotationCenter(object.getObjectCenter());
 
 		//move camera platform to look at object's new position
-		ViewingPlatform vp = univ.getViewingPlatform();
+
 //		vp.moveTo(object);
 		Transform3D objTrans = new Transform3D();
 		object.getLocalToVworld(objTrans);
 //		objTrans.setTranslation(new Vector3d(-1,-1,-1));
 //		vp.getViewPlatformTransform().setTransform(objTrans);
-		
-		Transform3D vp_trans = new Transform3D();
-		vp.getLocalToVworld(vp_trans);
-		Point3d camPos = object.getObjectCenter();
-		vp_trans.lookAt(camPos, object.getObjectCenter(), new Vector3d(0,1,0));
-		vp_trans.invert();
-		vp.getViewPlatformTransform().setTransform(vp_trans);
-		
+//		
+//		Transform3D vp_trans = new Transform3D();
+//		vp.getLocalToVworld(vp_trans);
+//		Point3d camPos = object.getObjectCenter();
+//		vp_trans.lookAt(camPos, object.getObjectCenter(), new Vector3d(0,1,0));
+//		vp_trans.invert();
+//		vp.getViewPlatformTransform().setTransform(vp_trans);
+//		
 //		T3D.get(rotation_matrix)
 //		z_axisVector.set=objTrans.getElement(0,2);
 //		z_axisVector.y=objTrans.getElement(1,2)
@@ -338,7 +344,7 @@ public class GraphicsPane extends JPanel {
 		//get transformgroup number one (the camera), put it in view_tf3d variable
 		view_tg = univ.getViewingPlatform().getMultiTransformGroup().getTransformGroup(0);
 		view_tf3d = new Transform3D();
-		view_tg.getTransform(view_tf3d);
+		object.getTransform(view_tf3d);
 		//get constant camera distance from origo,
 		//reverse if argument "reversed" demands so
 		double camDistance = CAM_DISTANCE;
@@ -350,9 +356,9 @@ public class GraphicsPane extends JPanel {
 		//note to self: argument 1 to lookAt() (eye position) 
 		//may never include z = 0 when placing camera on Y-axis
 		switch(axle){
-		case CAM_LOCK_X: view_tf3d.lookAt(new Point3d(camDistance,0d,0d),object.getObjectCenter(),new Vector3d(0,1,0)); break;
-		case CAM_LOCK_Y: view_tf3d.lookAt(new Point3d(0d,camDistance,0.1d),object.getObjectCenter(),new Vector3d(0,1,0)); break;
-		case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),object.getObjectCenter(),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_X: view_tf3d.lookAt(new Point3d(camDistance,0d,0d),new Point3d(0,0,0),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_Y: view_tf3d.lookAt(new Point3d(0d,camDistance,0.1d),new Point3d(0,0,0),new Vector3d(0,1,0)); break;
+		case CAM_LOCK_Z: view_tf3d.lookAt(new Point3d(0d,0d,camDistance),new Point3d(0,0,0),new Vector3d(0,1,0)); break;
 		}
 
 		//Note: Transform3D.lookAt() requires .invert() call after each use

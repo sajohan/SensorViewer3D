@@ -317,6 +317,7 @@ public class CThreePObject extends TransformGroup{
 	 * @param CThreePObject alignmentObject The object that will be aligned to.
 	 */
 	public void moveTo(CThreePObject alignmentObject){
+
 		if(this.getParent() != null){
 			if(this.getParent() instanceof BranchGroup){
 				mainGroup.removeChild(this);
@@ -324,6 +325,7 @@ public class CThreePObject extends TransformGroup{
 				((TransformGroup)this.getParent()).removeChild(this);
 			}
 		}
+		
 		
 		innerRotationGroup= new TransformGroup();
 		outerRotationGroup = new TransformGroup();
@@ -337,6 +339,8 @@ public class CThreePObject extends TransformGroup{
 		innerRotationGroup.addChild(moveGroup);
 		outerRotationGroup.addChild(innerRotationGroup);
 		axisRotationGroup.addChild(outerRotationGroup);
+		
+
 
 		rescale(alignmentObject);
 		placeInOrigo();

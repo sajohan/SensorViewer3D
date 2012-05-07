@@ -2,6 +2,8 @@ package view;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;
+import javax.media.j3d.RenderingAttributes;
+import javax.media.j3d.Shape3D;
 import javax.media.j3d.TransparencyAttributes;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
@@ -19,9 +21,6 @@ public class SensorRepresentation extends Sphere {
 	
 	//Is it selected?
 	private boolean selected;
-	
-	//Completely trancelucent apperance
-	private Appearance invisibilityAp;
 	
 	//Default appearance handle
 	private Appearance defaultAp;
@@ -41,9 +40,10 @@ public class SensorRepresentation extends Sphere {
 		this.setCapability(ColoringAttributes.ALLOW_COLOR_READ);
 		defaultAp.getColoringAttributes().setCapability(ColoringAttributes.ALLOW_COLOR_WRITE);
 		defaultAp.getColoringAttributes().setCapability(ColoringAttributes.ALLOW_COLOR_READ);
-		invisibilityAp = new Appearance();
+		defaultAp.setCapability(Appearance.ALLOW_RENDERING_ATTRIBUTES_WRITE);
 		
-		invisibilityAp.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.FASTEST,1));
+		this.setCapability(Shape3D.ALLOW_APPEARANCE_WRITE);
+		
 		
 //		Color3f tempColor = new Color3f();
 //		defaultAp.getColoringAttributes().getColor(tempColor);
@@ -63,14 +63,13 @@ public class SensorRepresentation extends Sphere {
 	 */
 	public void setVisible(boolean isVisible){
 		//Checks if the current state differs from the desired state
-		if(visible == !isVisible){
-			if(isVisible){
-				this.setAppearance(defaultAp);
-			} else {
-				this.setAppearance(invisibilityAp);
-			}
-		}
+		
+		RenderingAttributes renderAtt = new RenderingAttributes();
+		renderAtt.setVisible(isVisible);
 		visible = isVisible;
+
+		this.getAppearance().setRenderingAttributes(renderAtt);
+
 	}
 	
 	/**
@@ -119,4 +118,7 @@ public class SensorRepresentation extends Sphere {
 		this.sensVal = sensVal;
 	}
 	
+	public boolean isVisible() {
+		return visible;
+	}
 }

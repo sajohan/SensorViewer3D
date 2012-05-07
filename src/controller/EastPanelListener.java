@@ -47,7 +47,10 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 				return;
 			}else if (e.getActionCommand().equals("toggleVis")) {
 				System.out.println("Toggling visibility");
-				
+				DefaultMutableTreeNode[] nodes = treePanel.getSelectedNodes();
+				for(DefaultMutableTreeNode node : nodes){
+					valDrawer.toggleVisibility((SensorValue)node.getUserObject());
+				}
 			}
 			
 		}

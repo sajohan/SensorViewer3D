@@ -119,6 +119,23 @@ public class SensorValuesDrawer extends BranchGroup{
 		
 	}
 	
+	
+	public void toggleVisibility(SensorValue sv){
+		Iterator it = sensorRepList.iterator();
+		SensorRepresentation s;
+		SensorValue tempSens;
+		while(it.hasNext()){
+			s = (SensorRepresentation)it.next();
+			tempSens = s.getSensorValue();
+			if(tempSens == sv){
+				 if(s.isVisible())
+					 s.setVisible(false);
+				 else
+					 s.setVisible(true);
+			 }
+		}
+	}
+	
 	/**
 	 * Visualises hiding ov ain sphere
 	 * @param sv the sensorvalue belonging to said spehere
@@ -137,22 +154,22 @@ public class SensorValuesDrawer extends BranchGroup{
 		}
 	}
 		
-		/**
-		 * Visualises showing ov ain sphere
-		 * @param sv the sensorvalue belonging to said spehere
-		 */
-		public void showSphere(SensorValue sv){
-			SensorRepresentation s;
-			SensorValue tempSens;
-			Iterator it = sensorRepList.iterator();
-			
-			while(it.hasNext()){
-				 s = (SensorRepresentation)it.next();
-				 tempSens = s.getSensorValue();
-				 if(tempSens == sv){
-					 s.setVisible(true);
-				 }
-			}
+	/**
+	 * Visualises showing ov ain sphere
+	 * @param sv the sensorvalue belonging to said spehere
+	 */
+	public void showSphere(SensorValue sv){
+		SensorRepresentation s;
+		SensorValue tempSens;
+		Iterator it = sensorRepList.iterator();
+		
+		while(it.hasNext()){
+			 s = (SensorRepresentation)it.next();
+			 tempSens = s.getSensorValue();
+			 if(tempSens == sv){
+				 s.setVisible(true);
+			 }
+		}
 		
 	}
 	

@@ -51,10 +51,12 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 				for(DefaultMutableTreeNode node : nodes){
 					valDrawer.toggleVisibility((SensorValue)node.getUserObject());
 				}
+				return;
 			}
 			
 		}
-		
+		setChanged();
+		notifyObservers(e.getSource());  
 	}
 
 

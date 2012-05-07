@@ -344,9 +344,13 @@ public class CThreePObject extends TransformGroup{
 
 		rescale(alignmentObject);
 		placeInOrigo();
+		System.out.println("Placed in Origo");
 		innerAlign();
+		System.out.println("Aligned inner");
 		outerAlign();
+		System.out.println("Aligned outer");
 		objectAlign(alignmentObject);
+		System.out.println("Aligned Object");
 		
 		//estimate the center of the object by finding the mean of ref1,2,3
 		float x = (float) ( getPosOfPoint1().x + getPosOfPoint2().x + getPosOfPoint3().x )/3;
@@ -429,12 +433,12 @@ public class CThreePObject extends TransformGroup{
 		double point2x = point2Vec.x;
 		double point1xOld = point1Vec.x;
 		double point2xOld = point2Vec.x;
-		boolean rotpositive;
-		if(point2x > 0){
-			rotpositive = true;
-		} else {
-			rotpositive = false;
-		}
+		boolean rotpositive = true;
+//		if(point2x > 0){
+//			rotpositive = true;
+//		} else {
+//			rotpositive = false;
+//		}
 		while(true){
 			
 			if((point1x == point2x) || (Math.abs(point1x - point2x) <= model.Constants.ACCURACYVALUE)){
@@ -492,12 +496,12 @@ public class CThreePObject extends TransformGroup{
 		double point2x = point2Vec.y;
 		double point1xOld = point1Vec.y;
 		double point2xOld = point2Vec.y;
-		boolean rotpositive;
-		if(point2x > 0){
-			rotpositive = true;
-		} else {
-			rotpositive = false;
-		}
+		boolean rotpositive = true;
+//		if(point2x > 0){
+//			rotpositive = true;
+//		} else {
+//			rotpositive = false;
+//		}
 		while(true){
 			
 			if((point1x == point2x) || (Math.abs(point1x - point2x) <= model.Constants.ACCURACYVALUE)){

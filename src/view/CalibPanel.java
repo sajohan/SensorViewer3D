@@ -81,6 +81,7 @@ public class CalibPanel extends JPanel {
 		this.add(headerText, headerLayout);	
 		//ROW 2
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(0, 5, 0, 5);
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(p1, c);

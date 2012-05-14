@@ -88,6 +88,7 @@ public class RobotHandler {
 
 			Point3Dim point = new Point3Dim(d1, d2, d3);
 			inData = null; // reset indata after having read it
+			System.out.println("Read robotvalue: " + point.toString());
 			return point;
 		} else
 			return null;

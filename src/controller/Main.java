@@ -259,18 +259,18 @@ public class Main implements Observer {
 				/*
 				 * TEST VALUES
 				 */
-				SensorValue s = new SensorValue(0,0,0,2,SensorType.TEMP);
-				values.addValueToList(s);
-				gui.getEastPanel().getTreePanel().addNode(s);
-				
-				s=new SensorValue(1,0,0,123,SensorType.TEMP);
-				values.addValueToList(s);
-				gui.getEastPanel().getTreePanel().addNode(s);
-				
-				s=new SensorValue(0,1,0,255,SensorType.TEMP);
-				values.addValueToList(s);
-				gui.getEastPanel().getTreePanel().addNode(s);
-				
+//				SensorValue s = new SensorValue(0,0,0,2,SensorType.TEMP);
+//				values.addValueToList(s);
+//				gui.getEastPanel().getTreePanel().addNode(s);
+//				
+//				s=new SensorValue(1,0,0,123,SensorType.TEMP);
+//				values.addValueToList(s);
+//				gui.getEastPanel().getTreePanel().addNode(s);
+//				
+//				s=new SensorValue(0,1,0,255,SensorType.TEMP);
+//				values.addValueToList(s);
+//				gui.getEastPanel().getTreePanel().addNode(s);
+//				
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){

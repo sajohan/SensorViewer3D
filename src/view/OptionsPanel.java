@@ -116,13 +116,27 @@ public class OptionsPanel extends JPanel {
 	 * @param the action command string
 	 * @return JButton button	the button created according to method arguments
 	 */
-	private JButton createButton(ImageIcon ico, String tooltip,
-			String actioncommand) {
-		JButton button = new JButton(ico);
-		button.setToolTipText(tooltip);
-		button.setActionCommand(actioncommand);
-		return button;
-	}
+    private JButton createButton(ImageIcon ico, String tooltip,
+            String actioncommand) {
+
+    JButton button = null;
+    if(tooltip.equals(handtooltip)){
+            button = new JButton("Hand tool");
+    }
+    else if(tooltip.equals(addsensortooltip)){
+            button = new JButton("Add sensor");
+    }
+    else if(tooltip.equals(selectiontooltip)){
+            button = new JButton("Selection Tool");
+    }
+    else{
+            button = new JButton("x");
+    }
+
+    button.setToolTipText(tooltip);
+    button.setActionCommand(actioncommand);
+    return button;
+}
 	/**
 	 * Creates a JButton with text
 	 * 

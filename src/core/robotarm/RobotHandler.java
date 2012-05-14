@@ -69,30 +69,29 @@ public class RobotHandler {
 	public Point3Dim getRobotPos() {
 		
 		// TestString
-//		String t = new String("GoToPOS;1;2;3");
-//		serialCom.writeString(t);
+		String t = new String("REQ_CAL");
+		serialCom.writeString(t);
 		//
 		//		// Wait for response from robot, time out if no response
-		//		if(!waitForResponse()){
-		//			return null;
-		//		}
-		//
-		//		String stringData = new String(inData);
-		//
-		//		/* Is it calibration value? */
-		//		if (stringData.startsWith("CAL")) {
-		//			String[] data = stringData.split(";");
-		//			Double d1 = new Double(data[1]);
-		//			Double d2 = new Double(data[2]);
-		//			Double d3 = new Double(data[3]);
-		//
-		//			// TODO Set HW Data in calibrator
-		//			Point3Dim point = new Point3Dim(d1, d2, d3);
-		//			inData = null; // reset indata after having read it
-		//			return point;
-		//		} else
-		//			return null;
-		return new Point3Dim(0,0,0);
+		if(!waitForResponse()){
+			return null;
+		}
+
+		String stringData = new String(inData);
+
+		/* Is it calibration value? */
+		if (stringData.startsWith("CAL")) {
+			String[] data = stringData.split(";");
+			Double d1 = new Double(data[1]);
+			Double d2 = new Double(data[2]);
+			Double d3 = new Double(data[3]);
+
+			Point3Dim point = new Point3Dim(d1, d2, d3);
+			inData = null; // reset indata after having read it
+			return point;
+		} else
+			return null;
+//		return new Point3Dim(0,0,0);
 	}
 
 	public float getFloat(byte[] byteData) {

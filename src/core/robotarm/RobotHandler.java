@@ -180,17 +180,12 @@ public class RobotHandler {
 				(float) lastRobotPos.z, d1, SensorType.MAGNETIC);
 	}
 	/**
-	 * 
-	 * @param point
-	 * 
+	 * Commands the robot to go to a position and read a value.
+	 * @param point The position to go to.
 	 */
 	public void robotGoTo(Point3Dim point) {
-		// Save pos
-		lastRobotPos = point;
-		System.out.println("Position sent to robot X: " + point.x + " Y: " +  point.y + " Z: " + point.z);
-		
-		// TODO Construct a string with XYZ and send to SerialCom outputstream
-		String s = new String();
+		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z);
+		serialCom.writeString(t);
 	}
 	
 	/**

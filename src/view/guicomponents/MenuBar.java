@@ -29,7 +29,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	/**
 	 * Creates the menubar with the requested listener
-	 * @param ActionListener al The ActionListener
+	 * @param al The ActionListener
 	 */
 	public MenuBar(ActionListener al) {
 

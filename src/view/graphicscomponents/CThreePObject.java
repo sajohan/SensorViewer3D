@@ -44,7 +44,7 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Creates an empty CThreePObject.
-	 * @param BranchGroup mainGroup The main branchgroup containing the item.
+	 * @param mainGroup The main branchgroup containing the item.
 	 */
 	public CThreePObject(BranchGroup mainGroup){
 		transformer = new Transform3D();
@@ -69,8 +69,8 @@ public class CThreePObject extends TransformGroup{
 	}
 	/**
 	 * Creates a point-less instance of a CThreePObject.
-	 * @param BranchGroup mainGroup The main branchgroup containing the item.
-	 * @param TransformGroup object The visible object.
+	 * @param mainGroup The main branchgroup containing the item.
+	 * @param object The visible object.
 	 */
 	public CThreePObject(BranchGroup mainGroup, TransformGroup object){
 		transformer = new Transform3D();
@@ -97,10 +97,10 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Creates an object-less instance of a CThreePObject
-	 * @param BranchGroup mainGroup The main branchgroup containing the item.
-	 * @param Vector3d point1 The position of the first alignment-point
-	 * @param Vector3d point2 The position of the second alignment-point
-	 * @param Vector3d point3 The position of the third alignment-point
+	 * @param mainGroup The main branchgroup containing the item.
+	 * @param point1 The position of the first alignment-point
+	 * @param point2 The position of the second alignment-point
+	 * @param point3 The position of the third alignment-point
 	 */
 	public CThreePObject(BranchGroup mainGroup, Vector3d point1, Vector3d point2, Vector3d point3){
 		transformer = new Transform3D();
@@ -128,11 +128,11 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Creates an instance of the CThreePObject.
-	 * @param BranchGroup mainGroup The main branchgroup containing the item.
-	 * @param TransformGroup object The visible object.
-	 * @param Vector3d point1 The position of the first alignment-point
-	 * @param Vector3d point2 The position of the second alignment-point
-	 * @param Vector3d point3 The position of the third alignment-point
+	 * @param mainGroup The main branchgroup containing the item.
+	 * @param object The visible object.
+	 * @param point1 The position of the first alignment-point
+	 * @param point2 The position of the second alignment-point
+	 * @param point3 The position of the third alignment-point
 	 */
 	public CThreePObject(BranchGroup mainGroup,TransformGroup object, Vector3d point1, Vector3d point2, Vector3d point3){
 		transformer = new Transform3D();
@@ -160,7 +160,7 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Sets the position of the first alignment-point
-	 * @param Vector3d point1 The position of the first alignment-point
+	 * @param point1 The position of the first alignment-point
 	 */
 	public void setPoint1(Vector3d point1){
 		if(pointGroup1 == null){
@@ -175,7 +175,7 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Sets the position of the second alignment-point
-	 * @param Vector3d point2 The position of the second alignment-point
+	 * @param point2 The position of the second alignment-point
 	 */
 	public void setPoint2(Vector3d point2){
 		if(pointGroup2 == null){
@@ -189,7 +189,7 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Sets the position of the third alignment-point
-	 * @param Vector3d point3 The position of the third alignment-point
+	 * @param point3 The position of the third alignment-point
 	 */
 	public void setPoint3(Vector3d point3){
 		if(pointGroup3 == null){
@@ -205,7 +205,7 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Sets the visible object. NOTE: This will also remove the old object!
-	 * @param TransformGroup object The visible object.
+	 * @param object The visible object.
 	 */
 	public void setObject(Node object){
 		if(object == null){
@@ -265,7 +265,7 @@ public class CThreePObject extends TransformGroup{
 	 * Calculates the distortion between this object and the parameter object. The lower the better.
 	 * Does not count scale errors, for obvious reasons. Also possible for errors to take each other out.
 	 * @param alignmentObject
-	 * @return int 	A value representing how skewed the points are.
+	 * @return A value representing how skewed the points are.
 	 */
 	public double computeDistortion(CThreePObject alignmentObject){
 		
@@ -314,7 +314,7 @@ public class CThreePObject extends TransformGroup{
 	 * NOTE: This operation mutates the object it's called on (not the parameter object) so
 	 * that transformations will probably be unreliable. Another effect of this is that moveTo should NOT be called
 	 * on the same object twice.
-	 * @param CThreePObject alignmentObject The object that will be aligned to.
+	 * @param alignmentObject The object that will be aligned to.
 	 */
 	public void moveTo(CThreePObject alignmentObject){
 
@@ -547,7 +547,7 @@ public class CThreePObject extends TransformGroup{
 	/**
 	 * Moves the object to the alignment-object, and rotates it into position. innerAlign() and outerAlign should be called
 	 * before this one.
-	 * @param CThreePObject alignmentObject The object that will be aligned to.
+	 * @param alignmentObject The object that will be aligned to.
 	 */
 	private void objectAlign(CThreePObject alignmentObject){
 		Vector3d aObjPoint1 = alignmentObject.getPosOfPoint1();
@@ -655,8 +655,8 @@ public class CThreePObject extends TransformGroup{
 	
 	/**
 	 * Help-method that translates the coordinates of a vector into a point3d
-	 * @param Vector3d vector The vector to be translated
-	 * @return Point3d point The translated point
+	 * @param vector The vector to be translated
+	 * @return point The translated point
 	 */
 	private Point3d vectorToPoint(Vector3d vector){
 		Point3d retval = new Point3d();

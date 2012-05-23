@@ -93,7 +93,7 @@ public class Picker extends PickMouseBehavior {
 	/**
 	 * rounds argument value up using two decimal places
 	 * @param toRound value to round
-	 * @return
+	 * @return Rounded value
 	 */
 	public double roundValue(double toRound){
 		// Round with 2 decimalplaces
@@ -105,7 +105,7 @@ public class Picker extends PickMouseBehavior {
 	
 	/**
 	 * returns the point that was last picked
-	 * @return
+	 * @return The coordinates to be rounded
 	 */
 	public static Point3Dim getLastPick() {
 		return lastPick;

@@ -60,8 +60,8 @@ public class GUI {
 	
 	/**
 	 * Initiates the gui with the relevant observer and values
-	 * @param Observer obs The class that is to observe the GUI
-	 * @param SensorValues The sensor Values
+	 * @param obs The class that is to observe the GUI
+	 * @param values The sensor Values
 	 */
 	public GUI(Observer obs, SensorValues values) {
 		menuObserver = obs;
@@ -78,7 +78,7 @@ public class GUI {
 	
 	/**
 	 * Initiates all the panels
-	 * @param Container contentPane The container to be populated
+	 * @param contentPane The container to be populated
 	 */
 	public void addComponentsToPane(Container contentPane) {
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -117,7 +117,7 @@ public class GUI {
 
 	/**
 	 * A handle to the graphics window that updates it with a new model.
-	 * @param BranchGroup newModel The graphical model that is to be updated
+	 * @param newModel The graphical model that is to be updated
 	 */
 	public void loadNewGraphicsWindow(BranchGroup newModel) {
 		Container contentPane = frame.getContentPane();

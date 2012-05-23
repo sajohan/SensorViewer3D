@@ -95,7 +95,7 @@ public class TreePanel extends JPanel{
 
 	/**
 	 * Adds a node to the tree
-	 * @param Object child The node to be added
+	 * @param child The node to be added
 	 */
 	public void addNode(Object child){
 		
@@ -126,7 +126,7 @@ public class TreePanel extends JPanel{
 	
 	/**
 	 * Removes a node from the sensor value list
-	 * @param SensorValue node the node to be removed
+	 * @param node the node to be removed
 	 */
 	public void removeSensorValue(SensorValue node){
 		

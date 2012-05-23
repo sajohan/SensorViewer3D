@@ -33,7 +33,7 @@ public class StatusPanel extends JPanel{
 	
 	/**
 	 * Creates the south status panel with the desired eventlistener
-	 * @param EventListener eventListener The desired EventListener
+	 * @param eventListener The desired EventListener
 	 */
 	public StatusPanel(EventListener eventListener) {
 		
@@ -85,11 +85,11 @@ public class StatusPanel extends JPanel{
 	
 	/**
 	 * Creates a Slider
-	 * @param int facing The orientation of the slider
-	 * @param int min The minimum value
-	 * @param int max The maximum value
-	 * @param int init The initial value
-	 * @param String name The name of the slider
+	 * @param facing The orientation of the slider
+	 * @param min The minimum value
+	 * @param max The maximum value
+	 * @param init The initial value
+	 * @param name The name of the slider
 	 * @return
 	 */
 	public JSlider createSlider(int facing, int min, int max, int init,

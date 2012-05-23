@@ -139,8 +139,8 @@ public class GraphicsPane extends JPanel {
 	
 	/**
 	 * Aligns the object with the cloud using arguments
-	 * @param	 Point3Dim[]	virtualRefPoints	reference points on virtual object
-	 * @param	 Point3Dim[]	physicalRefPoints	reference points on physical object
+	 * @param	 	virtualRefPoints	reference points on virtual object
+	 * @param	 	physicalRefPoints	reference points on physical object
 	 */
 	public void align(Point3Dim[] virtualRefPoints , Point3Dim[] physicalRefPoints){
 		
@@ -180,7 +180,7 @@ public class GraphicsPane extends JPanel {
 
 	/**
 	 * Removes old branchgroup, adds "newModel" to it instead.
-	 * @param BranchGroup newModel	the object to replace the current objects in the branchgroup
+	 * @param newModel	the object to replace the current objects in the branchgroup
 	 */
 	public void setObject(BranchGroup newModel) {
 		System.out.println("Update achieved");
@@ -225,8 +225,8 @@ public class GraphicsPane extends JPanel {
 	/**
 	 * Creates a thread that resizes the canvas to the size of the JPanel (this)
 	 * every "delay" ms.
-	 * @param Canvas3D	canvas	the canvas to be resized.
-	 * @param int		delay	how long the thread will sleep between resizing.
+	 * @param canvas	the canvas to be resized.
+	 * @param delay	how long the thread will sleep between resizing.
 	 */
 	public void enableResize(final Canvas3D canvas, final int delay) {
 		Runnable r1 = new Runnable() {
@@ -260,7 +260,7 @@ public class GraphicsPane extends JPanel {
 
 	/**
 	 * Places camera on the axle provided as argument.
-	 * @param int	axle	from Model.Constants the axle(x,y or z) to place the camera
+	 * @param axle	from Model.Constants the axle(x,y or z) to place the camera
 	 */
 	public void lockOnAxle(int axle, boolean reversed) {
 		//get transformgroup number one (the camera), put it in view_tf3d variable

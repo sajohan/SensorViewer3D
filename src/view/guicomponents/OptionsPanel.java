@@ -46,7 +46,7 @@ public class OptionsPanel extends JPanel {
 
 	/**
 	 * Sets up the left-hand toolbar
-	 * @param EventListener eventListener The listener responsible for handling the left toolbar
+	 * @param eventListener The listener responsible for handling the left toolbar
 	 */
 	public OptionsPanel(EventListener eventListener) {
 //		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -115,7 +115,7 @@ public class OptionsPanel extends JPanel {
 	 * @param ico	the icon for the button
 	 * @param the tooltip for the button as a string
 	 * @param the action command string
-	 * @return JButton button	the button created according to method arguments
+	 * @return button	the button created according to method arguments
 	 */
     private JButton createButton(ImageIcon ico, String tooltip,
             String actioncommand) {
@@ -144,7 +144,7 @@ public class OptionsPanel extends JPanel {
 	 * @param String text	the text for the button
 	 * @param the tooltip for the button as a string
 	 * @param the action command string
-	 * @return JButton button	the button created according to method arguments
+	 * @return button	the button created according to method arguments
 	 */
 	private JButton createTextButton(String label, String tooltip,
 			String actioncommand) {

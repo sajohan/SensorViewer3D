@@ -46,7 +46,7 @@ public class EastPanel extends JPanel {
 	
 	/**
 	 * Shows or hides the calibration value
-	 * @param boolean b 
+	 * @param b 
 	 */
 	public void showCalibration(boolean b){
 		if (b == true) {
@@ -60,7 +60,7 @@ public class EastPanel extends JPanel {
 	
 	/**
 	 * Fetches the calibration panel
-	 * @return CalibPanel calibPanel The Calibration panel belonging to the east panel
+	 * @return calibPanel The Calibration panel belonging to the east panel
 	 */
 	public CalibPanel getCalibPanel() {
 		return calibPanel;
@@ -68,7 +68,7 @@ public class EastPanel extends JPanel {
 	
 	/**
 	 * Fetches the tree panel
-	 * @return TreePanel treePanel The treepanel belonging to the east panel
+	 * @return treePanel The treepanel belonging to the east panel
 	 */
 	public TreePanel getTreePanel() {
 		return treePanel;

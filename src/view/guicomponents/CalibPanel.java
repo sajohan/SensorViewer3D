@@ -146,7 +146,7 @@ public class CalibPanel extends JPanel {
 	
 	/**
 	 * Enables the calibration button if set up properly
-	 * @param boolean b
+	 * @param b
 	 */
 	public void enableCalib(boolean b){
 		calibButton.setEnabled(b);

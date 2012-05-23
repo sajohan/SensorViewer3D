@@ -94,7 +94,7 @@ public class MenuBarListener extends Observable implements ActionListener {
 			JOptionPane
 					.showMessageDialog(
 							null,
-							"Bachelors Work @ Chalmers University Of Technology spring semester 2012\nAuthors: \nJohan Sandström\nDaniel Nicklasson\nChristian Fransson\nSimon Ivarsson");
+							"Bachelors Work @ Chalmers University Of Technology spring semester 2012\nAuthors: \nJohan Sandstrom\nDaniel Nicklasson\nChristian Fransson\nSimon Ivarsson");
 		}
 
 

@@ -90,6 +90,12 @@ public class Picker extends PickMouseBehavior {
             // use the intersection pt in some way...
         }
 	}
+	
+	/**
+	 * rounds argument value up using two decimal places
+	 * @param toRound value to round
+	 * @return
+	 */
 	public double roundValue(double toRound){
 		// Round with 2 decimalplaces
         int decimalPlaces = 2;
@@ -98,6 +104,10 @@ public class Picker extends PickMouseBehavior {
         return big.doubleValue();
 	}
 	
+	/**
+	 * returns the point that was last picked
+	 * @return
+	 */
 	public static Point3Dim getLastPick() {
 		return lastPick;
 	}

@@ -8,7 +8,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
 /**
- * Lights class
+ * Handles lighting
  * 
  * @author dannic
  * 
@@ -24,6 +24,9 @@ public class Lighting extends BranchGroup {
 	private DirectionalLight lightzz;
 	private Color3f lightColor;
 
+	/**
+	 * Creates lights, adds them to this branchgroup
+	 */
 	public Lighting() {
 		lightColor = new Color3f(0.5f, 0.5f, 0.5f);
 		createLights();
@@ -35,7 +38,10 @@ public class Lighting extends BranchGroup {
 		lightz.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
 		lightzz.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
 	}
-
+	/**
+	 * Sets the brightness of the light
+	 * @param brightness desired brightness of lights
+	 */
 	public void setBrightness(float brightness) {
 
 		// Get Brigthness

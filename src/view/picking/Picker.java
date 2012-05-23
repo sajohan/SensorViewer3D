@@ -7,8 +7,8 @@ import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
 
+import view.graphicscomponents.SensorValuesDrawer;
 import view.guicomponents.GUI;
-import view.guicomponents.SensorValuesDrawer;
 
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.picking.PickIntersection;

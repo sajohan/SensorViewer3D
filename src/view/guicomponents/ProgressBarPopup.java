@@ -36,8 +36,6 @@ public class ProgressBarPopup
 		 // center on screen
 		dialog.setLocationRelativeTo(null);
 		
-		// Cannot close the dialog!
-		//dialog.setUndecorated(true);
 		
 		dialog.setResizable(false);
 		dialog.getContentPane().add(center_panel, BorderLayout.CENTER);
@@ -48,7 +46,6 @@ public class ProgressBarPopup
     }
 
     public void removeDialog(){
-    	//dialog.setFocusable(false);
     	dialog.dispose();
     }
 }

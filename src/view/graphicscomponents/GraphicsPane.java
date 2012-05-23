@@ -29,7 +29,6 @@ import static core.model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
 import testGroups.CThreePointsMockObject;
-import view.guicomponents.SensorValuesDrawer;
 import view.picking.Picker;
 
 

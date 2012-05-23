@@ -20,6 +20,13 @@ import core.model.SensorValues;
 import view.guicomponents.SensorValuesDrawer;
 import view.guicomponents.TreePanel;
 
+/**
+ * Title: East Panel Listener
+ * Description: Listens on input, eg. button clicks etc. and also listens for actions from the tree structure
+ * 
+ * @author sajohan, dannic
+ * 
+ */
 public class EastPanelListener extends Observable implements ActionListener, TreeModelListener, TreeSelectionListener {
 
 	private TreePanel treePanel;
@@ -28,6 +35,9 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 	
 	private SensorValuesDrawer valDrawer;
 	
+	/**
+	 * EastPanelListener constructor
+	 */
 	public EastPanelListener(Observer obs, SensorValues values, SensorValuesDrawer sensorValuesDrawer) {
 		addObserver(obs);
 		this.values = values;
@@ -38,6 +48,10 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		this.treePanel = treePanel;
 	}
 	
+	/**
+	 * Receives events and calls methods depending on the event
+	 * @param ActionEvent
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Do treepanel things
@@ -72,6 +86,9 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		
 	}
 
+	/**
+	 * Removes a list of nodes from the tree structure
+	 */
 	public void removeSensorValues(DefaultMutableTreeNode[] nodes){
 		
 		for(DefaultMutableTreeNode node : nodes){
@@ -80,8 +97,9 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 		
 	}
 	
-	
-
+	/**
+	 * Method is called when there is a deletion detected in the tree structure
+	 */
 	@Override
 	public void treeNodesRemoved(TreeModelEvent e) {
 		
@@ -92,11 +110,17 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 	}
 
 
+	/**
+	 * Method is called when there is a change detected in the tree structure
+	 */
 	@Override
 	public void treeStructureChanged(TreeModelEvent e) {
 		System.out.println("Treestructure modified");
 	}
 
+	/**
+	 * Method is called when there is node clicked in the tree structure
+	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		System.out.println("Node clicked");
@@ -112,8 +136,5 @@ public class EastPanelListener extends Observable implements ActionListener, Tre
 			}
 			
 		}
-	}
-
-	
-	
+	}	
 }

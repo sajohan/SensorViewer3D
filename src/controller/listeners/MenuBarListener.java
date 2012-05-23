@@ -14,20 +14,30 @@ import view.guicomponents.GUI;
 import view.guicomponents.ValueFileFilter;
 
 /**
+ * Title: MenuBarListener
+ * Description: Listens to the menu bar only, eg. file, edit, view...
  * 
- * Listens to the menu bar only, eg. file, edit, view... *
+ * @author sajohan, dannic, simoniv
+ * 
  */
 public class MenuBarListener extends Observable implements ActionListener {
 
 	private final JFileChooser fc;
 	private ValueFileFilter valFilter;
 
+	/**
+	 * MenuBarListener constructor
+	 */
 	public MenuBarListener() {
 		valFilter = new ValueFileFilter();
 		fc = new JFileChooser();
 		fc.setFileFilter(valFilter);
 	}
 
+	/**
+	 * MenuBarListener constructor
+	 * @param Observer
+	 */
 	public MenuBarListener(Observer obs) {
 		addObserver(obs);
 		valFilter = new ValueFileFilter();
@@ -35,6 +45,10 @@ public class MenuBarListener extends Observable implements ActionListener {
 		fc.setFileFilter(valFilter);
 	}
 
+	/**
+	 * Receives events and calls methods depending on the event
+	 * @param ActionEvent
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem source = (JMenuItem) (e.getSource());

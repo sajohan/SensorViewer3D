@@ -17,8 +17,8 @@ import com.sun.j3d.utils.geometry.Sphere;
 import core.model.SensorValue;
 
 /**
- * Draws a sphere where picker pointed at when selected
- * @author chrfra
+ * Draws a sphere at the position that the user clicked in the graphical window
+ * @author dannic
  *
  */
 public class PickerMarker extends BranchGroup {
@@ -33,7 +33,7 @@ public class PickerMarker extends BranchGroup {
 	}
 
 	/**
-	 * Draws a sphere at argument coordinate
+	 * Draws a sphere where picker pointed
 	 * 
 	 * @param x
 	 *            position x of quantity

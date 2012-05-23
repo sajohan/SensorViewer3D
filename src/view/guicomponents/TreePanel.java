@@ -22,12 +22,10 @@ import core.model.SensorValue;
 import core.model.SensorValues;
 
 /**
- * East tree panel
- * 
- * @author dannic
+ * East tree panel holding the tree of sensor nodes
+ * @author dannic, sajohan
  * 
  */
-
 public class TreePanel extends JPanel{
 	
 	private	JTree tree;
@@ -36,6 +34,11 @@ public class TreePanel extends JPanel{
 	private DefaultTreeModel sensorModel;
 	private SensorValues values;
 	
+	/**
+	 * Creates the tree panel with desired listener and initial sensorvalues
+	 * @param eastPanelListener The listener of the panel
+	 * @param values The list with the initial values
+	 */
 	public TreePanel(EastPanelListener eastPanelListener, SensorValues values){
 		
 		this.values = values;
@@ -68,7 +71,6 @@ public class TreePanel extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 2;
-//		c.weightx = 1.0f;
 	    this.add(scrollPane, c);
 	    
 	    // Remove sensor button
@@ -91,6 +93,10 @@ public class TreePanel extends JPanel{
 	}
 
 
+	/**
+	 * Adds a node to the tree
+	 * @param Object child The node to be added
+	 */
 	public void addNode(Object child){
 		
         DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
@@ -98,9 +104,11 @@ public class TreePanel extends JPanel{
         sensorModel.insertNodeInto(childNode, rootNode, rootNode.getChildCount());
 	}
 
+	/**
+	 * Removes all the selected nodes
+	 */
 	public void removeCurrentNodes(){
 		
-//		TreePath currentSelection = tree.getSelectionPath();
 		TreePath[] currentSelection = tree.getSelectionPaths();
         if (currentSelection != null) {
         	for(TreePath path : currentSelection){
@@ -116,13 +124,20 @@ public class TreePanel extends JPanel{
         } 
 	}
 	
+	/**
+	 * Removes a node from the sensor value list
+	 * @param SensorValue node the node to be removed
+	 */
 	public void removeSensorValue(SensorValue node){
 		
 		values.removeValue(node);
 		
 	}
 	
-	
+	/**
+	 * Gets the selected nodes
+	 * @return treeNodes An array containing the selected nodes
+	 */
 	public DefaultMutableTreeNode[] getSelectedNodes(){
 		
 		

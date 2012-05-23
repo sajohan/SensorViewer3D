@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
+
+import view.graphicscomponents.Grid;
 
 
 public class MenuBar extends JMenuBar implements ActionListener {

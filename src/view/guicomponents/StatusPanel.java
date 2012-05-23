@@ -1,11 +1,11 @@
-package view;
+package view.guicomponents;
 
-import static model.Constants.BRIGHT_INIT;
-import static model.Constants.BRIGHT_MAX;
-import static model.Constants.BRIGHT_MIN;
-import static model.Constants.SCALE_INIT;
-import static model.Constants.SCALE_MAX;
-import static model.Constants.SCALE_MIN;
+import static core.model.Constants.BRIGHT_INIT;
+import static core.model.Constants.BRIGHT_MAX;
+import static core.model.Constants.BRIGHT_MIN;
+import static core.model.Constants.SCALE_INIT;
+import static core.model.Constants.SCALE_MAX;
+import static core.model.Constants.SCALE_MIN;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,7 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
-import model.Constants;
+
+import core.model.Constants;
 
 /**
  * South status panel

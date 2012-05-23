@@ -1,4 +1,4 @@
-package view;
+package view.graphicscomponents;
 
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;

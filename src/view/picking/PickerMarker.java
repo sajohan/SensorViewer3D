@@ -1,4 +1,4 @@
-package core;
+package view.picking;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
@@ -11,9 +11,10 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
-import model.SensorValue;
 
 import com.sun.j3d.utils.geometry.Sphere;
+
+import core.model.SensorValue;
 
 public class PickerMarker extends BranchGroup {
 

@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controller.EastPanelListener;
+import controller.listeners.EastPanelListener;
 
 public class CalibPanel extends JPanel {
 

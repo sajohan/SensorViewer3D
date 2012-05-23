@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
-import view.GUI;
+import core.model.Point3Dim;
+import core.model.SensorType;
+import core.model.SensorValue;
+import core.model.SensorValues;
 
-import core.Calibrator;
+import view.guicomponents.GUI;
 
-import model.Point3Dim;
-import model.SensorType;
-import model.SensorValue;
-import model.SensorValues;
+
 
 /**
  * Title: Handler for the robotarm Description: Communicates with the robot to

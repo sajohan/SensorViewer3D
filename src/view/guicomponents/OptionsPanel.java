@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,7 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import static model.Constants.*;
+
+import static core.model.Constants.*;
 
 /**
  * The left-hand toolbar.

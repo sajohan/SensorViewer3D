@@ -1,4 +1,4 @@
-package controller;
+package controller.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +10,8 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
-import view.GUI;
+import view.guicomponents.GUI;
+import view.guicomponents.ValueFileFilter;
 
 /**
  * 

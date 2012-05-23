@@ -1,4 +1,4 @@
-package core;
+package view.picking;
 
 import java.math.BigDecimal;
 import javax.media.j3d.Bounds;
@@ -7,15 +7,16 @@ import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
 
-import model.Point3Dim;
-import view.GUI;
-import view.SensorValuesDrawer;
+import view.guicomponents.GUI;
+import view.guicomponents.SensorValuesDrawer;
 
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.picking.PickIntersection;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.picking.PickTool;
 import com.sun.j3d.utils.picking.behaviors.PickMouseBehavior;
+
+import core.model.Point3Dim;
 
 /**
  * Title: Picker for mouse

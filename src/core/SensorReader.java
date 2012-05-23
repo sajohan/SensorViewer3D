@@ -8,7 +8,8 @@ import java.io.IOException;
 
 import javax.vecmath.Point3d;
 
-import model.SensorValues;
+import core.model.SensorValues;
+
 
 public class SensorReader {
 

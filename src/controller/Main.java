@@ -1,11 +1,11 @@
 package controller;
 
-import static model.Constants.*;
+import static core.model.Constants.*;
+
 import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
-import model.Point3Dim;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.io.File;
@@ -18,17 +18,23 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 
-import model.Constants;
-import model.SensorType;
-import model.SensorValue;
-import model.SensorValues;
-import core.Calibrator;
-import core.Picker;
+import controller.listeners.EastPanelListener;
+import controller.listeners.MenuBarListener;
+import controller.listeners.OptionsPanelListener;
+import controller.listeners.StatusPanelListener;
+
+import core.model.Constants;
+import core.model.Point3Dim;
+import core.model.SensorType;
+import core.model.SensorValue;
+import core.model.SensorValues;
 import core.modelloader.ObjectLoader;
+import core.robotarm.Calibrator;
 import core.robotarm.RobotHandler;
-import view.GUI;
-import view.GraphicsPane;
-import view.Lighting;
+import view.graphicscomponents.GraphicsPane;
+import view.graphicscomponents.Lighting;
+import view.guicomponents.GUI;
+import view.picking.Picker;
 /**
  * Observes user input, eg. button clicks, sliders etc.
  */

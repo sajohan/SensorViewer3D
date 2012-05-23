@@ -31,7 +31,7 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 
-import view.StatusPanel;
+import view.guicomponents.StatusPanel;
 
 // New from JDK 1.4 for endian related problems
 import java.nio.ByteOrder;

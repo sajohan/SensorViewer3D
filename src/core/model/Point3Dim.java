@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class Point3Dim {
 

@@ -441,7 +441,7 @@ public class CThreePObject extends TransformGroup{
 //		}
 		while(true){
 			
-			if((point1x == point2x) || (Math.abs(point1x - point2x) <= model.Constants.ACCURACYVALUE)){
+			if((point1x == point2x) || (Math.abs(point1x - point2x) <= core.model.Constants.ACCURACYVALUE)){
 				break;
 			}
 			if(rotpositive){
@@ -504,7 +504,7 @@ public class CThreePObject extends TransformGroup{
 //		}
 		while(true){
 			
-			if((point1x == point2x) || (Math.abs(point1x - point2x) <= model.Constants.ACCURACYVALUE)){
+			if((point1x == point2x) || (Math.abs(point1x - point2x) <= core.model.Constants.ACCURACYVALUE)){
 				break;
 			}
 			if(rotpositive){
@@ -600,7 +600,7 @@ public class CThreePObject extends TransformGroup{
 		while(true){
 			
 			//Check if they are the same or very close.
-			if(thisVec3.equals(alignVec3) || (thisCompPoint.distance(alignCompPoint) < model.Constants.ACCURACYVALUE)){
+			if(thisVec3.equals(alignVec3) || (thisCompPoint.distance(alignCompPoint) < core.model.Constants.ACCURACYVALUE)){
 				return;
 			}
 			

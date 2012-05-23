@@ -1,4 +1,4 @@
-package view;
+package view.graphicscomponents;
 
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
@@ -9,7 +9,9 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
 
 
 
-import core.Picker;
+import core.model.Point3Dim;
+import core.model.SensorValue;
+import core.model.SensorValues;
 import core.modelloader.ObjectLoader;
 
 import javax.media.j3d.BoundingSphere;
@@ -23,14 +25,12 @@ import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
-import model.Point3Dim;
-import model.SensorValue;
-import model.SensorValues;
-import static model.Constants.*;
+import static core.model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
 import testGroups.CThreePointsMockObject;
-import view.graphicscomponents.CThreePObject;
+import view.guicomponents.SensorValuesDrawer;
+import view.picking.Picker;
 
 
 /**

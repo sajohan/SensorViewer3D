@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import javax.media.j3d.BranchGroup;
 import javax.swing.JFrame;
@@ -23,14 +23,16 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import model.SensorValues;
+import view.graphicscomponents.GraphicsPane;
+
 
 import com.sun.j3d.exp.swing.JCanvas3D;
 
-import controller.EastPanelListener;
-import controller.MenuBarListener;
-import controller.OptionsPanelListener;
-import controller.StatusPanelListener;
+import controller.listeners.EastPanelListener;
+import controller.listeners.MenuBarListener;
+import controller.listeners.OptionsPanelListener;
+import controller.listeners.StatusPanelListener;
+import core.model.SensorValues;
 
 public class GUI {
 	public boolean RIGHT_TO_LEFT = false;

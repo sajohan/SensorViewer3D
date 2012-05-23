@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 /**
  * The types of different sensors

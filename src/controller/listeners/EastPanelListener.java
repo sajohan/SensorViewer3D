@@ -1,4 +1,4 @@
-package controller;
+package controller.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +13,12 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import model.SensorValue;
-import model.SensorValues;
+import core.model.SensorValue;
+import core.model.SensorValues;
 
-import view.SensorValuesDrawer;
-import view.TreePanel;
+
+import view.guicomponents.SensorValuesDrawer;
+import view.guicomponents.TreePanel;
 
 public class EastPanelListener extends Observable implements ActionListener, TreeModelListener, TreeSelectionListener {
 

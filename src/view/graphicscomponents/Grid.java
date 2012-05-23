@@ -1,4 +1,4 @@
-package view;
+package view.graphicscomponents;
 
 import java.util.Random;
 

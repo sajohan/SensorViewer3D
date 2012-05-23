@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -16,10 +16,10 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import model.SensorValue;
-import model.SensorValues;
 
-import controller.EastPanelListener;
+import controller.listeners.EastPanelListener;
+import core.model.SensorValue;
+import core.model.SensorValues;
 
 /**
  * East tree panel

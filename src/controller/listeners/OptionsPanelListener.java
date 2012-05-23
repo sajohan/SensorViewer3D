@@ -1,11 +1,12 @@
-package controller;
+package controller.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.Constants;
+import core.model.Constants;
+
 /**
  * 
  * Listens to clicks on the options panel, is observed by Main.java

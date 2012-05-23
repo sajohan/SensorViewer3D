@@ -1,13 +1,13 @@
-package view;
+package view.guicomponents;
 
 import java.awt.GridLayout;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import model.SensorValues;
 
-import controller.EastPanelListener;
+import controller.listeners.EastPanelListener;
+import core.model.SensorValues;
 
 public class EastPanel extends JPanel {
 

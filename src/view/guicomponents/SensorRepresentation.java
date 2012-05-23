@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;
@@ -8,9 +8,10 @@ import javax.media.j3d.TransparencyAttributes;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
 
-import model.SensorValue;
 
 import com.sun.j3d.utils.geometry.Sphere;
+
+import core.model.SensorValue;
 
 public class SensorRepresentation extends Sphere {
 

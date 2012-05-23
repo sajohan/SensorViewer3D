@@ -1,4 +1,4 @@
-package view;
+package view.guicomponents;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,10 +16,11 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
-import model.SensorValue;
-import model.SensorValues;
 
 import com.sun.j3d.utils.geometry.Sphere;
+
+import core.model.SensorValue;
+import core.model.SensorValues;
 
 public class SensorValuesDrawer extends BranchGroup{
 

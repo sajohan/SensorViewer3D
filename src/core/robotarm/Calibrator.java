@@ -1,9 +1,8 @@
-package core;
+package core.robotarm;
 
-import core.robotarm.RobotHandler;
-import view.GUI;
-import view.GraphicsPane;
-import model.Point3Dim;
+import core.model.Point3Dim;
+import view.graphicscomponents.GraphicsPane;
+import view.guicomponents.GUI;
 
 public class Calibrator {
 

@@ -7,7 +7,8 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.SwingWorker;
-import view.GUI;
+
+import view.guicomponents.GUI;
 import core.modelloader.StlFile;
 import com.sun.j3d.loaders.IncorrectFormatException;
 import com.sun.j3d.loaders.ParsingErrorException;

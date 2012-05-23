@@ -17,7 +17,7 @@ import core.model.SensorValue;
 import core.model.SensorValues;
 
 
-import view.guicomponents.SensorValuesDrawer;
+import view.graphicscomponents.SensorValuesDrawer;
 import view.guicomponents.TreePanel;
 
 public class EastPanelListener extends Observable implements ActionListener, TreeModelListener, TreeSelectionListener {

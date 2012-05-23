@@ -1,4 +1,4 @@
-package view.guicomponents;
+package view.graphicscomponents;
 
 import java.util.ArrayList;
 import java.util.Iterator;

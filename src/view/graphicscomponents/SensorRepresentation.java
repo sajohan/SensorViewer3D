@@ -1,4 +1,4 @@
-package view.guicomponents;
+package view.graphicscomponents;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;

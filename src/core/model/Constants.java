@@ -1,5 +1,11 @@
 package core.model;
-
+/**
+ * Title: Constants
+ * Description: Class with constants for the program
+ * 
+ * @author chrfra, simoniv, dannic
+ *
+ */
 public class Constants {
 
 	// Image URI's

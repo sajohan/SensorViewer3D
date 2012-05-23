@@ -14,8 +14,8 @@ import view.guicomponents.GUI;
 
 
 /**
- * Title: Handler for the robotarm Description: Communicates with the robot to
- * populate the sensordata datastructure.
+ * Title: Handler for the robotarm 
+ * Description: Communicates with the robot to populate the sensordata datastructure.
  * 
  * @author sajohan & dannic
  * @version 1.0
@@ -35,19 +35,27 @@ public class RobotHandler {
 		this.calibrator = calibrator;
 	}
 
-	/* Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. */
+	/**
+	 * Reads a group of sensorvalues. Puts it in the sensorvalue datastructure. 
+	 * @param points The points that should be read
+	 * @return SensorValues The datastructure containing the read values
+	 */
 	public SensorValues readSensorGroup(Point3Dim[] points) {
 
 		for (Point3Dim point : points) {
-			values.addValueToList(readSingleSensor((float) point.x,
-					(float) point.y, (float) point.z));
-			System.out.println("Number of sensorvalues:  "
-					+ values.getValuesList().size());
+			values.addValueToList(readSingleSensor((float) point.x,(float) point.y, (float) point.z));
+			System.out.println("Number of sensorvalues:  "+ values.getValuesList().size());
 		}
 		return values;
 	}
 
-	/* Reads a single sensorvalue. Called by readSensorGroup */
+	/**
+	 * Reads a single sensorvalue. Called by readSensorGroup
+	 * @param x read at this x-position
+	 * @param y	read at this y-position
+	 * @param z	read at this z-position
+	 * @return SensorValue The read SensorValue
+	 */
 	public SensorValue readSingleSensor(float x, float y, float z) {
 
 		// Send Position to robot
@@ -65,14 +73,17 @@ public class RobotHandler {
 
 		return s;
 	}
-
+	/**
+	 * Asks the robot for its position
+	 * @return The position of the robot
+	 */
 	public Point3Dim getRobotPos() {
 		
-		// TestString
+		// Request calibration point
 		String t = new String("REQ_CAL");
 		serialCom.writeString(t);
-		//
-		//		// Wait for response from robot, time out if no response
+		
+		// Wait for response from robot, time out if no response
 		if(!waitForResponse()){
 			return null;
 		}
@@ -92,9 +103,13 @@ public class RobotHandler {
 			return point;
 		} else
 			return null;
-//		return new Point3Dim(0,0,0);
 	}
-
+	
+	/**
+	 * @param byteData
+	 * @return float
+	 * @deprecated Strings are sent instead of floats
+	 */
 	public float getFloat(byte[] byteData) {
 		String stringData = new String(byteData);
 		try {
@@ -106,11 +121,11 @@ public class RobotHandler {
 		Float fl = null;
 		return fl;
 	}
-
-	public void setInData(byte[] inData) {
-		this.inData = inData;
-	}
-
+	
+	/**
+	 * Connects to a serialport to prepare for transmission
+	 * @param comPort The port to connect to
+	 */
 	public void connect(String comPort) {
 		try {
 			serialCom = new SerialCom(this);
@@ -119,13 +134,17 @@ public class RobotHandler {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Parses the read data to see what type of sensor it is.
+	 * @return The read SensorValue.
+	 */
 	public SensorValue readValueParser() {
 		SensorValue s = null;
 		System.out.println("Parsing value..");
-
+		
 		String stringData = new String(inData);
-
+		
 		/* Is it sensor value? */
 		if (stringData.startsWith("VAL")) {
 			String[] data = stringData.split(";");
@@ -134,38 +153,44 @@ public class RobotHandler {
 				s = readTemperature(data);
 			} else if (data[1].equals("MAGN")) {
 				// Magnetic
-				// Do something else
 				s = readMagnetic(data);
 			}
-
+			
 		}
 		return s;
 	}
-
+	/**
+	 * Parse a temperature sensor string
+	 * @param data The string containing the data
+	 * @return A temperature sensorvalue
+	 */
 	public SensorValue readTemperature(String[] data) {
 		Float d1 = new Float(data[2]);
 		return new SensorValue((float) lastRobotPos.x, (float) lastRobotPos.y,
 				(float) lastRobotPos.z, d1, SensorType.TEMP);
 	}
-
+	/**
+	 * Parse a magnetic sensor string
+	 * @param data The string containing the data
+	 * @return A magnetic sensorvalue
+	 */
 	public SensorValue readMagnetic(String[] data) {
-		return null;
-		// TODO Auto-generated method stub
-
+		Float d1 = new Float(data[2]);
+		return new SensorValue((float) lastRobotPos.x, (float) lastRobotPos.y,
+				(float) lastRobotPos.z, d1, SensorType.MAGNETIC);
 	}
-
+	/**
+	 * Commands the robot to go to a position and read a value.
+	 * @param point The position to go to.
+	 */
 	public void robotGoTo(Point3Dim point) {
-		// Save pos
-		lastRobotPos = point;
-		System.out.println("Position sent to robot X: " + point.x + " Y: " +  point.y + " Z: " + point.z);
-
-		// TODO Construct a string with XYZ and send to SerialCom outputstream
-		String s = new String();
+		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z);
+		serialCom.writeString(t);
 	}
-
-	/*
-	 * Wait for responese
-	 * @return false if inData is still null
+	
+	/**
+	 * Wait for response from robot
+	 * @return false if inData is still null. true if robot responded
 	 * 
 	 */
 	public boolean waitForResponse(){
@@ -181,9 +206,14 @@ public class RobotHandler {
 				return false;
 			}
 			timeout = timeout+100;
-//			System.out.println(timeout);
 		}
 		return true;
 	}
+
+	public void setInData(byte[] inData) {
+		this.inData = inData;
+	}
+
+
 
 }

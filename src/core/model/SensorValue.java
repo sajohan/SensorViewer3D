@@ -2,6 +2,13 @@ package core.model;
 
 import javax.vecmath.Point3d;
 
+/**
+ * Title: SensorValue
+ * Description: A single sensorvalue
+ * 
+ * @author sajohan, dannic, chrfra, simoniv
+ *
+ */
 public class SensorValue{
 	private float x,y,z,a;
 	

@@ -16,7 +16,8 @@ import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
 
 /**
- * Title: Object Loader Description: A loader that loads objects from files.
+ * Title: Object Loader 
+ * Description: A loader that loads objects from files.
  * Supported fileformats: .stl, .obj
  * Uses SwingWorker thread to read objects
  * 
@@ -31,6 +32,11 @@ public class ObjectLoader extends SwingWorker{
 	private BranchGroup branch = null;
 	private GUI gui;
 	
+	/**
+	 * 
+	 * @param file the file to be read
+	 * @param gui The GUI class that can show progressbar.
+	 */
 	public ObjectLoader(File file, GUI gui){
 		this.chosenfile = file;
 		this.gui = gui;
@@ -38,9 +44,8 @@ public class ObjectLoader extends SwingWorker{
 	}
 
 	/**
-	 * 
-	 * @param file
-	 *            The file to be loaded
+	 * Reads a 3D-object from a .stl-file or .obj-file
+	 * @param file The file to be loaded
 	 * @return BranchGroup a BranchGroup with the object
 	 */
 	public BranchGroup getObject(File file) {
@@ -56,9 +61,8 @@ public class ObjectLoader extends SwingWorker{
 	}
 
 	/**
-	 * 
-	 * @param file
-	 *            File to read
+	 * Reads a 3D-object from .obj-file
+	 * @param file File to read
 	 * @return BranchGroup returns a BranchGroup containing the read obj-object
 	 * 
 	 */
@@ -84,9 +88,8 @@ public class ObjectLoader extends SwingWorker{
 	}
 
 	/**
-	 * 
-	 * @param file
-	 *            File to read
+	 * Reads a 3D-object from .STL-file
+	 * @param file File to read
 	 * @return BranchGroup returns a BranchGroup containing the read stl-object
 	 * 
 	 */
@@ -97,8 +100,7 @@ public class ObjectLoader extends SwingWorker{
 		// Create the root of the branch graph
 		BranchGroup group = new BranchGroup();
 
-		// Create a Transformgroup to scale all objects so they
-		// appear in the scene.
+		// Create a Transformgroup to scale all objects so they appear in the scene.
 		TransformGroup objScale = new TransformGroup();
 		Transform3D t3d = new Transform3D();
 
@@ -117,10 +119,6 @@ public class ObjectLoader extends SwingWorker{
 		StlFile stlfile = new StlFile();
 		Scene scene = null;
 		try {
-			// stlfile.load() need to be able to handle a File object instead of
-			// a String to a classpath file.
-			// scene = stlfile.load(chosenfile);
-			// Send both URL and File to make sure STL loader can read both
 			scene = stlfile.load(file.toURI().toURL(), file);
 		} catch (FileNotFoundException e) {
 			System.err.println(e);
@@ -137,7 +135,6 @@ public class ObjectLoader extends SwingWorker{
 		}
 
 		objTrans.addChild(scene.getSceneGroup());
-		// group.addChild(objTrans);
 		
 		return group;
 	}

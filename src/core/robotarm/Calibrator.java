@@ -4,6 +4,13 @@ import core.model.Point3Dim;
 import view.graphicscomponents.GraphicsPane;
 import view.guicomponents.GUI;
 
+/**
+ * Title: Calibrator class
+ * Description: Calibrating one set of 3 points with another set of 3 points.
+ * 				Used to calibrate software and hardware.
+ * @author sajohan, dannic
+ *
+ */
 public class Calibrator {
 
 	private boolean needsCalib = true;
@@ -20,7 +27,9 @@ public class Calibrator {
 		this.gui = gui;
 	}
 	
-	
+	/**
+	 * Perform the calibration. All 6 points need to be set.
+	 */
 	public void doCalib(){
 		
 		for(Point3Dim p : hwCalibPoints){
@@ -46,29 +55,9 @@ public class Calibrator {
 		needsCalib = false;
 	}
 	
-	public Point3Dim[] getHwCalibPoints() {
-		return hwCalibPoints;
-	}
-	
-	public Point3Dim[] getSwCalibPoints() {
-		return swCalibPoints;
-	}
-	
-	public void setHwCalibPoint(Point3Dim point, int index) {
-//		Point3Dim sw = swCalibPoints[index];
-//		Point3Dim p = new Point3Dim(sw.x+10, sw.y+2, sw.z+5);
-//		hwCalibPoints[index] = p;
-		
-		hwCalibPoints[index] = point;
-	}
-	
-	public void setSwCalibPoint(Point3Dim point, int index) {
-		swCalibPoints[index] = point;
-	}
 	/**
 	 * @return boolean Is the program ready to be calibrated?
 	 */
-	
 	public boolean isCalibratable(){
 		for(Point3Dim p : hwCalibPoints){
 			if(p == null){
@@ -81,6 +70,23 @@ public class Calibrator {
 			}
 		}
 		return true;
+	}
+	
+	public Point3Dim[] getHwCalibPoints() {
+		return hwCalibPoints;
+	}
+	
+	public Point3Dim[] getSwCalibPoints() {
+		return swCalibPoints;
+	}
+	
+	public void setHwCalibPoint(Point3Dim point, int index) {
+		
+		hwCalibPoints[index] = point;
+	}
+	
+	public void setSwCalibPoint(Point3Dim point, int index) {
+		swCalibPoints[index] = point;
 	}
 	
 	public String toString(){

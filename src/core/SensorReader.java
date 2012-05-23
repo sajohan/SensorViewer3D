@@ -10,9 +10,16 @@ import javax.vecmath.Point3d;
 
 import core.model.SensorValues;
 
+/**
+ * Title: File SensorReader
+ * Description: Reads sensor values from file. Unfinished class.
+ * 
+ * @author sajohan, dannic
+ *
+ */
 
 public class SensorReader {
-
+	 
 	BufferedReader br;
 	SensorValues sv;
 
@@ -20,9 +27,14 @@ public class SensorReader {
 		
 	}
 
+	/**
+	 * Read file
+	 * @param file The file that contain the values.
+	 * @return SensorValues the read values
+	 * @throws IOException
+	 */
 	public SensorValues readFile(File file) throws IOException {
 		br = new BufferedReader(new FileReader(file));
-//		sv = new SensorValues();
 		// check that file is the right type
 		
 		float x, y, z,value;
@@ -39,7 +51,6 @@ public class SensorReader {
 			
 			// Add to structure
 			p = new Point3d(x,y,z);
-//			sv.addValue(p, value);
 			
 			// Get next line
 			line = br.readLine();

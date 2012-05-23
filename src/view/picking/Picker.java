@@ -84,8 +84,7 @@ public class Picker extends PickMouseBehavior {
             pickerMarker = new PickerMarker();
             pickerMarker.drawSphere((float)x, (float)y, (float)z);
     		group.addChild(pickerMarker);
-            
-            //System.out.println("You pointed at: " + intercept);
+    		
             // extract the intersection pt in scene coords space
             // use the intersection pt in some way...
         }

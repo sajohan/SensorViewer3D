@@ -7,8 +7,8 @@ import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
 
+import view.graphicscomponents.SensorValuesDrawer;
 import view.guicomponents.GUI;
-import view.guicomponents.SensorValuesDrawer;
 
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.picking.PickIntersection;
@@ -84,12 +84,17 @@ public class Picker extends PickMouseBehavior {
             pickerMarker = new PickerMarker();
             pickerMarker.drawSphere((float)x, (float)y, (float)z);
     		group.addChild(pickerMarker);
-            
-            //System.out.println("You pointed at: " + intercept);
+    		
             // extract the intersection pt in scene coords space
             // use the intersection pt in some way...
         }
 	}
+	
+	/**
+	 * rounds argument value up using two decimal places
+	 * @param toRound value to round
+	 * @return
+	 */
 	public double roundValue(double toRound){
 		// Round with 2 decimalplaces
         int decimalPlaces = 2;
@@ -98,6 +103,10 @@ public class Picker extends PickMouseBehavior {
         return big.doubleValue();
 	}
 	
+	/**
+	 * returns the point that was last picked
+	 * @return
+	 */
 	public static Point3Dim getLastPick() {
 		return lastPick;
 	}

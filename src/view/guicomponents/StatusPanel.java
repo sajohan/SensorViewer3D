@@ -22,16 +22,19 @@ import core.model.Constants;
 /**
  * South status panel
  * 
- * @author dannic
+ * @author dannic, chrfra, sajohan
  * 
  */
-
 public class StatusPanel extends JPanel{
 
 	private JSlider scaleslider;
 	private JSlider brightSlider;
 	private JLabel status;
 	
+	/**
+	 * Creates the south status panel with the desired eventlistener
+	 * @param EventListener eventListener The desired EventListener
+	 */
 	public StatusPanel(EventListener eventListener) {
 		
 		super.setLayout(new GridBagLayout());
@@ -80,6 +83,15 @@ public class StatusPanel extends JPanel{
 		super.add(status,c);
 	}
 	
+	/**
+	 * Creates a Slider
+	 * @param int facing The orientation of the slider
+	 * @param int min The minimum value
+	 * @param int max The maximum value
+	 * @param int init The initial value
+	 * @param String name The name of the slider
+	 * @return
+	 */
 	public JSlider createSlider(int facing, int min, int max, int init,
 			String name) {
 		JSlider slider = new JSlider(facing, min, max, init);

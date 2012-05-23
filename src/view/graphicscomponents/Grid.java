@@ -58,7 +58,10 @@ public class Grid extends BranchGroup {
 		initGrid();
 		this.setBounds(bounds);
 	}
-
+	
+	/**
+	 * Initiates the axes with appearance attributes, adds them as children to this branchgroup 
+	 */
 	private void initAxes() {
 		Appearance redApp = new Appearance();
 		Appearance blueApp = new Appearance();
@@ -130,6 +133,9 @@ public class Grid extends BranchGroup {
 
 	}
 	
+	/**
+	 * Initiates the grid with appearance attributes, adds them as children to this branchgroup 
+	 */
 	public void initGrid(){
 		Appearance app = new Appearance();
 		app.setCapability(Appearance.ALLOW_RENDERING_ATTRIBUTES_WRITE);

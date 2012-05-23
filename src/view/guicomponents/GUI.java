@@ -34,6 +34,11 @@ import controller.listeners.OptionsPanelListener;
 import controller.listeners.StatusPanelListener;
 import core.model.SensorValues;
 
+/**
+ * The main GUI Class. Holds the structure of all the other panels and the graphics window.
+ * @author simoniv, dannic, sajohan, chrfra
+ *
+ */
 public class GUI {
 	public boolean RIGHT_TO_LEFT = false;
 	private JFrame frame = new JFrame("SensorViewer3D");
@@ -52,6 +57,12 @@ public class GUI {
 	
 	private SensorValues values;
 
+	
+	/**
+	 * Initiates the gui with the relevant observer and values
+	 * @param Observer obs The class that is to observe the GUI
+	 * @param SensorValues The sensor Values
+	 */
 	public GUI(Observer obs, SensorValues values) {
 		menuObserver = obs;
 		this.values = values;
@@ -65,7 +76,10 @@ public class GUI {
 	}
 	
 	
-	// private MenuBar menu = new MenuBar();
+	/**
+	 * Initiates all the panels
+	 * @param Container contentPane The container to be populated
+	 */
 	public void addComponentsToPane(Container contentPane) {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -74,7 +88,6 @@ public class GUI {
 			return;
 		}
 
-		// JButton jbnSampleButtons = new JButton("Button 1 (PAGE_START)");
 		optionspanelListener = new OptionsPanelListener(menuObserver);
 		OptionsPanel op = new OptionsPanel(optionspanelListener);
 
@@ -99,27 +112,32 @@ public class GUI {
 		
 		frame.setJMenuBar(menu);
 
-		// JCanvas3D j = new JCanvas3D();
-		// jbnSampleButtons = new JButton("Button 2 (CENTER)");
 
 	}
 
+	/**
+	 * A handle to the graphics window that updates it with a new model.
+	 * @param BranchGroup newModel The graphical model that is to be updated
+	 */
 	public void loadNewGraphicsWindow(BranchGroup newModel) {
 		Container contentPane = frame.getContentPane();
-		// graphicsPane.resetGraphics(frame);
-		// contentPane.remove(graphicsPane);
-		// graphicsPane = new GraphicsPane(frame)
 		graphicsPane.setObject(newModel);
-		// contentPane.add(graphicsPane, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
 
 	}
 
+	/**
+	 * Gets the graphics pane
+	 * @return GraphicsPane the graphics pane
+	 */
 	public GraphicsPane getGraphicsPane() {
 		return graphicsPane;
 	}
 
+	/**
+	 * Creates and shows the GUI
+	 */
 	private void createAndShowGUI() {
 
 		try {
@@ -165,7 +183,7 @@ public class GUI {
 		label.setText(text);
 	}
 	
-	/*
+	/**
 	 * Show progress popup window
 	 * 
 	 */
@@ -173,7 +191,7 @@ public class GUI {
 		this.progresspopup.getDialog();
 	}
 	
-	/*
+	/**
 	 * Hide progress popup window
 	 * 
 	 */

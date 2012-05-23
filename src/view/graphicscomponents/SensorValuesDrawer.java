@@ -1,4 +1,4 @@
-package view.guicomponents;
+package view.graphicscomponents;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,28 +22,35 @@ import com.sun.j3d.utils.geometry.Sphere;
 import core.model.SensorValue;
 import core.model.SensorValues;
 
+/**
+ * Holds all SensorRepresentation objects which are used to render them to the GraphicsPane
+ * @author chrfra
+ *
+ */
 public class SensorValuesDrawer extends BranchGroup{
 
-	public float transparency = 0.3f; // transparency of values
+	public float transparency = 0.3f; // transparency of sensorvalue representations
 	
 	public ArrayList<SensorRepresentation> sensorRepList;
+	
+	/**
+	 * Creates data structure holding all SensorRepresentation objects
+	 */
 	public SensorValuesDrawer(){
 		sensorRepList = new ArrayList<SensorRepresentation>();
 	}
 
 	/**
-	 * Draws a sphere to represent a sensor value
-	 * @param	x	position x of quantity
-	 * @param	y	position y of quantity
-	 * @param	z	position z of quantity
-	 * @param	a	measured amplitude of quantity
+	 * Draws a sphere
+	 * @param	sensVal	the sensorvalue to be represented in the GraphicsPane
 	 */
 	public void drawSphere(SensorValue sensVal){
 		Appearance ap = new Appearance();
-		//		RenderingAttributes ra = new RenderingAttributes();
-		//		ra.setAlphaTestValue(0.5f);
+
 		ap.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,transparency));
+		
 		float a = sensVal.getValue();
+		
 		ColoringAttributes color = new ColoringAttributes(new Color3f(a/255,0.0f,(1-(a/255))), 0);
 		ap.setColoringAttributes(color);
 
@@ -120,7 +127,10 @@ public class SensorValuesDrawer extends BranchGroup{
 		
 	}
 	
-	
+	/**
+	 * Toggles the visibility of argument SensorValue
+	 * @param sv
+	 */
 	public void toggleVisibility(SensorValue sv){
 		Iterator it = sensorRepList.iterator();
 		SensorRepresentation s;

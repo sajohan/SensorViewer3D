@@ -16,12 +16,21 @@ import javax.swing.JToggleButton;
 import view.graphicscomponents.Grid;
 
 
+/**
+ * Class holding the top menubar of the program
+ * @author simoniv, dannic, sajohan, chrfra
+ *
+ */
 public class MenuBar extends JMenuBar implements ActionListener {
 
 	final JFileChooser fc = new JFileChooser();
 	JMenu file;
 	ActionListener al;
 
+	/**
+	 * Creates the menubar with the requested listener
+	 * @param ActionListener al The ActionListener
+	 */
 	public MenuBar(ActionListener al) {
 
 		this.al = al;
@@ -39,6 +48,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		file.addActionListener(al);
 	}
 
+	/**
+	 * Creates the File menu options
+	 * @return JMenu The File menu
+	 */
 	public JMenu createFile() {
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
@@ -64,6 +77,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
+	/**
+	 * Creates the Edit menu options
+	 * @return JMenu The Edit menu
+	 */
 	public JMenu createEdit() {
 		JMenu editMenu = new JMenu("Edit");
 		editMenu.setMnemonic(KeyEvent.VK_E);
@@ -71,6 +88,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
+	/**
+	 * Creates the View menu options
+	 * @return JMenu The View menu
+	 */
 	public JMenu createView() {
 		JMenu viewMenu = new JMenu("View");
 		viewMenu.setMnemonic(KeyEvent.VK_V);
@@ -95,6 +116,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 	}
 
+	/**
+	 * Creates the Preferences menu options
+	 * @return JMenu The Preferences menu
+	 */
 	public JMenu createPreferences() {
 		JMenu preferencesMenu = new JMenu("Preferences");
 		preferencesMenu.setMnemonic(KeyEvent.VK_P);
@@ -113,7 +138,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		return preferencesMenu;
 
 	}
-
+	
+	/**
+	 * Creates the Help menu options
+	 * @return JMenu The Help menu
+	 */
 	public JMenu createHelp() {
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.setMnemonic(KeyEvent.VK_H);
@@ -129,8 +158,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
-				// This is where a real application would open the file.
-				// log.append("Opening: " + file.getName() + "." + newline);
 			} else {
 				System.out.println("No file selected");
 			}

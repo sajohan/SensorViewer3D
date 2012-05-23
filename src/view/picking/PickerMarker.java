@@ -16,6 +16,11 @@ import com.sun.j3d.utils.geometry.Sphere;
 
 import core.model.SensorValue;
 
+/**
+ * Draws a sphere at the position that the user clicked in the graphical window
+ * @author dannic
+ *
+ */
 public class PickerMarker extends BranchGroup {
 
 	final static float SPHERE_SIZE = 0.1f;

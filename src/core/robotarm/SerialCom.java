@@ -16,7 +16,7 @@ import java.io.OutputStream;
  * Description: Writes data and reads data on com-port.
  * Eventbased listener.
  * 
- * @version 1.0
+ * @author dannic, sajohan
  *
  */
 public class SerialCom {
@@ -25,11 +25,19 @@ public class SerialCom {
 	private static RobotHandler robotHandler;
 	private OutputStream out;
 	
+	/**
+	 * SerialCom constructor
+	 * @param RobotHandler
+	 */
     public SerialCom(RobotHandler robotHandler)
     {
     	this.robotHandler = robotHandler;
     }
     
+    /**
+     * Writes a string to the serial COM-port
+     * @param String 
+     */
     public void writeString(String s){
     	byte[] data = s.getBytes();
     	try {
@@ -37,9 +45,14 @@ public class SerialCom {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
     }
     
+    /**
+     * Connects to a COM-port using the inparameter portName
+     * Baudrate is set to 57600 
+     * @param String
+     * @throws Exception
+     */
     void connect ( String portName ) throws Exception
     {
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
@@ -70,8 +83,6 @@ public class SerialCom {
                 System.out.println("Error: Only serial ports are handled by this example.");
             }
         }
-        
-
     }
     
     /**
@@ -120,7 +131,10 @@ public class SerialCom {
 
     }
 
-    /** */
+    /**
+     * Writes to the serialport(using console..) No longer used. Use writeString() instead
+     * @deprecated
+     */
     public static class SerialWriter implements Runnable 
     {
         OutputStream out;

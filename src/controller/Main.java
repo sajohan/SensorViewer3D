@@ -35,8 +35,13 @@ import view.graphicscomponents.GraphicsPane;
 import view.graphicscomponents.Lighting;
 import view.guicomponents.GUI;
 import view.picking.Picker;
+
 /**
- * Observes user input, eg. button clicks, sliders etc.
+ * Title: The main class
+ * Description: Observes user input, eg. button clicks, sliders etc.
+ * 
+ * @author sajohan, dannic, chrfra, simoniv
+ * 
  */
 public class Main implements Observer {
 
@@ -63,25 +68,22 @@ public class Main implements Observer {
 
 	}
 
+	/**
+	 * Main constructor
+	 */
 	public Main() {
 		values = new SensorValues(this);
 		robotHandler = new RobotHandler(values, calibrator);
-
 		
 		gui = new GUI(this, values);
 		System.out.println("OS: " + System.getProperty("os.name"));
 		
-		
 		calibrator = new Calibrator(robotHandler, gui);
-		
-		//remove
-		for(int i = 0; i<3;i++){
-//			PORT_NAMES[2] = chop(PORT_NAMES[i]);
-			System.out.println("portnames: "+ PORT_NAMES[i]);
-		}
-		// MenuBarListener menuBarListener = new MenuBarListener(this);
 	}
 	
+	/**
+	 * Receives updates and calls methods depending on the update
+	 */
 	@Override
 	public void update(Observable obs, Object obj) {
 		/*
@@ -111,8 +113,6 @@ public class Main implements Observer {
 			// if receiving values before graphicsPane is initialized, discard
 			if (graphicsPane != null){
 				graphicsPane.updateSensorValue((SensorValues)obs);
-//				SensorValue s = (SensorValue) obj;
-//				gui.getEastPanel().getTreePanel().addNode(s);
 			}
 		}
 		/*
@@ -124,15 +124,16 @@ public class Main implements Observer {
 		}
 
 	}
+	
+	/**
+	 * Receives updates from the menubar and calls methods depending on the update
+	 */
 	private void menuBarUpdater(Observable obs, Object obj){
 		if(obj instanceof File){
 
 			ObjectLoader ldr = new ObjectLoader((File) obj, gui);
 			gui.showProgress();
 			ldr.execute();
-			//			BranchGroup tempGroup = objLoader.getObject((File) obj);
-			//			gui.loadNewGraphicsWindow(tempGroup);
-			//Is it a checkbox
 		}
 		/*
 		 * View dropdown
@@ -170,6 +171,10 @@ public class Main implements Observer {
 			}
 		}
 	}
+	
+	/**
+	 * Receives updates from the statuspanel and calls methods depending on the update
+	 */
 	private void statusPanelUpdater(Observable obs, Object obj){
 		if (obj instanceof JSlider) {
 			JSlider source = (JSlider) obj;
@@ -229,6 +234,7 @@ public class Main implements Observer {
 			}
 		}
 	}
+	
 	/**
 	 *Is notified by OptionsPanelUpdater on button press.
 	 *Updates view depending on what button was pressed.
@@ -261,38 +267,10 @@ public class Main implements Observer {
 			}
 			else if(source.getActionCommand().equals(Constants.freeCam)){
 				graphicsPane.getOrbit().setRotateEnable(true); //enable mouse moveable camera
-				
-				/*
-				 * TEST VALUES
-				 */
-//				SensorValue s = new SensorValue(0,0,0,2,SensorType.TEMP);
-//				values.addValueToList(s);
-//				gui.getEastPanel().getTreePanel().addNode(s);
-//				
-//				s=new SensorValue(1,0,0,123,SensorType.TEMP);
-//				values.addValueToList(s);
-//				gui.getEastPanel().getTreePanel().addNode(s);
-//				
-//				s=new SensorValue(0,1,0,255,SensorType.TEMP);
-//				values.addValueToList(s);
-//				gui.getEastPanel().getTreePanel().addNode(s);
-//				
 				graphicsPane.setPerspectivePolicy();
 			}
 			else if(source.getActionCommand().equals(Constants.addsensorbutton)){
 				System.out.println("add sensor");
-
-				//testing 
-//				values = new SensorValues(this);
-//				robotHandler = new RobotHandler(values);
-				
-				/*
-				 * used for testing
-				 */
-//				Point3Dim point1 = new Point3Dim(1,1,1);
-//				Point3Dim point2 = new Point3Dim(-1, 5, 0);
-//				Point3Dim[] points = {point1, point2};
-//				robotHandler.readSensorGroup(points);
 				
 				/*
 				 * send picker's last coordinates to com-port
@@ -318,6 +296,9 @@ public class Main implements Observer {
 		}
 	}
 	
+	/**
+	 * Receives updates from eastpanel and calls methods depending on the update
+	 */
 	private void eastPanelUpdater(Observable obs, Object obj){
 		if (obj instanceof JButton) {
 			JButton source = (JButton) obj;

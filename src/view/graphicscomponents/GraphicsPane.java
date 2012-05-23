@@ -29,14 +29,11 @@ import static core.model.Constants.*;
 
 import testGroups.CThreePointsMockCloud;
 import testGroups.CThreePointsMockObject;
-import view.guicomponents.SensorValuesDrawer;
 import view.picking.Picker;
 
 
 /**
- * Move the camera with wasd. Zoom in and out with q and e. Z and x rotates, but
- * breaks coordinates etc...
- * 
+ * The JPanel containing the graphics window
  * @author Nyx, sajohan, dannic, chrfra
  */
 public class GraphicsPane extends JPanel {
@@ -57,6 +54,9 @@ public class GraphicsPane extends JPanel {
 	private CThreePObject cloud;
 	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
 
+	/**
+	 * Sets up the graphicspane and the objects in it
+	 */
 	public GraphicsPane(JFrame frame) {
 		this.frame = frame;
 		objLoader = new ObjectLoader(null, null);
@@ -86,48 +86,6 @@ public class GraphicsPane extends JPanel {
 
 		//Object containing measurement data
 		cloud = new CThreePObject(group);
-
-		//		
-		//		/**
-		//		 * Uncomment this to see moveTo() in the works.
-		//		 * DEBUG START
-		//		 */
-		//
-		//
-		//		/* Crazyvals
-		//			CThreePO2.setPoint3(new Vector3d(11,8,4));
-		//			CThreePO2.setPoint1(new Vector3d(2, -11, 5));
-		//			CThreePO2.setPoint2(new Vector3d(-3, 5, 22));
-		//		 */
-		//		group.addChild(CThreePO);
-		//		group.addChild(CThreePO2);
-		//
-		//		/*
-		//		 * move,rotate and rescale cloud so object can be moved,rotated and scaled to the cloud in testing
-		//		 */
-		//		Transform3D mockMove = new Transform3D();
-		//		Transform3D mockRotate = new Transform3D();
-		//		Transform3D mockScale = new Transform3D();
-		//		mockScale.setScale(3);
-		//		//			CThreePO2.setTransform(mockScale);
-		//		mockMove.setTranslation(new Vector3d(20, 19, 18));
-		//		mockMove.mul(mockScale);
-		//		mockRotate.rotX(3);
-		//		mockMove.mul(mockRotate);
-		//		mockRotate.rotY(2);
-		//		mockMove.mul(mockRotate);
-		//		mockRotate.rotZ(1.111);
-		//		mockMove.mul(mockRotate);
-		//
-		//
-		//		CThreePO2.setTransform(mockMove);
-		//
-		//
-		//		CThreePO.moveTo(CThreePO2);
-		//
-		//		/*
-		//		 * DEBUG END
-		//		 */
 
 		setUpLightAndGrid();
 
@@ -197,11 +155,6 @@ public class GraphicsPane extends JPanel {
 		cloud.setPoint1(new Vector3d(physicalRefPoints[0].x,physicalRefPoints[0].y,physicalRefPoints[0].z));
 		cloud.setPoint2(new Vector3d(physicalRefPoints[1].x,physicalRefPoints[1].y,physicalRefPoints[1].z));
 		cloud.setPoint3(new Vector3d(physicalRefPoints[2].x,physicalRefPoints[2].y,physicalRefPoints[2].z));
-
-//		group.addChild(object); object is already added to group on setObject()
-		
-//		group.addChild(cloud);
-		
 		
 		//perform align (move object to cloud and align )
 		object.moveTo(cloud);
@@ -218,38 +171,7 @@ public class GraphicsPane extends JPanel {
 		
 		//reattach group to universe after finished mutating it
 		univ.addBranchGraph(group);
-		
-		//Set up camera to rotate around the object's new position
-		//by finding the center of the three reference points on the object
-		//which is now stored in the object variable
-//		orbit.setRotationCenter(object.getObjectCenter());
-
-		//move camera platform to look at object's new position
-
-//		vp.moveTo(object);
-		Transform3D objTrans = new Transform3D();
-		object.getLocalToVworld(objTrans);
-//		objTrans.setTranslation(new Vector3d(-1,-1,-1));
-//		vp.getViewPlatformTransform().setTransform(objTrans);
-//		
-//		Transform3D vp_trans = new Transform3D();
-//		vp.getLocalToVworld(vp_trans);
-//		Point3d camPos = object.getObjectCenter();
-//		vp_trans.lookAt(camPos, object.getObjectCenter(), new Vector3d(0,1,0));
-//		vp_trans.invert();
-//		vp.getViewPlatformTransform().setTransform(vp_trans);
-//		
-//		T3D.get(rotation_matrix)
-//		z_axisVector.set=objTrans.getElement(0,2);
-//		z_axisVector.y=objTrans.getElement(1,2)
-//		z_axisVector.z=objTrans.getElement(2,2)
-//
-//		z_axisVector.scale(moveAmt)
-//
-//		T3D.get(translation_vector)
-//		translation_vector.add(z_axisVector)
-//		T3D.setTranslation(translation_vector)
-		
+				
 		//set up freecam
 		setPerspectivePolicy();
 		orbit.setRotateEnable(true);
@@ -388,8 +310,9 @@ public class GraphicsPane extends JPanel {
 		group.addChild(lights);
 		group.addChild(grid);	
 	}
-	/*
-	 * makes the call to draw the graphical representation of argument on the screen
+	
+	/**
+	 * makes the call to draw the graphical representation of argument sensorvalue object to the graphicsPane
 	 */
 	public void updateSensorValue(SensorValues s){
 		group.detach();

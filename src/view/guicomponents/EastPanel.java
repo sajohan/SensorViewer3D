@@ -5,10 +5,17 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import view.graphicscomponents.SensorValuesDrawer;
+
 
 import controller.listeners.EastPanelListener;
 import core.model.SensorValues;
 
+/**
+ * The root panel that holds all the east panels
+ * @author sajohan, dannic
+ *
+ */
 public class EastPanel extends JPanel {
 
 	private TreePanel treePanel;
@@ -37,6 +44,10 @@ public class EastPanel extends JPanel {
 		showCalibration(true);
 	}
 	
+	/**
+	 * Shows or hides the calibration value
+	 * @param boolean b 
+	 */
 	public void showCalibration(boolean b){
 		if (b == true) {
 			this.add(calibPanel);
@@ -47,10 +58,18 @@ public class EastPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Fetches the calibration panel
+	 * @return CalibPanel calibPanel The Calibration panel belonging to the east panel
+	 */
 	public CalibPanel getCalibPanel() {
 		return calibPanel;
 	}
 	
+	/**
+	 * Fetches the tree panel
+	 * @return TreePanel treePanel The treepanel belonging to the east panel
+	 */
 	public TreePanel getTreePanel() {
 		return treePanel;
 	}

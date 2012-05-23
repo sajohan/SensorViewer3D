@@ -666,10 +666,16 @@ public class CThreePObject extends TransformGroup{
 		return retval;
 	}
 
-	
+	/**
+	 * returns the estimated center point of the object
+	 */
 	public Point3d getObjectCenter() {
 		return objectCenter;
 	}
+	
+	/**
+	 * sets the estimated center point of the object
+	 */
 	public void setObjectCenter(Point3d objectCenter) {
 		this.objectCenter = objectCenter;
 	}

@@ -13,6 +13,12 @@ import javax.swing.SwingConstants;
 
 import controller.listeners.EastPanelListener;
 
+
+/**
+ * Holds the interface buttons for the calibrations
+ * @author sajohan, dannic
+ *
+ */
 public class CalibPanel extends JPanel {
 
 	private JLabel p1;
@@ -31,6 +37,10 @@ public class CalibPanel extends JPanel {
 	
 	private JButton calibButton;
 	
+	/**
+	 * Sets up a the panel with the provided listener
+	 * @param eastPanelListener The listener to the panel
+	 */
 	public CalibPanel(EastPanelListener eastPanelListener) {
 		
 		this.setLayout(new GridBagLayout());
@@ -134,6 +144,10 @@ public class CalibPanel extends JPanel {
 		calibButton.addActionListener(eastPanelListener);
 	}
 	
+	/**
+	 * Enables the calibration button if set up properly
+	 * @param boolean b
+	 */
 	public void enableCalib(boolean b){
 		calibButton.setEnabled(b);
 	}

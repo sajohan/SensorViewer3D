@@ -19,7 +19,7 @@ import static core.model.Constants.*;
 /**
  * The left-hand toolbar.
  * 
- * @author Simon
+ * @author simoniv, chrfra, sajohan, dannic
  * 
  */
 public class OptionsPanel extends JPanel {
@@ -44,8 +44,9 @@ public class OptionsPanel extends JPanel {
 	private ImageIcon selectionIcon;
 	private ImageIcon cameraIcon;
 
-	/*
-	 * receives Main.java as listener
+	/**
+	 * Sets up the left-hand toolbar
+	 * @param EventListener eventListener The listener responsible for handling the left toolbar
 	 */
 	public OptionsPanel(EventListener eventListener) {
 //		super.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -64,6 +65,7 @@ public class OptionsPanel extends JPanel {
 				handbutton);
 		sensorButton = createButton(addSensorIcon, addsensortooltip,
 				addsensorbutton);
+		//not implemented
 		selectionButton = createButton(selectionIcon,
 				selectiontooltip, selectionbutton);
 		
@@ -84,7 +86,7 @@ public class OptionsPanel extends JPanel {
 		// Add action listeners
 		handButton.addActionListener((ActionListener) eventListener);
 		sensorButton.addActionListener((ActionListener) eventListener);
-		selectionButton.addActionListener((ActionListener) eventListener);
+//		selectionButton.addActionListener((ActionListener) eventListener);
 		freeView.addActionListener((ActionListener) eventListener);
 		LockX.addActionListener((ActionListener) eventListener);
 		LockXR.addActionListener((ActionListener) eventListener);
@@ -96,8 +98,7 @@ public class OptionsPanel extends JPanel {
 		// Add all items to toolbar
 		super.add(handButton);
 		super.add(sensorButton);
-		super.add(selectionButton);
-//		super.add(padding);
+//		super.add(selectionButton);
 		super.add(cameraLabel);
 		super.add(freeView);
 		super.add(LockX);

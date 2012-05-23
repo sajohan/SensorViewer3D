@@ -9,6 +9,7 @@ import java.util.Observer;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import view.guicomponents.GUI;
 import view.guicomponents.ValueFileFilter;
@@ -88,6 +89,12 @@ public class MenuBarListener extends Observable implements ActionListener {
 			JMenuItem calibButton = (JMenuItem)source;
 			setChanged();
 			notifyObservers(calibButton);
+		}
+		else if (source.getActionCommand().equals("about")) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Bachelors Work @ Chalmers University Of Technology spring semester 2012\nAuthors: \nJohan Sandström\nDaniel Nicklasson\nChristian Fransson\nSimon Ivarsson");
 		}
 
 

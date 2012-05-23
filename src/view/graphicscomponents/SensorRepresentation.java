@@ -13,6 +13,11 @@ import com.sun.j3d.utils.geometry.Sphere;
 
 import core.model.SensorValue;
 
+/**
+ * The sphere representing a sensorvalue
+ * @author chrfra
+ *
+ */
 public class SensorRepresentation extends Sphere {
 
 	private Color4f color = new Color4f(0.0f, 1.0f, 0.0f, 0.5f);
@@ -32,7 +37,14 @@ public class SensorRepresentation extends Sphere {
 	//Sensor values
 	private SensorValue sensVal;
 	
-	
+	/**
+	 * Creates a sphere with the provided arguments.
+	 * 
+	 * @param radius	the radius of the sphere
+	 * @param divisions	the number of divisions that the sphere will use when rendering it. Determines the "smoothness" of the sphere
+	 * @param ap	appearance
+	 * @param sensVal	sensor value
+	 */
 	public SensorRepresentation(float radius, int divisions, Appearance ap, SensorValue sensVal) {
 		super(radius, 0, divisions, ap);
 		defaultAp = ap;
@@ -74,7 +86,7 @@ public class SensorRepresentation extends Sphere {
 	}
 	
 	/**
-	 * Sets selectedness of sphere :3
+	 * Sets selectedness of sphere
 	 * @param isVisible Sets the selectedness to this
 	 */
 	public void setSelected(boolean isSelected){
@@ -96,7 +108,7 @@ public class SensorRepresentation extends Sphere {
 	}
 	
 	/**
-	 * For changing the default appearance (and the selected appearance)
+	 * Changes the default appearance (and the selected appearance)
 	 * @param ap The desired Appearance
 	 */
 	public void setDefaultAppearance(Appearance ap){

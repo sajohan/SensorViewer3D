@@ -6,6 +6,7 @@ import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.Node;
 import javax.vecmath.Point3d;
+import javax.vecmath.Vector3f;
 
 import view.graphicscomponents.SensorValuesDrawer;
 import view.guicomponents.GUI;
@@ -39,7 +40,9 @@ public class Picker extends PickMouseBehavior {
 	BranchGroup group;
 	PickerMarker pickerMarker;
 	
-	private static Point3Dim lastPick;
+	private static Point3Dim lastPickPos;
+	
+	private static Vector3f lastPickNormal;
 	
 	public Picker(Canvas3D canvas, BranchGroup group, Bounds bounds) {
 		super(canvas, group, bounds);
@@ -65,17 +68,26 @@ public class Picker extends PickMouseBehavior {
 
         if (pickResult != null) {
             PickIntersection pi = pickResult.getClosestIntersection(eyePos);
-            // get the closest intersect to the eyePos point
+           /*Picking Position*/
             Point3d intercept = pi.getPointCoordinatesVW();
             
             double x = roundValue(intercept.x);
             double y = roundValue(intercept.y);
             double z = roundValue(intercept.z);
             
-            lastPick = new Point3Dim(x, y, z);
+            lastPickPos = new Point3Dim(x, y, z);
             
             GUI.printToStatus("You pointed at X: " + x + " Y:" + y + " Z: " + z);
             
+            /*Pick Normal*/
+            Vector3f normal = pi.getPointNormal();
+            normal.x = roundValue(normal.x);
+            normal.y = roundValue(normal.y);
+            normal.z = roundValue(normal.z);
+            lastPickNormal = normal;
+            System.out.println("Normal: " + normal);
+            
+            /*Pick marking*/
             if(pickerMarker != null){
             	pickerMarker.detach();
             }
@@ -104,10 +116,31 @@ public class Picker extends PickMouseBehavior {
 	}
 	
 	/**
-	 * returns the point that was last picked
-	 * @return The coordinates to be rounded
+	 * rounds argument value up using four decimal places
+	 * @param toRound value to round
+	 * @return Rounded value
 	 */
-	public static Point3Dim getLastPick() {
-		return lastPick;
+	public float roundValue(float toRound){
+		// Round with 4 decimalplaces
+        int decimalPlaces = 4;
+        BigDecimal big = new BigDecimal(toRound);
+        big = big.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
+        return big.floatValue();
+	}
+	
+	/**
+	 * returns the point that was last picked
+	 * @return The coordinates of the last pick
+	 */
+	public static Point3Dim getLastPickPos() {
+		return lastPickPos;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Vector3f getLastPickNormal(){
+		return lastPickNormal;
 	}
 }

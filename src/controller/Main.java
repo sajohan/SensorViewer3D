@@ -17,6 +17,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
+import javax.vecmath.Vector3f;
 
 import controller.listeners.EastPanelListener;
 import controller.listeners.MenuBarListener;
@@ -275,9 +276,10 @@ public class Main implements Observer {
 				/*
 				 * send picker's last coordinates to com-port
 				 */
-				Point3Dim pickedPoint = Picker.getLastPick();
+				Point3Dim pickedPoint = Picker.getLastPickPos();
+				Vector3f normal = Picker.getLastPickNormal();
 				if(pickedPoint != null){
-					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z);
+					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z, normal.x, normal.y, normal.z);
 					if(s != null){
 						values.addValueToList(s);
 						gui.getEastPanel().getTreePanel().addNode(s);
@@ -305,7 +307,7 @@ public class Main implements Observer {
 			Point3Dim point;
 			
 			if(source.getActionCommand().equals("swPos1")){
-				point = Picker.getLastPick();
+				point = Picker.getLastPickPos();
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setSwCalibPoint(point, 0);
@@ -313,14 +315,14 @@ public class Main implements Observer {
 				}
 			}
 			else if(source.getActionCommand().equals("swPos2")){
-				point = Picker.getLastPick();
+				point = Picker.getLastPickPos();
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setSwCalibPoint(point, 1);
 					gui.getEastPanel().getCalibPanel().enableCalib(calibrator.isCalibratable());
 				}
 			}else if (source.getActionCommand().equals("swPos3")) {
-				point = Picker.getLastPick();
+				point = Picker.getLastPickPos();
 				if(point != null){
 					source.setText("Position X: " + point.x);
 					calibrator.setSwCalibPoint(point, 2);

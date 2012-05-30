@@ -42,11 +42,8 @@ public class RobotHandler {
 	 */
 	public SensorValues readSensorGroup(Point3Dim[] points) {
 
-		for (Point3Dim point : points) {
-			values.addValueToList(readSingleSensor((float) point.x,(float) point.y, (float) point.z));
-			System.out.println("Number of sensorvalues:  "+ values.getValuesList().size());
-		}
-		return values;
+		//TODO Make several sensorreadings
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -56,10 +53,10 @@ public class RobotHandler {
 	 * @param z	read at this z-position
 	 * @return SensorValue The read SensorValue
 	 */
-	public SensorValue readSingleSensor(float x, float y, float z) {
+	public SensorValue readSingleSensor(float x, float y, float z, float xNormal, float yNormal, float zNormal) {
 
 		// Send Position to robot
-		robotGoTo(new Point3Dim(x,y,z));
+		robotGoTo(new Point3Dim(x,y,z), xNormal, yNormal, zNormal);
 		
 		SensorValue s = null;
 		// Wait for response from robot, time out if no response
@@ -182,9 +179,13 @@ public class RobotHandler {
 	/**
 	 * Commands the robot to go to a position and read a value.
 	 * @param point The position to go to.
+	 * @param zNormal 
+	 * @param yNormal 
+	 * @param xNormal 
 	 */
-	public void robotGoTo(Point3Dim point) {
-		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z);
+	public void robotGoTo(Point3Dim point, float xNormal, float yNormal, float zNormal) {
+		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z+";"+xNormal+";"+yNormal+";"+zNormal);
+		System.out.println(t);
 		serialCom.writeString(t);
 	}
 	

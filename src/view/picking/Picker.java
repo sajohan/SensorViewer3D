@@ -85,7 +85,6 @@ public class Picker extends PickMouseBehavior {
             normal.y = roundValue(normal.y);
             normal.z = roundValue(normal.z);
             lastPickNormal = normal;
-            System.out.println("Normal: " + normal);
             
             /*Pick marking*/
             if(pickerMarker != null){

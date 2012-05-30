@@ -185,7 +185,6 @@ public class RobotHandler {
 	 */
 	public void robotGoTo(Point3Dim point, float xNormal, float yNormal, float zNormal) {
 		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z+";"+xNormal+";"+yNormal+";"+zNormal);
-		System.out.println(t);
 		serialCom.writeString(t);
 	}
 	

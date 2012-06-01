@@ -53,10 +53,10 @@ public class RobotHandler {
 	 * @param z	read at this z-position
 	 * @return SensorValue The read SensorValue
 	 */
-	public SensorValue readSingleSensor(float x, float y, float z, float xNormal, float yNormal, float zNormal) {
+	public SensorValue readSingleSensor(float x, float y, float z, double angle) {
 
 		// Send Position to robot
-		robotGoTo(new Point3Dim(x,y,z), xNormal, yNormal, zNormal);
+		robotGoTo(new Point3Dim(x,y,z), angle);
 		
 		SensorValue s = null;
 		// Wait for response from robot, time out if no response
@@ -183,8 +183,8 @@ public class RobotHandler {
 	 * @param yNormal 
 	 * @param xNormal 
 	 */
-	public void robotGoTo(Point3Dim point, float xNormal, float yNormal, float zNormal) {
-		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z+";"+xNormal+";"+yNormal+";"+zNormal);
+	public void robotGoTo(Point3Dim point, double angle) {
+		String t = new String("GOTO_POS;"+point.x+";"+point.y+";"+point.z+";"+angle);
 		serialCom.writeString(t);
 	}
 	

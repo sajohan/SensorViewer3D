@@ -42,7 +42,7 @@ public class Picker extends PickMouseBehavior {
 	
 	private static Point3Dim lastPickPos;
 	
-	private static Vector3f lastPickNormal;
+	private static double lastPickAngleToY;
 	
 	public Picker(Canvas3D canvas, BranchGroup group, Bounds bounds) {
 		super(canvas, group, bounds);
@@ -79,12 +79,16 @@ public class Picker extends PickMouseBehavior {
             
             GUI.printToStatus("You pointed at X: " + x + " Y:" + y + " Z: " + z);
             
-            /*Pick Normal*/
+            /*Pick Normal and find the angle to Y*/
             Vector3f normal = pi.getPointNormal();
-            normal.x = roundValue(normal.x);
-            normal.y = roundValue(normal.y);
-            normal.z = roundValue(normal.z);
-            lastPickNormal = normal;
+            Vector3f yAxis = new Vector3f(0.0f, -1.0f,0.0f);
+            double angleToY = Math.toDegrees(normal.angle(yAxis));
+            lastPickAngleToY = angleToY;
+            
+//            normal.x = roundValue(normal.x);
+//            normal.y = roundValue(normal.y);
+//            normal.z = roundValue(normal.z);
+//            lastPickNormal = normal;
             
             /*Pick marking*/
             if(pickerMarker != null){
@@ -137,9 +141,9 @@ public class Picker extends PickMouseBehavior {
 	
 	/**
 	 * 
-	 * @return
+	 * @return the angle to the y axis in relation to the normal
 	 */
-	public static Vector3f getLastPickNormal(){
-		return lastPickNormal;
+	public static double getLastPickAngleToY(){
+		return lastPickAngleToY;
 	}
 }

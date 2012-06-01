@@ -277,9 +277,9 @@ public class Main implements Observer {
 				 * send picker's last coordinates to com-port
 				 */
 				Point3Dim pickedPoint = Picker.getLastPickPos();
-				Vector3f normal = Picker.getLastPickNormal();
+				double angleToY = Picker.getLastPickAngleToY();
 				if(pickedPoint != null){
-					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z, normal.x, normal.y, normal.z);
+					SensorValue s = robotHandler.readSingleSensor((float)pickedPoint.x, (float)pickedPoint.y, (float)pickedPoint.z, angleToY);
 					if(s != null){
 						values.addValueToList(s);
 						gui.getEastPanel().getTreePanel().addNode(s);
